@@ -1,0 +1,1 @@
+rootProject.name = "proof-frog-ide-plugin"
