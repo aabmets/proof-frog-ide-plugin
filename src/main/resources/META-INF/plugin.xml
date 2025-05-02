@@ -23,6 +23,11 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-
+        <fileType
+            name="ProofFrog File"
+            implementationClass="io.github.aabmets.prooffroglang.ProofFrogFileType"
+            fieldName="INSTANCE"
+            language="ProofFrog"
+            extensions="frog"/>
     </extensions>
 </idea-plugin>
