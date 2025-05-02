@@ -1,1 +1,1 @@
-rootProject.name = "proof-frog-ide-plugin"
+rootProject.name = "proof-frog-lang"
