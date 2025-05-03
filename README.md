@@ -22,3 +22,14 @@ git submodule sync
 cd ..
 git submodule update --init --recursive
 ```
+
+Let sources root = `src/main/java/io/github/aabmets/prooffroglang`.  
+To modify the syntax rules of this plugin, modify `ProofFrog.bnf` and `ProofFrog.flex` in sources root.
+
+Then in `ProofFrog.bnf` context menu select `Generate Parser Code`  
+and in `ProofFrog.flex` context menu select `Run JFlex Generator`,  
+then implement the generated changes into these files:
+
+* `<sources root>/ProofFrogSyntaxHighlighter.java`
+* `<sources root>/ProofFrogColorSettingsPage.java`
+* `<sources root>/psi/ProofFrogTokenSets.java`
