@@ -1,6 +1,7 @@
 package io.github.aabmets.prooffroglang;
 
 import io.github.aabmets.prooffroglang.psi.ProofFrogTypes;
+import io.github.aabmets.prooffroglang.psi.ProofFrogTokenSets;
 
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
@@ -8,7 +9,6 @@ import com.intellij.openapi.editor.HighlighterColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.TokenType;
-import com.intellij.psi.tree.TokenSet;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,11 +44,6 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
             HighlighterColors.BAD_CHARACTER
         );
 
-    private static final TokenSet KEYWORD_TOKENS = TokenSet.create(
-            ProofFrogTypes.IMPORT,
-            ProofFrogTypes.AS
-    );
-
     private static final TextAttributesKey[] KEYWORD_KEYS = new TextAttributesKey[]{KEYWORD};
     private static final TextAttributesKey[] STRING_KEYS = new TextAttributesKey[]{STRING};
     private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
@@ -63,7 +58,7 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
 
     @Override
     public TextAttributesKey @NotNull [] getTokenHighlights(IElementType tokenType) {
-        if (KEYWORD_TOKENS.contains(tokenType)) {
+        if (ProofFrogTokenSets.KEYWORDS.contains(tokenType)) {
             return KEYWORD_KEYS;
         } else if (tokenType.equals(ProofFrogTypes.FILESTRING)) {
             return STRING_KEYS;
