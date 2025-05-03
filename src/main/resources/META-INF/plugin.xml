@@ -28,6 +28,7 @@
             implementationClass="io.github.aabmets.prooffroglang.ProofFrogFileType"
             fieldName="INSTANCE"
             language="ProofFrog"
-            extensions="frog"/>
+            extensions="primitive;scheme;game;proof"
+        />
     </extensions>
 </idea-plugin>

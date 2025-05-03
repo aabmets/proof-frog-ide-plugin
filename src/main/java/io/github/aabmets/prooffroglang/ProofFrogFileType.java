@@ -22,13 +22,13 @@ public class ProofFrogFileType extends LanguageFileType {
     @NotNull
     @Override
     public String getDescription() {
-        return "ProofFrog language file";
+        return "ProofFrog";
     }
 
     @NotNull
     @Override
     public String getDefaultExtension() {
-        return "frog";
+        return "primitive";
     }
 
     @Override
