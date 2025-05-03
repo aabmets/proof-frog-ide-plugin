@@ -32,5 +32,10 @@
         <lang.parserDefinition
             language="ProofFrog"
             implementationClass="io.github.aabmets.prooffroglang.ProofFrogParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+            language="ProofFrog"
+            implementationClass="io.github.aabmets.prooffroglang.ProofFrogSyntaxHighlighterFactory"/>
+        <colorSettingsPage
+            implementation="io.github.aabmets.prooffroglang.ProofFrogColorSettingsPage"/>
     </extensions>
 </idea-plugin>
