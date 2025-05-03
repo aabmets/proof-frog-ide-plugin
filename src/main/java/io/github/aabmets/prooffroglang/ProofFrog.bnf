@@ -17,9 +17,11 @@ file ::= item_*
 
 module_import ::= IMPORT FILESTRING (AS ID)? SEMI
 module_export ::= EXPORT AS ID SEMI
+datatype ::= (SET|BOOL|VOID|INT|MAP|BITSTRING|ARRAY)
 
 private item_ ::= (
     module_import |
     module_export |
+    datatype |
     LINE_COMMENT
 )

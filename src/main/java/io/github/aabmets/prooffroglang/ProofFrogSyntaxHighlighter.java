@@ -20,6 +20,12 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
             DefaultLanguageHighlighterColors.KEYWORD
         );
 
+    public static final TextAttributesKey DATATYPE =
+        TextAttributesKey.createTextAttributesKey(
+            "PROOFFROG_DATATYPE",
+            DefaultLanguageHighlighterColors.KEYWORD
+        );
+
     public static final TextAttributesKey STRING =
         TextAttributesKey.createTextAttributesKey(
             "PROOFFROG_STRING",
@@ -45,6 +51,7 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
         );
 
     private static final TextAttributesKey[] KEYWORD_KEYS = new TextAttributesKey[]{KEYWORD};
+    private static final TextAttributesKey[] DATATYPE_KEYS  = new TextAttributesKey[]{DATATYPE};
     private static final TextAttributesKey[] STRING_KEYS = new TextAttributesKey[]{STRING};
     private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
     private static final TextAttributesKey[] SEMICOLON_KEYS = new TextAttributesKey[]{SEMICOLON};
@@ -60,6 +67,8 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
     public TextAttributesKey @NotNull [] getTokenHighlights(IElementType tokenType) {
         if (ProofFrogTokenSets.KEYWORDS.contains(tokenType)) {
             return KEYWORD_KEYS;
+        } else if (ProofFrogTokenSets.DATATYPES.contains(tokenType)) {
+            return DATATYPE_KEYS;
         } else if (tokenType.equals(ProofFrogTypes.FILESTRING)) {
             return STRING_KEYS;
         } else if (tokenType.equals(ProofFrogTypes.LINE_COMMENT)) {

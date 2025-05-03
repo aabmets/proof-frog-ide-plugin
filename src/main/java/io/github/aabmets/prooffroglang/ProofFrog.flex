@@ -25,6 +25,14 @@ IMPORT="import"
 EXPORT="export"
 AS="as"
 
+SET="Set"
+BOOL="Bool"
+VOID="Void"
+INT="Int"
+MAP="Map"
+BITSTRING="BitString"
+ARRAY="Array"
+
 %%
 
 // --------- Whitespaces and comments ---------
@@ -35,6 +43,15 @@ AS="as"
 {IMPORT}         { return ProofFrogTypes.IMPORT; }
 {EXPORT}         { return ProofFrogTypes.EXPORT; }
 {AS}             { return ProofFrogTypes.AS; }
+
+// --------- Datatypes ---------
+{SET}            { return ProofFrogTypes.SET; }
+{BOOL}           { return ProofFrogTypes.BOOL; }
+{VOID}           { return ProofFrogTypes.VOID; }
+{INT}            { return ProofFrogTypes.INT; }
+{MAP}            { return ProofFrogTypes.MAP; }
+{BITSTRING}      { return ProofFrogTypes.BITSTRING; }
+{ARRAY}          { return ProofFrogTypes.ARRAY; }
 
 // --------- FILESTRING ---------
 {FILESTRING}     { return ProofFrogTypes.FILESTRING; }

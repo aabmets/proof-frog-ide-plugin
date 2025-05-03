@@ -11,6 +11,17 @@ public interface ProofFrogTokenSets {
         ProofFrogTypes.AS
     );
 
+    // Data types
+    TokenSet DATATYPES = TokenSet.create(
+        ProofFrogTypes.SET,
+        ProofFrogTypes.BOOL,
+        ProofFrogTypes.VOID,
+        ProofFrogTypes.INT,
+        ProofFrogTypes.MAP,
+        ProofFrogTypes.BITSTRING,
+        ProofFrogTypes.ARRAY
+    );
+
     // Identifiers
     TokenSet IDENTIFIERS = TokenSet.create(
         ProofFrogTypes.ID

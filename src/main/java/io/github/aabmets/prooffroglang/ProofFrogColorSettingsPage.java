@@ -14,6 +14,7 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
 
     private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[] {
         new AttributesDescriptor("Keywords", ProofFrogSyntaxHighlighter.KEYWORD),
+        new AttributesDescriptor("Data types", ProofFrogSyntaxHighlighter.DATATYPE),
         new AttributesDescriptor("String literal", ProofFrogSyntaxHighlighter.STRING),
         new AttributesDescriptor("Line comment", ProofFrogSyntaxHighlighter.COMMENT),
         new AttributesDescriptor("Semicolon", ProofFrogSyntaxHighlighter.SEMICOLON),
@@ -59,6 +60,13 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
         return """
             // Example ProofFrog code
             import 'EncDec.primitive' as Cipher;
+            
+            Set keySpace;
+            Bool isTagValid;
+            Int count;
+            Map keyValueMap;
+            BitString ciphertext;
+            Array chunks;
             
             export as Security;
             """;
