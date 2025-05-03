@@ -7,6 +7,7 @@ public interface ProofFrogTokenSets {
     // Keywords
     TokenSet KEYWORDS = TokenSet.create(
         ProofFrogTypes.IMPORT,
+        ProofFrogTypes.EXPORT,
         ProofFrogTypes.AS
     );
 

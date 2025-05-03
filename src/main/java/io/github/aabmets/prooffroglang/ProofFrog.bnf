@@ -16,5 +16,10 @@
 file ::= item_*
 
 module_import ::= IMPORT FILESTRING (AS ID)? SEMI
+module_export ::= EXPORT AS ID SEMI
 
-private item_ ::= module_import | LINE_COMMENT
+private item_ ::= (
+    module_import |
+    module_export |
+    LINE_COMMENT
+)

@@ -22,6 +22,7 @@ ID=[a-zA-Z_$][a-zA-Z_0-9$]*
 FILESTRING=\'([-0-9a-zA-Z_$/.=>< ]+)\'
 SEMI=";"
 IMPORT="import"
+EXPORT="export"
 AS="as"
 
 %%
@@ -32,6 +33,7 @@ AS="as"
 
 // --------- Keywords ---------
 {IMPORT}         { return ProofFrogTypes.IMPORT; }
+{EXPORT}         { return ProofFrogTypes.EXPORT; }
 {AS}             { return ProofFrogTypes.AS; }
 
 // --------- FILESTRING ---------

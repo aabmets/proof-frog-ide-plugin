@@ -58,8 +58,9 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
     public String getDemoText() {
         return """
             // Example ProofFrog code
-            import 'EncDec.game' as Game;
-            // Load a module
+            import 'EncDec.primitive' as Cipher;
+            
+            export as Security;
             """;
     }
 
