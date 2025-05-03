@@ -781,362 +781,362 @@ class ProofFrogLexer implements FlexLexer {
           // fall through
           case 76: break;
           case 3:
-            { return ProofFrogTypes.O_NOT;
+            { return ProofFrogTypes.OP_NOT;
             }
           // fall through
           case 77: break;
           case 4:
-            { return ProofFrogTypes.V_IDENT;
+            { return ProofFrogTypes.VL_IDENT;
             }
           // fall through
           case 78: break;
           case 5:
-            { return ProofFrogTypes.S_PAREN_L;
+            { return ProofFrogTypes.ST_PAREN_L;
             }
           // fall through
           case 79: break;
           case 6:
-            { return ProofFrogTypes.S_PAREN_R;
+            { return ProofFrogTypes.ST_PAREN_R;
             }
           // fall through
           case 80: break;
           case 7:
-            { return ProofFrogTypes.O_MULT;
+            { return ProofFrogTypes.OP_MULT;
             }
           // fall through
           case 81: break;
           case 8:
-            { return ProofFrogTypes.O_ADD;
+            { return ProofFrogTypes.OP_ADD;
             }
           // fall through
           case 82: break;
           case 9:
-            { return ProofFrogTypes.P_COMMA;
+            { return ProofFrogTypes.PN_COMMA;
             }
           // fall through
           case 83: break;
           case 10:
-            { return ProofFrogTypes.O_SUB;
+            { return ProofFrogTypes.OP_SUB;
             }
           // fall through
           case 84: break;
           case 11:
-            { return ProofFrogTypes.P_PERIOD;
+            { return ProofFrogTypes.PN_PERIOD;
             }
           // fall through
           case 85: break;
           case 12:
-            { return ProofFrogTypes.O_DIV;
+            { return ProofFrogTypes.OP_DIV;
             }
           // fall through
           case 86: break;
           case 13:
-            { return ProofFrogTypes.V_INT;
+            { return ProofFrogTypes.VL_INT;
             }
           // fall through
           case 87: break;
           case 14:
-            { return ProofFrogTypes.P_COLON;
+            { return ProofFrogTypes.PN_COLON;
             }
           // fall through
           case 88: break;
           case 15:
-            { return ProofFrogTypes.P_SEMIC;
+            { return ProofFrogTypes.PN_SEMI;
             }
           // fall through
           case 89: break;
           case 16:
-            { return ProofFrogTypes.O_LT;
+            { return ProofFrogTypes.OP_LT;
             }
           // fall through
           case 90: break;
           case 17:
-            { return ProofFrogTypes.O_ASGN;
+            { return ProofFrogTypes.OP_ASSIGN;
             }
           // fall through
           case 91: break;
           case 18:
-            { return ProofFrogTypes.O_GT;
+            { return ProofFrogTypes.OP_GT;
             }
           // fall through
           case 92: break;
           case 19:
-            { return ProofFrogTypes.O_OPT;
+            { return ProofFrogTypes.OP_OPT;
             }
           // fall through
           case 93: break;
           case 20:
-            { return ProofFrogTypes.S_BRACKET_L;
+            { return ProofFrogTypes.ST_BRACKET_L;
             }
           // fall through
           case 94: break;
           case 21:
-            { return ProofFrogTypes.O_BSLASH;
+            { return ProofFrogTypes.OP_BSLASH;
             }
           // fall through
           case 95: break;
           case 22:
-            { return ProofFrogTypes.S_BRACKET_R;
+            { return ProofFrogTypes.ST_BRACKET_R;
             }
           // fall through
           case 96: break;
           case 23:
-            { return ProofFrogTypes.S_BRACE_L;
+            { return ProofFrogTypes.ST_BRACE_L;
             }
           // fall through
           case 97: break;
           case 24:
-            { return ProofFrogTypes.O_VBAR;
+            { return ProofFrogTypes.OP_VBAR;
             }
           // fall through
           case 98: break;
           case 25:
-            { return ProofFrogTypes.S_BRACE_R;
+            { return ProofFrogTypes.ST_BRACE_R;
             }
           // fall through
           case 99: break;
           case 26:
-            { return ProofFrogTypes.O_NEQ;
+            { return ProofFrogTypes.OP_NEQ;
             }
           // fall through
           case 100: break;
           case 27:
-            { return ProofFrogTypes.O_AND;
+            { return ProofFrogTypes.OP_AND;
             }
           // fall through
           case 101: break;
           case 28:
-            { return ProofFrogTypes.V_LINE_COMMENT;
+            { return ProofFrogTypes.VL_LINE_COMMENT;
             }
           // fall through
           case 102: break;
           case 29:
-            { return ProofFrogTypes.O_SMPL;
+            { return ProofFrogTypes.OP_SAMPLE;
             }
           // fall through
           case 103: break;
           case 30:
-            { return ProofFrogTypes.O_LEQ;
+            { return ProofFrogTypes.OP_LEQ;
             }
           // fall through
           case 104: break;
           case 31:
-            { return ProofFrogTypes.O_EQ;
+            { return ProofFrogTypes.OP_EQ;
             }
           // fall through
           case 105: break;
           case 32:
-            { return ProofFrogTypes.O_GEQ;
+            { return ProofFrogTypes.OP_GEQ;
             }
           // fall through
           case 106: break;
           case 33:
-            { return ProofFrogTypes.K_AS;
+            { return ProofFrogTypes.KW_AS;
             }
           // fall through
           case 107: break;
           case 34:
-            { return ProofFrogTypes.K_IF;
+            { return ProofFrogTypes.KW_IF;
             }
           // fall through
           case 108: break;
           case 35:
-            { return ProofFrogTypes.K_IN;
+            { return ProofFrogTypes.KW_IN;
             }
           // fall through
           case 109: break;
           case 36:
-            { return ProofFrogTypes.K_TO;
+            { return ProofFrogTypes.KW_TO;
             }
           // fall through
           case 110: break;
           case 37:
-            { return ProofFrogTypes.O_OR;
+            { return ProofFrogTypes.OP_OR;
             }
           // fall through
           case 111: break;
           case 38:
-            { return ProofFrogTypes.V_FILESTRING;
+            { return ProofFrogTypes.VL_FILESTRING;
             }
           // fall through
           case 112: break;
           case 39:
-            { return ProofFrogTypes.V_BINARYNUM;
+            { return ProofFrogTypes.VL_BINARYNUM;
             }
           // fall through
           case 113: break;
           case 40:
-            { return ProofFrogTypes.T_INT;
+            { return ProofFrogTypes.DT_INT;
             }
           // fall through
           case 114: break;
           case 41:
-            { return ProofFrogTypes.T_MAP;
+            { return ProofFrogTypes.DT_MAP;
             }
           // fall through
           case 115: break;
           case 42:
-            { return ProofFrogTypes.T_SET;
+            { return ProofFrogTypes.DT_SET;
             }
           // fall through
           case 116: break;
           case 43:
-            { return ProofFrogTypes.K_FOR;
+            { return ProofFrogTypes.KW_FOR;
             }
           // fall through
           case 117: break;
           case 44:
-            { return ProofFrogTypes.K_LET;
+            { return ProofFrogTypes.KW_LET;
             }
           // fall through
           case 118: break;
           case 45:
-            { return ProofFrogTypes.T_BOOL;
+            { return ProofFrogTypes.DT_BOOL;
             }
           // fall through
           case 119: break;
           case 46:
-            { return ProofFrogTypes.F_GAME;
+            { return ProofFrogTypes.FN_GAME;
             }
           // fall through
           case 120: break;
           case 47:
-            { return ProofFrogTypes.K_NONE;
+            { return ProofFrogTypes.KW_NONE;
             }
           // fall through
           case 121: break;
           case 48:
-            { return ProofFrogTypes.T_VOID;
+            { return ProofFrogTypes.DT_VOID;
             }
           // fall through
           case 122: break;
           case 49:
-            { return ProofFrogTypes.K_ELSE;
+            { return ProofFrogTypes.KW_ELSE;
             }
           // fall through
           case 123: break;
           case 50:
-            { return ProofFrogTypes.K_FROM;
+            { return ProofFrogTypes.KW_FROM;
             }
           // fall through
           case 124: break;
           case 51:
-            { return ProofFrogTypes.V_BOOL;
+            { return ProofFrogTypes.VL_BOOL;
             }
           // fall through
           case 125: break;
           case 52:
-            { return ProofFrogTypes.T_ARRAY;
+            { return ProofFrogTypes.DT_ARRAY;
             }
           // fall through
           case 126: break;
           case 53:
-            { return ProofFrogTypes.F_PHASE;
+            { return ProofFrogTypes.FN_PHASE;
             }
           // fall through
           case 127: break;
           case 54:
-            { return ProofFrogTypes.K_CALLS;
+            { return ProofFrogTypes.KW_CALLS;
             }
           // fall through
           case 128: break;
           case 55:
-            { return ProofFrogTypes.K_GAMES;
+            { return ProofFrogTypes.KW_GAMES;
             }
           // fall through
           case 129: break;
           case 56:
-            { return ProofFrogTypes.K_PROOF;
+            { return ProofFrogTypes.KW_PROOF;
             }
           // fall through
           case 130: break;
           case 57:
-            { return ProofFrogTypes.K_UNION;
+            { return ProofFrogTypes.KW_UNION;
             }
           // fall through
           case 131: break;
           case 58:
-            { return ProofFrogTypes.F_SCHEME;
+            { return ProofFrogTypes.FN_SCHEME;
             }
           // fall through
           case 132: break;
           case 59:
-            { return ProofFrogTypes.K_ASSUME;
+            { return ProofFrogTypes.KW_ASSUME;
             }
           // fall through
           case 133: break;
           case 60:
-            { return ProofFrogTypes.K_EXPORT;
+            { return ProofFrogTypes.KW_EXPORT;
             }
           // fall through
           case 134: break;
           case 61:
-            { return ProofFrogTypes.K_IMPORT;
+            { return ProofFrogTypes.KW_IMPORT;
             }
           // fall through
           case 135: break;
           case 62:
-            { return ProofFrogTypes.K_RETURN;
+            { return ProofFrogTypes.KW_RETURN;
             }
           // fall through
           case 136: break;
           case 63:
-            { return ProofFrogTypes.K_AGAINST;
+            { return ProofFrogTypes.KW_AGAINST;
             }
           // fall through
           case 137: break;
           case 64:
-            { return ProofFrogTypes.K_COMPOSE;
+            { return ProofFrogTypes.KW_COMPOSE;
             }
           // fall through
           case 138: break;
           case 65:
-            { return ProofFrogTypes.K_EXTENDS;
+            { return ProofFrogTypes.KW_EXTENDS;
             }
           // fall through
           case 139: break;
           case 66:
-            { return ProofFrogTypes.K_ORACLES;
+            { return ProofFrogTypes.KW_ORACLES;
             }
           // fall through
           case 140: break;
           case 67:
-            { return ProofFrogTypes.K_SUBSETS;
+            { return ProofFrogTypes.KW_SUBSETS;
             }
           // fall through
           case 141: break;
           case 68:
-            { return ProofFrogTypes.K_THEOREM;
+            { return ProofFrogTypes.KW_THEOREM;
             }
           // fall through
           case 142: break;
           case 69:
-            { return ProofFrogTypes.K_REQUIRES;
+            { return ProofFrogTypes.KW_REQUIRES;
             }
           // fall through
           case 143: break;
           case 70:
-            { return ProofFrogTypes.F_ADVERSARY;
+            { return ProofFrogTypes.FN_ADVERSARY;
             }
           // fall through
           case 144: break;
           case 71:
-            { return ProofFrogTypes.T_BITSTRING;
+            { return ProofFrogTypes.DT_BITSTRING;
             }
           // fall through
           case 145: break;
           case 72:
-            { return ProofFrogTypes.F_PRIMITIVE;
+            { return ProofFrogTypes.FN_PRIMITIVE;
             }
           // fall through
           case 146: break;
           case 73:
-            { return ProofFrogTypes.F_REDUCTION;
+            { return ProofFrogTypes.FN_REDUCTION;
             }
           // fall through
           case 147: break;
           case 74:
-            { return ProofFrogTypes.K_INDUCTION;
+            { return ProofFrogTypes.KW_INDUCTION;
             }
           // fall through
           case 148: break;

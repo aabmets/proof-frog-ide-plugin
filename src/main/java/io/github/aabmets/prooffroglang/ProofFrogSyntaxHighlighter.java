@@ -119,17 +119,17 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
             return FUNCTION_KEYS;
         } else if (ProofFrogTokenSets.DATATYPES.contains(tokenType)) {
             return DATATYPE_KEYS;
-        } else if (tokenType.equals(ProofFrogTypes.V_BOOL)) {
+        } else if (tokenType.equals(ProofFrogTypes.VL_BOOL)) {
             return BOOLEAN_KEYS;
-        } else if (tokenType.equals(ProofFrogTypes.V_INT)) {
+        } else if (tokenType.equals(ProofFrogTypes.VL_INT)) {
             return NUMBER_KEYS;
-        } else if (tokenType.equals(ProofFrogTypes.V_BINARYNUM)) {
+        } else if (tokenType.equals(ProofFrogTypes.VL_BINARYNUM)) {
             return NUMBER_KEYS;
-        } else if (tokenType.equals(ProofFrogTypes.V_LINE_COMMENT)) {
+        } else if (tokenType.equals(ProofFrogTypes.VL_LINE_COMMENT)) {
             return COMMENT_KEYS;
-        } else if (tokenType.equals(ProofFrogTypes.V_FILESTRING)) {
+        } else if (tokenType.equals(ProofFrogTypes.VL_FILESTRING)) {
             return STRING_KEYS;
-        } else if (tokenType.equals(ProofFrogTypes.V_IDENT)) {
+        } else if (tokenType.equals(ProofFrogTypes.VL_IDENT)) {
             return IDENTIFIER_KEYS;
         } else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
             return BAD_CHAR_KEYS;

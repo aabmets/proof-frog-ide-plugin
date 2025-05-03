@@ -17,180 +17,180 @@ import com.intellij.psi.TokenType;
 %eof}
 
 // --------- Punctuation ---------
-P_SEMIC=";"
-P_COLON=":"
-P_COMMA=","
-P_PERIOD="."
+PN_SEMI=";"
+PN_COLON=":"
+PN_COMMA=","
+PN_PERIOD="."
 
 // --------- Structure ---------
-S_BRACE_L="{"
-S_BRACE_R="}"
-S_BRACKET_L="["
-S_BRACKET_R="]"
-S_PAREN_L="("
-S_PAREN_R=")"
+ST_BRACE_L="{"
+ST_BRACE_R="}"
+ST_BRACKET_L="["
+ST_BRACKET_R="]"
+ST_PAREN_L="("
+ST_PAREN_R=")"
 
 // --------- Operators ---------
-O_SMPL="<-"
-O_ASGN="="
-O_MULT="*"
-O_ADD="+"
-O_SUB="-"
-O_DIV="/"
-O_EQ="=="
-O_OPT="?"
-O_NOT="!"
-O_NEQ="!="
-O_GT=">"
-O_GEQ=">="
-O_LEQ="<="
-O_LT="<"
-O_OR="||"
-O_AND="&&"
-O_VBAR="|"
-O_BSLASH="\\"
+OP_SAMPLE="<-"
+OP_ASSIGN="="
+OP_MULT="*"
+OP_ADD="+"
+OP_SUB="-"
+OP_DIV="/"
+OP_EQ="=="
+OP_OPT="?"
+OP_NOT="!"
+OP_NEQ="!="
+OP_GT=">"
+OP_GEQ=">="
+OP_LEQ="<="
+OP_LT="<"
+OP_OR="||"
+OP_AND="&&"
+OP_VBAR="|"
+OP_BSLASH="\\"
 
 // --------- Keywords ---------
-K_IMPORT="import"
-K_EXPORT="export"
-K_RETURN="return"
-K_SUBSETS="subsets"
-K_ORACLES="oracles"
-K_AGAINST="against"
-K_COMPOSE="compose"
-K_THEOREM="theorem"
-K_EXTENDS="extends"
-K_REQUIRES="requires"
-K_INDUCTION="induction"
-K_ASSUME="assume"
-K_PROOF="proof"
-K_GAMES="games"
-K_UNION="union"
-K_CALLS="calls"
-K_FROM="from"
-K_ELSE="else"
-K_LET="let"
-K_FOR="for"
-K_IF="if"
-K_TO="to"
-K_IN="in"
-K_AS="as"
-K_NONE="None"
+KW_IMPORT="import"
+KW_EXPORT="export"
+KW_RETURN="return"
+KW_SUBSETS="subsets"
+KW_ORACLES="oracles"
+KW_AGAINST="against"
+KW_COMPOSE="compose"
+KW_THEOREM="theorem"
+KW_EXTENDS="extends"
+KW_REQUIRES="requires"
+KW_INDUCTION="induction"
+KW_ASSUME="assume"
+KW_PROOF="proof"
+KW_GAMES="games"
+KW_UNION="union"
+KW_CALLS="calls"
+KW_FROM="from"
+KW_ELSE="else"
+KW_LET="let"
+KW_FOR="for"
+KW_IF="if"
+KW_TO="to"
+KW_IN="in"
+KW_AS="as"
+KW_NONE="None"
 
 // --------- Functions ---------
-F_ADVERSARY="Adversary"
-F_PRIMITIVE="Primitive"
-F_REDUCTION="Reduction"
-F_SCHEME="Scheme"
-F_PHASE="Phase"
-F_GAME="Game"
+FN_ADVERSARY="Adversary"
+FN_PRIMITIVE="Primitive"
+FN_REDUCTION="Reduction"
+FN_SCHEME="Scheme"
+FN_PHASE="Phase"
+FN_GAME="Game"
 
 // --------- Datatypes ---------
-T_SET="Set"
-T_BOOL="Bool"
-T_VOID="Void"
-T_INT="Int"
-T_MAP="Map"
-T_ARRAY="Array"
-T_BITSTRING="BitString"
+DT_SET="Set"
+DT_BOOL="Bool"
+DT_VOID="Void"
+DT_INT="Int"
+DT_MAP="Map"
+DT_ARRAY="Array"
+DT_BITSTRING="BitString"
 
 // --------- Values ---------
-V_BOOL=true|false
-V_INT=[0-9]+
-V_BINARYNUM="0b"[01]+
-V_LINE_COMMENT="//".*
-V_FILESTRING=\'([-0-9a-zA-Z_$/.=>< ]+)\'
-V_IDENT=[a-zA-Z_$][a-zA-Z_0-9$]*
-V_WHITE_SPACE=[ \t\r\n]+
+VL_BOOL=true|false
+VL_INT=[0-9]+
+VL_BINARYNUM="0b"[01]+
+VL_LINE_COMMENT="//".*
+VL_FILESTRING=\'([-0-9a-zA-Z_$/.=>< ]+)\'
+VL_IDENT=[a-zA-Z_$][a-zA-Z_0-9$]*
+VL_WHITE_SPACE=[ \t\r\n]+
 
 %%
 
 // --------- Punctuation ---------
-{P_SEMIC}          { return ProofFrogTypes.P_SEMIC; }
-{P_COLON}          { return ProofFrogTypes.P_COLON; }
-{P_COMMA}          { return ProofFrogTypes.P_COMMA; }
-{P_PERIOD}         { return ProofFrogTypes.P_PERIOD; }
+{PN_SEMI}          { return ProofFrogTypes.PN_SEMI; }
+{PN_COLON}          { return ProofFrogTypes.PN_COLON; }
+{PN_COMMA}          { return ProofFrogTypes.PN_COMMA; }
+{PN_PERIOD}         { return ProofFrogTypes.PN_PERIOD; }
 
 // --------- Structure ---------
-{S_BRACE_L}        { return ProofFrogTypes.S_BRACE_L; }
-{S_BRACE_R}        { return ProofFrogTypes.S_BRACE_R; }
-{S_BRACKET_L}      { return ProofFrogTypes.S_BRACKET_L; }
-{S_BRACKET_R}      { return ProofFrogTypes.S_BRACKET_R; }
-{S_PAREN_L}        { return ProofFrogTypes.S_PAREN_L; }
-{S_PAREN_R}        { return ProofFrogTypes.S_PAREN_R; }
+{ST_BRACE_L}        { return ProofFrogTypes.ST_BRACE_L; }
+{ST_BRACE_R}        { return ProofFrogTypes.ST_BRACE_R; }
+{ST_BRACKET_L}      { return ProofFrogTypes.ST_BRACKET_L; }
+{ST_BRACKET_R}      { return ProofFrogTypes.ST_BRACKET_R; }
+{ST_PAREN_L}        { return ProofFrogTypes.ST_PAREN_L; }
+{ST_PAREN_R}        { return ProofFrogTypes.ST_PAREN_R; }
 
 // --------- Operators ---------
-{O_SMPL}           { return ProofFrogTypes.O_SMPL; }
-{O_ASGN}           { return ProofFrogTypes.O_ASGN; }
-{O_MULT}           { return ProofFrogTypes.O_MULT; }
-{O_ADD}            { return ProofFrogTypes.O_ADD; }
-{O_SUB}            { return ProofFrogTypes.O_SUB; }
-{O_DIV}            { return ProofFrogTypes.O_DIV; }
-{O_EQ}             { return ProofFrogTypes.O_EQ; }
-{O_OPT}            { return ProofFrogTypes.O_OPT; }
-{O_NOT}            { return ProofFrogTypes.O_NOT; }
-{O_NEQ}            { return ProofFrogTypes.O_NEQ; }
-{O_GT}             { return ProofFrogTypes.O_GT; }
-{O_GEQ}            { return ProofFrogTypes.O_GEQ; }
-{O_LEQ}            { return ProofFrogTypes.O_LEQ; }
-{O_LT}             { return ProofFrogTypes.O_LT; }
-{O_OR}             { return ProofFrogTypes.O_OR; }
-{O_AND}            { return ProofFrogTypes.O_AND; }
-{O_VBAR}           { return ProofFrogTypes.O_VBAR; }
-{O_BSLASH}         { return ProofFrogTypes.O_BSLASH; }
+{OP_SAMPLE}           { return ProofFrogTypes.OP_SAMPLE; }
+{OP_ASSIGN}           { return ProofFrogTypes.OP_ASSIGN; }
+{OP_MULT}           { return ProofFrogTypes.OP_MULT; }
+{OP_ADD}            { return ProofFrogTypes.OP_ADD; }
+{OP_SUB}            { return ProofFrogTypes.OP_SUB; }
+{OP_DIV}            { return ProofFrogTypes.OP_DIV; }
+{OP_EQ}             { return ProofFrogTypes.OP_EQ; }
+{OP_OPT}            { return ProofFrogTypes.OP_OPT; }
+{OP_NOT}            { return ProofFrogTypes.OP_NOT; }
+{OP_NEQ}            { return ProofFrogTypes.OP_NEQ; }
+{OP_GT}             { return ProofFrogTypes.OP_GT; }
+{OP_GEQ}            { return ProofFrogTypes.OP_GEQ; }
+{OP_LEQ}            { return ProofFrogTypes.OP_LEQ; }
+{OP_LT}             { return ProofFrogTypes.OP_LT; }
+{OP_OR}             { return ProofFrogTypes.OP_OR; }
+{OP_AND}            { return ProofFrogTypes.OP_AND; }
+{OP_VBAR}           { return ProofFrogTypes.OP_VBAR; }
+{OP_BSLASH}         { return ProofFrogTypes.OP_BSLASH; }
 
 // --------- Keywords ---------
-{K_IMPORT}         { return ProofFrogTypes.K_IMPORT; }
-{K_EXPORT}         { return ProofFrogTypes.K_EXPORT; }
-{K_RETURN}         { return ProofFrogTypes.K_RETURN; }
-{K_SUBSETS}        { return ProofFrogTypes.K_SUBSETS; }
-{K_ORACLES}        { return ProofFrogTypes.K_ORACLES; }
-{K_AGAINST}        { return ProofFrogTypes.K_AGAINST; }
-{K_COMPOSE}        { return ProofFrogTypes.K_COMPOSE; }
-{K_THEOREM}        { return ProofFrogTypes.K_THEOREM; }
-{K_EXTENDS}        { return ProofFrogTypes.K_EXTENDS; }
-{K_REQUIRES}       { return ProofFrogTypes.K_REQUIRES; }
-{K_INDUCTION}      { return ProofFrogTypes.K_INDUCTION; }
-{K_ASSUME}         { return ProofFrogTypes.K_ASSUME; }
-{K_PROOF}          { return ProofFrogTypes.K_PROOF; }
-{K_GAMES}          { return ProofFrogTypes.K_GAMES; }
-{K_UNION}          { return ProofFrogTypes.K_UNION; }
-{K_CALLS}          { return ProofFrogTypes.K_CALLS; }
-{K_FROM}           { return ProofFrogTypes.K_FROM; }
-{K_ELSE}           { return ProofFrogTypes.K_ELSE; }
-{K_LET}            { return ProofFrogTypes.K_LET; }
-{K_FOR}            { return ProofFrogTypes.K_FOR; }
-{K_IF}             { return ProofFrogTypes.K_IF; }
-{K_TO}             { return ProofFrogTypes.K_TO; }
-{K_IN}             { return ProofFrogTypes.K_IN; }
-{K_AS}             { return ProofFrogTypes.K_AS; }
-{K_NONE}           { return ProofFrogTypes.K_NONE; }
+{KW_IMPORT}         { return ProofFrogTypes.KW_IMPORT; }
+{KW_EXPORT}         { return ProofFrogTypes.KW_EXPORT; }
+{KW_RETURN}         { return ProofFrogTypes.KW_RETURN; }
+{KW_SUBSETS}        { return ProofFrogTypes.KW_SUBSETS; }
+{KW_ORACLES}        { return ProofFrogTypes.KW_ORACLES; }
+{KW_AGAINST}        { return ProofFrogTypes.KW_AGAINST; }
+{KW_COMPOSE}        { return ProofFrogTypes.KW_COMPOSE; }
+{KW_THEOREM}        { return ProofFrogTypes.KW_THEOREM; }
+{KW_EXTENDS}        { return ProofFrogTypes.KW_EXTENDS; }
+{KW_REQUIRES}       { return ProofFrogTypes.KW_REQUIRES; }
+{KW_INDUCTION}      { return ProofFrogTypes.KW_INDUCTION; }
+{KW_ASSUME}         { return ProofFrogTypes.KW_ASSUME; }
+{KW_PROOF}          { return ProofFrogTypes.KW_PROOF; }
+{KW_GAMES}          { return ProofFrogTypes.KW_GAMES; }
+{KW_UNION}          { return ProofFrogTypes.KW_UNION; }
+{KW_CALLS}          { return ProofFrogTypes.KW_CALLS; }
+{KW_FROM}           { return ProofFrogTypes.KW_FROM; }
+{KW_ELSE}           { return ProofFrogTypes.KW_ELSE; }
+{KW_LET}            { return ProofFrogTypes.KW_LET; }
+{KW_FOR}            { return ProofFrogTypes.KW_FOR; }
+{KW_IF}             { return ProofFrogTypes.KW_IF; }
+{KW_TO}             { return ProofFrogTypes.KW_TO; }
+{KW_IN}             { return ProofFrogTypes.KW_IN; }
+{KW_AS}             { return ProofFrogTypes.KW_AS; }
+{KW_NONE}           { return ProofFrogTypes.KW_NONE; }
 
 // --------- Functions ---------
-{F_ADVERSARY}      { return ProofFrogTypes.F_ADVERSARY; }
-{F_PRIMITIVE}      { return ProofFrogTypes.F_PRIMITIVE; }
-{F_REDUCTION}      { return ProofFrogTypes.F_REDUCTION; }
-{F_SCHEME}         { return ProofFrogTypes.F_SCHEME; }
-{F_PHASE}          { return ProofFrogTypes.F_PHASE; }
-{F_GAME}           { return ProofFrogTypes.F_GAME; }
+{FN_ADVERSARY}      { return ProofFrogTypes.FN_ADVERSARY; }
+{FN_PRIMITIVE}      { return ProofFrogTypes.FN_PRIMITIVE; }
+{FN_REDUCTION}      { return ProofFrogTypes.FN_REDUCTION; }
+{FN_SCHEME}         { return ProofFrogTypes.FN_SCHEME; }
+{FN_PHASE}          { return ProofFrogTypes.FN_PHASE; }
+{FN_GAME}           { return ProofFrogTypes.FN_GAME; }
 
 // --------- Data types ---------
-{T_SET}            { return ProofFrogTypes.T_SET; }
-{T_BOOL}           { return ProofFrogTypes.T_BOOL; }
-{T_VOID}           { return ProofFrogTypes.T_VOID; }
-{T_INT}            { return ProofFrogTypes.T_INT; }
-{T_MAP}            { return ProofFrogTypes.T_MAP; }
-{T_ARRAY}          { return ProofFrogTypes.T_ARRAY; }
-{T_BITSTRING}      { return ProofFrogTypes.T_BITSTRING; }
+{DT_SET}            { return ProofFrogTypes.DT_SET; }
+{DT_BOOL}           { return ProofFrogTypes.DT_BOOL; }
+{DT_VOID}           { return ProofFrogTypes.DT_VOID; }
+{DT_INT}            { return ProofFrogTypes.DT_INT; }
+{DT_MAP}            { return ProofFrogTypes.DT_MAP; }
+{DT_ARRAY}          { return ProofFrogTypes.DT_ARRAY; }
+{DT_BITSTRING}      { return ProofFrogTypes.DT_BITSTRING; }
 
 // --------- Values ---------
-{V_BOOL}           { return ProofFrogTypes.V_BOOL; }
-{V_INT}            { return ProofFrogTypes.V_INT; }
-{V_BINARYNUM}      { return ProofFrogTypes.V_BINARYNUM; }
-{V_LINE_COMMENT}   { return ProofFrogTypes.V_LINE_COMMENT; }
-{V_FILESTRING}     { return ProofFrogTypes.V_FILESTRING; }
-{V_IDENT}          { return ProofFrogTypes.V_IDENT; }
-{V_WHITE_SPACE}    { return TokenType.WHITE_SPACE; }
+{VL_BOOL}           { return ProofFrogTypes.VL_BOOL; }
+{VL_INT}            { return ProofFrogTypes.VL_INT; }
+{VL_BINARYNUM}      { return ProofFrogTypes.VL_BINARYNUM; }
+{VL_LINE_COMMENT}   { return ProofFrogTypes.VL_LINE_COMMENT; }
+{VL_FILESTRING}     { return ProofFrogTypes.VL_FILESTRING; }
+{VL_IDENT}          { return ProofFrogTypes.VL_IDENT; }
+{VL_WHITE_SPACE}    { return TokenType.WHITE_SPACE; }
 
 // --------- Fallback ---------
 [^]                { return TokenType.BAD_CHARACTER; }
