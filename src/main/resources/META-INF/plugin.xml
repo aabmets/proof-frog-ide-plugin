@@ -37,5 +37,8 @@
             implementationClass="io.github.aabmets.prooffroglang.ProofFrogSyntaxHighlighterFactory"/>
         <colorSettingsPage
             implementation="io.github.aabmets.prooffroglang.ProofFrogColorSettingsPage"/>
+        <lang.commenter
+            language="ProofFrog"
+            implementationClass="io.github.aabmets.prooffroglang.ProofFrogCommenter"/>
     </extensions>
 </idea-plugin>
