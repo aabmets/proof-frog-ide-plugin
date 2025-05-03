@@ -1,0 +1,20 @@
+{
+    parserClass="io.github.aabmets.prooffroglang.parser.ProofFrogParser"
+
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+    psiClassPrefix="ProofFrog"
+    psiImplClassSuffix="Impl"
+    psiPackage="io.github.aabmets.prooffroglang.psi"
+    psiImplPackage="io.github.aabmets.prooffroglang.psi.impl"
+
+    elementTypeHolderClass="io.github.aabmets.prooffroglang.psi.ProofFrogTypes"
+    elementTypeClass="io.github.aabmets.prooffroglang.psi.ProofFrogElementType"
+    tokenTypeClass="io.github.aabmets.prooffroglang.psi.ProofFrogTokenType"
+}
+
+file ::= item_*
+
+module_import ::= IMPORT FILESTRING (AS ID)? SEMI
+
+private item_ ::= module_import | LINE_COMMENT

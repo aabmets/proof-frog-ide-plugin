@@ -42,3 +42,11 @@ tasks {
         kotlinOptions.jvmTarget = "21"
     }
 }
+
+sourceSets {
+    main {
+        java {
+            srcDirs("src/main/gen")
+        }
+    }
+}
