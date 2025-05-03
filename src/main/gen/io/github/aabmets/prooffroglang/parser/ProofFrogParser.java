@@ -48,13 +48,27 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // module_import | LINE_COMMENT
+  // module_import | 
+  //     module_export | 
+  //     LINE_COMMENT
   static boolean item_(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "item_")) return false;
-    if (!nextTokenIs(b, "", IMPORT, LINE_COMMENT)) return false;
     boolean r;
     r = module_import(b, l + 1);
+    if (!r) r = module_export(b, l + 1);
     if (!r) r = consumeToken(b, LINE_COMMENT);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // EXPORT AS ID SEMI
+  public static boolean module_export(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "module_export")) return false;
+    if (!nextTokenIs(b, EXPORT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, EXPORT, AS, ID, SEMI);
+    exit_section_(b, m, MODULE_EXPORT, r);
     return r;
   }
 
