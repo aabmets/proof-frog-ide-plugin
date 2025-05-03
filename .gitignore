@@ -45,3 +45,5 @@ bin/
 ### Other ###
 .exclude
 .sandbox
+idea-flex.skeleton
+jflex-*.jar
