@@ -67,10 +67,12 @@ class ProofFrogLexer implements FlexLexer {
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
     "\11\0\1\1\1\2\2\3\1\2\22\0\1\4\3\0"+
     "\1\5\2\0\1\6\5\0\2\7\1\10\12\11\1\0"+
-    "\1\12\3\7\2\0\32\5\4\0\1\5\1\0\1\13"+
-    "\3\5\1\14\3\5\1\15\3\5\1\16\1\5\1\17"+
-    "\1\20\1\5\1\21\1\22\1\23\3\5\1\24\2\5"+
-    "\12\0\1\3\u01a2\0\2\3\326\0\u0100\3";
+    "\1\12\3\7\2\0\1\13\1\14\6\5\1\15\3\5"+
+    "\1\16\5\5\1\17\2\5\1\20\4\5\4\0\1\5"+
+    "\1\0\1\21\2\5\1\22\1\23\1\5\1\24\1\5"+
+    "\1\25\2\5\1\26\1\27\1\30\1\31\1\32\1\5"+
+    "\1\33\1\34\1\35\3\5\1\36\1\37\1\5\12\0"+
+    "\1\3\u01a2\0\2\3\326\0\u0100\3";
 
   private static int [] zzUnpackcmap_blocks() {
     int [] result = new int[1024];
@@ -97,11 +99,13 @@ class ProofFrogLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\3\2\1\1\4\3\3\1\0"+
-    "\1\5\1\6\2\3\1\7\6\3\1\10\1\11";
+    "\1\0\1\1\1\2\1\3\2\1\1\4\11\3\1\0"+
+    "\1\5\7\3\1\6\2\3\1\7\3\3\1\10\1\11"+
+    "\1\12\5\3\1\13\1\14\2\3\1\15\4\3\1\16"+
+    "\1\17\2\3\1\20";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[24];
+    int [] result = new int[54];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -126,12 +130,16 @@ class ProofFrogLexer implements FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\25\0\52\0\77\0\124\0\151\0\25\0\176"+
-    "\0\223\0\250\0\275\0\322\0\77\0\347\0\374\0\25"+
-    "\0\u0111\0\u0126\0\u013b\0\u0150\0\u0165\0\u017a\0\77\0\77";
+    "\0\0\0\40\0\100\0\140\0\200\0\240\0\40\0\300"+
+    "\0\340\0\u0100\0\u0120\0\u0140\0\u0160\0\u0180\0\u01a0\0\u01c0"+
+    "\0\u01e0\0\u0200\0\u0220\0\u0240\0\u0260\0\u0280\0\u02a0\0\u02c0"+
+    "\0\u02e0\0\140\0\u0300\0\u0320\0\40\0\u0340\0\u0360\0\u0380"+
+    "\0\140\0\140\0\140\0\u03a0\0\u03c0\0\u03e0\0\u0400\0\u0420"+
+    "\0\140\0\140\0\u0440\0\u0460\0\140\0\u0480\0\u04a0\0\u04c0"+
+    "\0\u04e0\0\140\0\140\0\u0500\0\u0520\0\140";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[24];
+    int [] result = new int[54];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -155,24 +163,49 @@ class ProofFrogLexer implements FlexLexer {
 
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\2\2\3\1\2\1\3\1\4\1\5\1\2\1\6"+
-    "\1\2\1\7\1\10\1\11\1\12\7\4\26\0\2\3"+
-    "\1\0\1\3\25\0\1\4\3\0\1\4\1\0\12\4"+
-    "\4\0\2\13\1\0\3\13\1\0\12\13\10\0\1\14"+
-    "\21\0\1\4\3\0\1\4\1\0\7\4\1\15\2\4"+
-    "\5\0\1\4\3\0\1\4\1\0\11\4\1\16\5\0"+
-    "\1\4\3\0\1\4\1\0\3\4\1\17\6\4\4\0"+
-    "\2\13\1\20\3\13\1\0\12\13\2\14\2\0\21\14"+
-    "\5\0\1\4\3\0\1\4\1\0\5\4\1\21\4\4"+
-    "\5\0\1\4\3\0\1\4\1\0\5\4\1\22\4\4"+
-    "\5\0\1\4\3\0\1\4\1\0\4\4\1\23\5\4"+
-    "\5\0\1\4\3\0\1\4\1\0\4\4\1\24\5\4"+
-    "\5\0\1\4\3\0\1\4\1\0\6\4\1\25\3\4"+
-    "\5\0\1\4\3\0\1\4\1\0\6\4\1\26\3\4"+
-    "\5\0\1\4\3\0\1\4\1\0\10\4\1\27\1\4"+
-    "\5\0\1\4\3\0\1\4\1\0\10\4\1\30\1\4";
+    "\1\2\1\7\1\10\1\11\1\12\1\13\1\14\1\15"+
+    "\1\16\1\4\1\17\1\4\1\20\12\4\41\0\2\3"+
+    "\1\0\1\3\40\0\1\4\3\0\1\4\1\0\25\4"+
+    "\4\0\2\21\1\0\3\21\1\0\25\21\10\0\1\22"+
+    "\34\0\1\4\3\0\1\4\1\0\20\4\1\23\4\4"+
+    "\5\0\1\4\3\0\1\4\1\0\12\4\1\24\3\4"+
+    "\1\25\6\4\5\0\1\4\3\0\1\4\1\0\15\4"+
+    "\1\26\7\4\5\0\1\4\3\0\1\4\1\0\6\4"+
+    "\1\27\16\4\5\0\1\4\3\0\1\4\1\0\10\4"+
+    "\1\30\14\4\5\0\1\4\3\0\1\4\1\0\16\4"+
+    "\1\31\6\4\5\0\1\4\3\0\1\4\1\0\21\4"+
+    "\1\32\3\4\5\0\1\4\3\0\1\4\1\0\23\4"+
+    "\1\33\1\4\5\0\1\4\3\0\1\4\1\0\14\4"+
+    "\1\34\10\4\4\0\2\21\1\35\3\21\1\0\25\21"+
+    "\2\22\2\0\34\22\5\0\1\4\3\0\1\4\1\0"+
+    "\20\4\1\36\4\4\5\0\1\4\3\0\1\4\1\0"+
+    "\22\4\1\37\2\4\5\0\1\4\3\0\1\4\1\0"+
+    "\16\4\1\40\6\4\5\0\1\4\3\0\1\4\1\0"+
+    "\22\4\1\41\2\4\5\0\1\4\3\0\1\4\1\0"+
+    "\17\4\1\42\5\4\5\0\1\4\3\0\1\4\1\0"+
+    "\22\4\1\43\2\4\5\0\1\4\3\0\1\4\1\0"+
+    "\12\4\1\44\12\4\5\0\1\4\3\0\1\4\1\0"+
+    "\17\4\1\45\5\4\5\0\1\4\3\0\1\4\1\0"+
+    "\17\4\1\46\5\4\5\0\1\4\3\0\1\4\1\0"+
+    "\6\4\1\47\16\4\5\0\1\4\3\0\1\4\1\0"+
+    "\4\4\1\50\20\4\5\0\1\4\3\0\1\4\1\0"+
+    "\13\4\1\51\11\4\5\0\1\4\3\0\1\4\1\0"+
+    "\7\4\1\52\15\4\5\0\1\4\3\0\1\4\1\0"+
+    "\16\4\1\53\6\4\5\0\1\4\3\0\1\4\1\0"+
+    "\16\4\1\54\6\4\5\0\1\4\3\0\1\4\1\0"+
+    "\24\4\1\55\5\0\1\4\3\0\1\4\1\0\22\4"+
+    "\1\56\2\4\5\0\1\4\3\0\1\4\1\0\20\4"+
+    "\1\57\4\4\5\0\1\4\3\0\1\4\1\0\20\4"+
+    "\1\60\4\4\5\0\1\4\3\0\1\4\1\0\20\4"+
+    "\1\61\4\4\5\0\1\4\3\0\1\4\1\0\22\4"+
+    "\1\62\2\4\5\0\1\4\3\0\1\4\1\0\22\4"+
+    "\1\63\2\4\5\0\1\4\3\0\1\4\1\0\12\4"+
+    "\1\64\12\4\5\0\1\4\3\0\1\4\1\0\15\4"+
+    "\1\65\7\4\5\0\1\4\3\0\1\4\1\0\11\4"+
+    "\1\66\13\4";
 
   private static int [] zzUnpacktrans() {
-    int [] result = new int[399];
+    int [] result = new int[1344];
     int offset = 0;
     offset = zzUnpacktrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -210,11 +243,11 @@ class ProofFrogLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\4\1\1\11\3\1\1\0\4\1\1\11"+
-    "\10\1";
+    "\1\0\1\11\4\1\1\11\11\1\1\0\13\1\1\11"+
+    "\31\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[24];
+    int [] result = new int[54];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -539,47 +572,82 @@ class ProofFrogLexer implements FlexLexer {
             { return TokenType.BAD_CHARACTER;
             }
           // fall through
-          case 10: break;
+          case 17: break;
           case 2:
             { return TokenType.WHITE_SPACE;
             }
           // fall through
-          case 11: break;
+          case 18: break;
           case 3:
             { return ProofFrogTypes.ID;
             }
           // fall through
-          case 12: break;
+          case 19: break;
           case 4:
             { return ProofFrogTypes.SEMI;
             }
           // fall through
-          case 13: break;
+          case 20: break;
           case 5:
             { return ProofFrogTypes.LINE_COMMENT;
             }
           // fall through
-          case 14: break;
+          case 21: break;
           case 6:
             { return ProofFrogTypes.AS;
             }
           // fall through
-          case 15: break;
+          case 22: break;
           case 7:
             { return ProofFrogTypes.FILESTRING;
             }
           // fall through
-          case 16: break;
+          case 23: break;
           case 8:
+            { return ProofFrogTypes.INT;
+            }
+          // fall through
+          case 24: break;
+          case 9:
+            { return ProofFrogTypes.MAP;
+            }
+          // fall through
+          case 25: break;
+          case 10:
+            { return ProofFrogTypes.SET;
+            }
+          // fall through
+          case 26: break;
+          case 11:
+            { return ProofFrogTypes.BOOL;
+            }
+          // fall through
+          case 27: break;
+          case 12:
+            { return ProofFrogTypes.VOID;
+            }
+          // fall through
+          case 28: break;
+          case 13:
+            { return ProofFrogTypes.ARRAY;
+            }
+          // fall through
+          case 29: break;
+          case 14:
             { return ProofFrogTypes.EXPORT;
             }
           // fall through
-          case 17: break;
-          case 9:
+          case 30: break;
+          case 15:
             { return ProofFrogTypes.IMPORT;
             }
           // fall through
-          case 18: break;
+          case 31: break;
+          case 16:
+            { return ProofFrogTypes.BITSTRING;
+            }
+          // fall through
+          case 32: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

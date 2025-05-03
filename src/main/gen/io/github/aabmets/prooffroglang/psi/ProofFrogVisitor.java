@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class ProofFrogVisitor extends PsiElementVisitor {
 
+  public void visitDatatype(@NotNull ProofFrogDatatype o) {
+    visitPsiElement(o);
+  }
+
   public void visitModuleExport(@NotNull ProofFrogModuleExport o) {
     visitPsiElement(o);
   }

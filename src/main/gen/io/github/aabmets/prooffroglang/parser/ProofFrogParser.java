@@ -36,6 +36,23 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // SET|BOOL|VOID|INT|MAP|BITSTRING|ARRAY
+  public static boolean datatype(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "datatype")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, DATATYPE, "<datatype>");
+    r = consumeToken(b, SET);
+    if (!r) r = consumeToken(b, BOOL);
+    if (!r) r = consumeToken(b, VOID);
+    if (!r) r = consumeToken(b, INT);
+    if (!r) r = consumeToken(b, MAP);
+    if (!r) r = consumeToken(b, BITSTRING);
+    if (!r) r = consumeToken(b, ARRAY);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
   // item_*
   static boolean file(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "file")) return false;
@@ -48,14 +65,16 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // module_import | 
-  //     module_export | 
+  // module_import |
+  //     module_export |
+  //     datatype |
   //     LINE_COMMENT
   static boolean item_(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "item_")) return false;
     boolean r;
     r = module_import(b, l + 1);
     if (!r) r = module_export(b, l + 1);
+    if (!r) r = datatype(b, l + 1);
     if (!r) r = consumeToken(b, LINE_COMMENT);
     return r;
   }
