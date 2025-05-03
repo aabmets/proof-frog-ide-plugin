@@ -15,13 +15,26 @@
 
 file ::= item_*
 
-module_import ::= IMPORT FILESTRING (AS ID)? SEMI
-module_export ::= EXPORT AS ID SEMI
-datatype ::= (SET|BOOL|VOID|INT|MAP|BITSTRING|ARRAY)
+module_import ::= K_IMPORT V_FILESTRING (K_AS V_IDENT)? P_SEMI
+module_export ::= K_EXPORT K_AS V_IDENT P_SEMI
+
 
 private item_ ::= (
     module_import |
     module_export |
-    datatype |
-    LINE_COMMENT
+    (P_SEMIC|P_COLON|P_COMMA|P_PERIOD) |  // Punctuation
+    (S_BRACE_L|S_BRACE_R|S_BRACKET_L|S_BRACKET_R|S_PAREN_L|S_PAREN_R) |  // Structure
+    (
+        O_SMPL|O_ASGN|O_MULT|O_ADD|O_SUB|O_DIV|O_EQ|O_OPT|O_NOT|
+        O_NEQ|O_GT|O_GEQ|O_LEQ|O_LT|O_OR|O_AND|O_VBAR|O_BSLASH
+    ) |  // Operators
+    (
+        K_IMPORT|K_EXPORT|K_RETURN|K_SUBSETS|K_ORACLES|K_AGAINST|
+        K_COMPOSE|K_THEOREM|K_EXTENDS|K_REQUIRES|K_INDUCTION|K_ASSUME|
+        K_PROOF|K_GAMES|K_UNION|K_CALLS|K_FROM|K_ELSE|K_LET|K_FOR|
+        K_IF|K_TO|K_IN|K_AS|K_NONE
+    ) |  // Keywords
+    (F_ADVERSARY|F_PRIMITIVE|F_REDUCTION|F_SCHEME|F_PHASE|F_GAME) |  // Functions
+    (T_SET|T_BOOL|T_VOID|T_INT|T_MAP|T_ARRAY|T_BITSTRING) |  // Datatypes
+    (V_BOOL|V_INT|V_BINARYNUM|V_LINE_COMMENT|V_FILESTRING|V_IDENT)  // Values, excl. whitespace
 )

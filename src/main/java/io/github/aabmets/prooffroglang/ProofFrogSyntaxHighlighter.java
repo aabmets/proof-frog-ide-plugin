@@ -14,22 +14,52 @@ import org.jetbrains.annotations.NotNull;
 
 public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
 
+    public static final TextAttributesKey PUNCTUATION =
+        TextAttributesKey.createTextAttributesKey(
+            "PROOFFROG_PUNCTUATION",
+            DefaultLanguageHighlighterColors.SEMICOLON
+        );
+
+    public static final TextAttributesKey STRUCTURE =
+        TextAttributesKey.createTextAttributesKey(
+            "PROOFFROG_STRUCTURE",
+            DefaultLanguageHighlighterColors.BRACES
+        );
+
+    public static final TextAttributesKey OPERATORS =
+        TextAttributesKey.createTextAttributesKey(
+            "PROOFFROG_OPERATORS",
+            DefaultLanguageHighlighterColors.OPERATION_SIGN
+        );
+
     public static final TextAttributesKey KEYWORD =
         TextAttributesKey.createTextAttributesKey(
             "PROOFFROG_KEYWORD",
             DefaultLanguageHighlighterColors.KEYWORD
         );
 
+    public static final TextAttributesKey FUNCTION =
+        TextAttributesKey.createTextAttributesKey(
+            "PROOFFROG_FUNCTION",
+            DefaultLanguageHighlighterColors.FUNCTION_DECLARATION
+        );
+
     public static final TextAttributesKey DATATYPE =
         TextAttributesKey.createTextAttributesKey(
             "PROOFFROG_DATATYPE",
-            DefaultLanguageHighlighterColors.KEYWORD
+            DefaultLanguageHighlighterColors.CLASS_NAME
         );
 
-    public static final TextAttributesKey STRING =
+    public static final TextAttributesKey BOOLEAN =
         TextAttributesKey.createTextAttributesKey(
-            "PROOFFROG_STRING",
-            DefaultLanguageHighlighterColors.STRING
+            "PROOFFROG_BOOLEAN",
+            DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL
+        );
+
+    public static final TextAttributesKey NUMBER =
+        TextAttributesKey.createTextAttributesKey(
+            "PROOFFROG_NUMBER",
+            DefaultLanguageHighlighterColors.NUMBER
         );
 
     public static final TextAttributesKey COMMENT =
@@ -38,10 +68,16 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
             DefaultLanguageHighlighterColors.LINE_COMMENT
         );
 
-    public static final TextAttributesKey SEMICOLON =
+    public static final TextAttributesKey STRING =
         TextAttributesKey.createTextAttributesKey(
-            "PROOFFROG_SEMICOLON",
-            DefaultLanguageHighlighterColors.SEMICOLON
+            "PROOFFROG_STRING",
+            DefaultLanguageHighlighterColors.STRING
+        );
+
+    public static final TextAttributesKey IDENTIFIER =
+        TextAttributesKey.createTextAttributesKey(
+            "PROOFFROG_IDENTIFIER",
+            DefaultLanguageHighlighterColors.IDENTIFIER
         );
 
     public static final TextAttributesKey BAD_CHARACTER =
@@ -50,11 +86,17 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
             HighlighterColors.BAD_CHARACTER
         );
 
+    private static final TextAttributesKey[] PUNCTUATION_KEYS = new TextAttributesKey[]{PUNCTUATION};
+    private static final TextAttributesKey[] STRUCTURE_KEYS = new TextAttributesKey[]{STRUCTURE};
+    private static final TextAttributesKey[] OPERATORS_KEYS = new TextAttributesKey[]{OPERATORS};
     private static final TextAttributesKey[] KEYWORD_KEYS = new TextAttributesKey[]{KEYWORD};
-    private static final TextAttributesKey[] DATATYPE_KEYS  = new TextAttributesKey[]{DATATYPE};
-    private static final TextAttributesKey[] STRING_KEYS = new TextAttributesKey[]{STRING};
+    private static final TextAttributesKey[] FUNCTION_KEYS  = new TextAttributesKey[]{FUNCTION};
+    private static final TextAttributesKey[] DATATYPE_KEYS = new TextAttributesKey[]{DATATYPE};
+    private static final TextAttributesKey[] BOOLEAN_KEYS = new TextAttributesKey[]{BOOLEAN};
+    private static final TextAttributesKey[] NUMBER_KEYS = new TextAttributesKey[]{NUMBER};
     private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
-    private static final TextAttributesKey[] SEMICOLON_KEYS = new TextAttributesKey[]{SEMICOLON};
+    private static final TextAttributesKey[] STRING_KEYS = new TextAttributesKey[]{STRING};
+    private static final TextAttributesKey[] IDENTIFIER_KEYS = new TextAttributesKey[]{IDENTIFIER};
     private static final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[]{BAD_CHARACTER};
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
 
@@ -65,16 +107,30 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
 
     @Override
     public TextAttributesKey @NotNull [] getTokenHighlights(IElementType tokenType) {
-        if (ProofFrogTokenSets.KEYWORDS.contains(tokenType)) {
+        if (ProofFrogTokenSets.PUNCTUATION.contains(tokenType)) {
+            return PUNCTUATION_KEYS;
+        } else if (ProofFrogTokenSets.STRUCTURE.contains(tokenType)) {
+            return STRUCTURE_KEYS;
+        } else if (ProofFrogTokenSets.OPERATORS.contains(tokenType)) {
+            return OPERATORS_KEYS;
+        } else if (ProofFrogTokenSets.KEYWORDS.contains(tokenType)) {
             return KEYWORD_KEYS;
+        } else if (ProofFrogTokenSets.FUNCTIONS.contains(tokenType)) {
+            return FUNCTION_KEYS;
         } else if (ProofFrogTokenSets.DATATYPES.contains(tokenType)) {
             return DATATYPE_KEYS;
-        } else if (tokenType.equals(ProofFrogTypes.FILESTRING)) {
-            return STRING_KEYS;
-        } else if (tokenType.equals(ProofFrogTypes.LINE_COMMENT)) {
+        } else if (tokenType.equals(ProofFrogTypes.V_BOOL)) {
+            return BOOLEAN_KEYS;
+        } else if (tokenType.equals(ProofFrogTypes.V_INT)) {
+            return NUMBER_KEYS;
+        } else if (tokenType.equals(ProofFrogTypes.V_BINARYNUM)) {
+            return NUMBER_KEYS;
+        } else if (tokenType.equals(ProofFrogTypes.V_LINE_COMMENT)) {
             return COMMENT_KEYS;
-        } else if (tokenType.equals(ProofFrogTypes.SEMI)) {
-            return SEMICOLON_KEYS;
+        } else if (tokenType.equals(ProofFrogTypes.V_FILESTRING)) {
+            return STRING_KEYS;
+        } else if (tokenType.equals(ProofFrogTypes.V_IDENT)) {
+            return IDENTIFIER_KEYS;
         } else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
             return BAD_CHAR_KEYS;
         } else {

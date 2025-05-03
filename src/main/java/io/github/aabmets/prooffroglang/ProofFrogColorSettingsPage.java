@@ -13,11 +13,17 @@ import java.util.Map;
 public class ProofFrogColorSettingsPage implements ColorSettingsPage {
 
     private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[] {
+        new AttributesDescriptor("Punctuation", ProofFrogSyntaxHighlighter.PUNCTUATION),
+        new AttributesDescriptor("Structure", ProofFrogSyntaxHighlighter.STRUCTURE),
+        new AttributesDescriptor("Operators", ProofFrogSyntaxHighlighter.OPERATORS),
         new AttributesDescriptor("Keywords", ProofFrogSyntaxHighlighter.KEYWORD),
+        new AttributesDescriptor("Functions", ProofFrogSyntaxHighlighter.FUNCTION),
         new AttributesDescriptor("Data types", ProofFrogSyntaxHighlighter.DATATYPE),
+        new AttributesDescriptor("Boolean literal", ProofFrogSyntaxHighlighter.BOOLEAN),
+        new AttributesDescriptor("Number literal", ProofFrogSyntaxHighlighter.NUMBER),
         new AttributesDescriptor("String literal", ProofFrogSyntaxHighlighter.STRING),
+        new AttributesDescriptor("Identifiers", ProofFrogSyntaxHighlighter.IDENTIFIER),
         new AttributesDescriptor("Line comment", ProofFrogSyntaxHighlighter.COMMENT),
-        new AttributesDescriptor("Semicolon", ProofFrogSyntaxHighlighter.SEMICOLON),
         new AttributesDescriptor("Bad character", ProofFrogSyntaxHighlighter.BAD_CHARACTER),
     };
 
@@ -59,16 +65,24 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
     public String getDemoText() {
         return """
             // Example ProofFrog code
-            import 'EncDec.primitive' as Cipher;
+            import 'examples/Primitives/SecretSharing.primitive';
             
-            Set keySpace;
-            Bool isTagValid;
-            Int count;
-            Map keyValueMap;
-            BitString ciphertext;
-            Array chunks;
+            Scheme OTP(Int l) extends SecretSharing {
+                Set Message = BitString<l>;
+                Set Shares = BitString<l>;
+                Int shareCount = 2;
+                Int threshold = 2;
             
-            export as Security;
+                Array<Shares, shareCount> Share(Message m) {
+                    BitString<l> s0 <- BitString<l>;
+                    BitString<l> s1 = s1 + m;
+                    return [s0, s1];
+                }
+            
+                Message Reconstruct(Array<Shares, shareCount> s) {
+                    return s[0] + s[1];
+                }
+            }
             """;
     }
 
