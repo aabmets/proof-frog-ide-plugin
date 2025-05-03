@@ -1,40 +1,192 @@
 {
     parserClass="io.github.aabmets.prooffroglang.parser.ProofFrogParser"
-
     extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
-
     psiClassPrefix="ProofFrog"
     psiImplClassSuffix="Impl"
     psiPackage="io.github.aabmets.prooffroglang.psi"
     psiImplPackage="io.github.aabmets.prooffroglang.psi.impl"
-
     elementTypeHolderClass="io.github.aabmets.prooffroglang.psi.ProofFrogTypes"
     elementTypeClass="io.github.aabmets.prooffroglang.psi.ProofFrogElementType"
     tokenTypeClass="io.github.aabmets.prooffroglang.psi.ProofFrogTokenType"
 }
 
-file ::= item_*
+file ::= (
+    primitiveProgram |
+    schemeProgram |
+    gameProgram |
+    proofProgram |
+    V_LINE_COMMENT
+);
 
-module_import ::= K_IMPORT V_FILESTRING (K_AS V_IDENT)? P_SEMI
-module_export ::= K_EXPORT K_AS V_IDENT P_SEMI
+
+// Primitive files grammar
+primitiveProgram ::=
+    F_PRIMITIVE V_IDENT S_PAREN_L paramList? S_PAREN_R
+    S_BRACE_L primitiveBody S_BRACE_R
+    ;
+primitiveBody ::= ((initializedField | methodSignature) P_SEMIC)*;
 
 
-private item_ ::= (
-    module_import |
-    module_export |
-    (P_SEMIC|P_COLON|P_COMMA|P_PERIOD) |  // Punctuation
-    (S_BRACE_L|S_BRACE_R|S_BRACKET_L|S_BRACKET_R|S_PAREN_L|S_PAREN_R) |  // Structure
-    (
-        O_SMPL|O_ASGN|O_MULT|O_ADD|O_SUB|O_DIV|O_EQ|O_OPT|O_NOT|
-        O_NEQ|O_GT|O_GEQ|O_LEQ|O_LT|O_OR|O_AND|O_VBAR|O_BSLASH
-    ) |  // Operators
-    (
-        K_IMPORT|K_EXPORT|K_RETURN|K_SUBSETS|K_ORACLES|K_AGAINST|
-        K_COMPOSE|K_THEOREM|K_EXTENDS|K_REQUIRES|K_INDUCTION|K_ASSUME|
-        K_PROOF|K_GAMES|K_UNION|K_CALLS|K_FROM|K_ELSE|K_LET|K_FOR|
-        K_IF|K_TO|K_IN|K_AS|K_NONE
-    ) |  // Keywords
-    (F_ADVERSARY|F_PRIMITIVE|F_REDUCTION|F_SCHEME|F_PHASE|F_GAME) |  // Functions
-    (T_SET|T_BOOL|T_VOID|T_INT|T_MAP|T_ARRAY|T_BITSTRING) |  // Datatypes
-    (V_BOOL|V_INT|V_BINARYNUM|V_LINE_COMMENT|V_FILESTRING|V_IDENT)  // Values, excl. whitespace
-)
+// Scheme files grammar
+schemeProgram ::= moduleImport* scheme;
+scheme ::=
+    F_SCHEME V_IDENT S_PAREN_L paramList? S_PAREN_R
+    K_EXTENDS V_IDENT S_BRACE_L schemeBody S_BRACE_R
+    ;
+schemeBody ::=
+    (K_REQUIRES expression P_SEMIC)*
+    (field P_SEMIC | method)+
+    ;
+
+// Game files grammar
+gameProgram ::= moduleImport* game game gameExport;
+gameExport ::= K_EXPORT K_AS V_IDENT P_SEMIC;
+
+
+// Proof files grammar
+proofProgram ::= moduleImport* proofHelpers proof;
+proofHelpers ::= (reduction | game)*;
+reduction ::=
+    F_REDUCTION V_IDENT S_PAREN_L paramList? S_PAREN_R
+    K_COMPOSE parameterizedGame K_AGAINST gameAdversary
+    S_BRACE_L gameBody S_BRACE_R
+    ;
+proof ::=
+    K_PROOF P_COLON
+    (K_LET P_COLON lets)?
+    (K_ASSUME P_COLON assumptions)?
+    K_THEOREM P_COLON theorem
+    K_GAMES P_COLON gameList
+    ;
+lets ::= (field P_SEMIC)*;
+assumptions ::= (parameterizedGame P_SEMIC)* (K_CALLS (O_LEQ | O_LT) expression P_SEMIC)?;
+theorem ::= parameterizedGame P_SEMIC;
+gameList ::= gameStep P_SEMIC (gameStep P_SEMIC | induction | stepAssumption)*;
+gameStep ::=
+    concreteGame K_COMPOSE parameterizedGame K_AGAINST gameAdversary |  // reductionStep
+	(concreteGame | parameterizedGame) K_AGAINST gameAdversary            // regularStep
+	;
+induction ::=
+    K_INDUCTION S_PAREN_L V_IDENT K_FROM integerExpression K_TO
+    integerExpression S_PAREN_R S_BRACE_L gameList S_BRACE_R
+    ;
+stepAssumption ::= K_ASSUME expression P_SEMIC;
+concreteGame ::= parameterizedGame P_PERIOD V_IDENT;
+gameAdversary ::= parameterizedGame P_PERIOD F_ADVERSARY;
+
+
+// Shared grammar
+
+moduleImport ::= K_IMPORT V_FILESTRING (K_AS V_IDENT)? P_SEMIC;
+
+game ::= F_GAME V_IDENT S_PAREN_L paramList? S_PAREN_R S_BRACE_L gameBody S_BRACE_R;
+
+gameBody ::=
+    (field P_SEMIC)* method+ |
+    (field P_SEMIC)* method* gamePhase+
+    ;
+
+gamePhase ::=
+    F_PHASE S_BRACE_L (method)+ K_ORACLES P_COLON
+    S_BRACKET_L id (P_COMMA id)* S_BRACKET_R P_SEMIC S_BRACE_R
+    ;
+
+field ::= variable (O_ASGN expression)?;
+
+initializedField ::= variable O_ASGN expression;
+
+method ::= methodSignature block;
+
+block ::= S_BRACE_L statement* S_BRACE_R;
+
+statement ::=
+      type id P_SEMIC                                             // varDeclStatement
+	| type lvalue O_ASGN expression P_SEMIC                       // varDeclWithValueStatement
+	| type lvalue O_SMPL expression P_SEMIC                       // varDeclWithSampleStatement
+	| lvalue O_ASGN expression P_SEMIC                            // assignmentStatement
+	| lvalue O_SMPL expression P_SEMIC                            // sampleStatement
+	| expression S_PAREN_L argList? S_PAREN_R P_SEMIC             // functionCallStatement
+	| K_RETURN expression P_SEMIC                                 // returnStatement
+	| K_IF S_PAREN_L expression S_PAREN_R block (K_ELSE K_IF S_PAREN_L expression S_PAREN_R block )* (K_ELSE block )?  // ifStatement
+	| K_FOR S_PAREN_L T_INT id O_ASGN expression K_TO expression S_PAREN_R block  // numericForStatement
+	| K_FOR S_PAREN_L type id K_IN expression S_PAREN_R block     // genericForStatement
+	;
+
+lvalue ::= (id | parameterizedGame) (P_PERIOD id | S_BRACKET_L expression S_BRACKET_R)*;
+
+methodSignature ::= type id S_PAREN_L paramList? S_PAREN_R;
+
+paramList ::= variable (P_COMMA variable)*;
+
+expression ::= setMinusExpression ;
+setMinusExpression ::= unionExpression (O_BSLASH unionExpression)*;
+unionExpression ::= orExpression (K_UNION orExpression)*;
+orExpression ::= andExpression (O_OR andExpression)*;
+andExpression ::= comparisonExpression (O_AND comparisonExpression)*;
+comparisonExpression ::= addExpression (
+    (O_EQ | O_NEQ | O_GT | O_LT | O_GEQ | O_LEQ | K_IN | K_SUBSETS)
+    addExpression
+)?;
+addExpression ::= multiplyExpression ( (O_ADD | O_SUB) multiplyExpression )*;
+multiplyExpression ::= unaryExpression ( (O_MULT | O_DIV) unaryExpression )*;
+unaryExpression ::=
+      O_NOT unaryExpression
+    | O_VBAR unaryExpression O_VBAR
+    | primaryExpression
+    ;
+primaryExpression ::= primaryElement (postfixOperation)*;
+primaryElement ::=
+      lvalue
+    | S_BRACKET_L (expression (P_COMMA expression)*)? S_BRACKET_R
+    | S_BRACE_L  (expression (P_COMMA expression)*)? S_BRACE_R
+    | type
+    | V_BINARYNUM
+    | T_INT
+    | V_BOOL
+    | K_NONE
+    | S_PAREN_L expression S_PAREN_R
+    ;
+postfixOperation ::=
+      S_PAREN_L argList? S_PAREN_R
+    | S_BRACKET_L integerExpression P_COLON integerExpression S_BRACKET_R
+    ;
+
+argList ::= expression (P_COMMA expression)*;
+
+variable ::= type id;
+
+parameterizedGame ::= V_IDENT S_PAREN_L argList? S_PAREN_R;
+
+type ::= typeProduct ;
+typeProduct ::= typePostfix (O_MULT typePostfix)*;
+typePostfix ::= atomicType O_OPT*;
+atomicType ::=
+      T_SET O_LT type O_GT
+    | T_SET
+    | T_BOOL
+    | T_VOID
+    | T_MAP O_LT type P_COMMA type O_GT
+    | T_ARRAY O_LT type P_COMMA integerExpression O_GT
+    | T_INT
+    | T_BITSTRING O_LT integerExpression O_GT
+    | T_BITSTRING
+    | lvalue
+    ;
+
+integerExpression ::= additiveIntegerExpression ;
+additiveIntegerExpression ::=
+      multiplicativeIntegerExpression
+    ( (O_ADD | O_SUB) multiplicativeIntegerExpression )*
+    ;
+multiplicativeIntegerExpression ::=
+      primaryIntegerExpression
+    ( (O_MULT | O_DIV) primaryIntegerExpression )*
+    ;
+primaryIntegerExpression ::=
+      lvalue
+    | V_INT
+    | V_BINARYNUM
+    | S_PAREN_L integerExpression S_PAREN_R
+    ;
+
+id ::= V_IDENT | K_IN;
