@@ -5,6 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface ProofFrogModuleExport extends PsiElement {
+public interface ProofFrogOrExpression extends PsiElement {
+
+  @NotNull
+  List<ProofFrogAndExpression> getAndExpressionList();
 
 }
