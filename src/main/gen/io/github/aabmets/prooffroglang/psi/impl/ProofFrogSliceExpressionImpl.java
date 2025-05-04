@@ -11,14 +11,14 @@ import static io.github.aabmets.prooffroglang.psi.ProofFrogTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.github.aabmets.prooffroglang.psi.*;
 
-public class ProofFrogPrimaryExpressionImpl extends ASTWrapperPsiElement implements ProofFrogPrimaryExpression {
+public class ProofFrogSliceExpressionImpl extends ASTWrapperPsiElement implements ProofFrogSliceExpression {
 
-  public ProofFrogPrimaryExpressionImpl(@NotNull ASTNode node) {
+  public ProofFrogSliceExpressionImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull ProofFrogVisitor visitor) {
-    visitor.visitPrimaryExpression(this);
+    visitor.visitSliceExpression(this);
   }
 
   @Override
@@ -29,20 +29,8 @@ public class ProofFrogPrimaryExpressionImpl extends ASTWrapperPsiElement impleme
 
   @Override
   @NotNull
-  public List<ProofFrogCallExpression> getCallExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, ProofFrogCallExpression.class);
-  }
-
-  @Override
-  @NotNull
-  public ProofFrogPrimaryElement getPrimaryElement() {
-    return findNotNullChildByClass(ProofFrogPrimaryElement.class);
-  }
-
-  @Override
-  @NotNull
-  public List<ProofFrogSliceExpression> getSliceExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, ProofFrogSliceExpression.class);
+  public List<ProofFrogIntegerExpression> getIntegerExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, ProofFrogIntegerExpression.class);
   }
 
 }

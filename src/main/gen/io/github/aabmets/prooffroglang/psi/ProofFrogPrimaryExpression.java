@@ -8,9 +8,12 @@ import com.intellij.psi.PsiElement;
 public interface ProofFrogPrimaryExpression extends PsiElement {
 
   @NotNull
-  List<ProofFrogPostfixOperation> getPostfixOperationList();
+  List<ProofFrogCallExpression> getCallExpressionList();
 
   @NotNull
   ProofFrogPrimaryElement getPrimaryElement();
+
+  @NotNull
+  List<ProofFrogSliceExpression> getSliceExpressionList();
 
 }

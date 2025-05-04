@@ -134,7 +134,7 @@ unaryExpression ::=
     | OP_VBAR unaryExpression OP_VBAR
     | primaryExpression
     ;
-primaryExpression ::= primaryElement (postfixOperation)*;
+primaryExpression ::= primaryElement (callExpression | sliceExpression)*;
 primaryElement ::=
       lvalue
     | ST_BRACKET_L (expression (PN_COMMA expression)*)? ST_BRACKET_R
@@ -146,10 +146,8 @@ primaryElement ::=
     | KW_NONE
     | ST_PAREN_L expression ST_PAREN_R
     ;
-postfixOperation ::=
-      ST_PAREN_L argList? ST_PAREN_R
-    | ST_BRACKET_L integerExpression PN_COLON integerExpression ST_BRACKET_R
-    ;
+callExpression ::= ST_PAREN_L argList? ST_PAREN_R;
+sliceExpression ::= ST_BRACKET_L integerExpression PN_COLON integerExpression ST_BRACKET_R;
 
 argList ::= expression (PN_COMMA expression)*;
 

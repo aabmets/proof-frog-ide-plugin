@@ -360,6 +360,27 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // ST_PAREN_L argList? ST_PAREN_R
+  public static boolean callExpression(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "callExpression")) return false;
+    if (!nextTokenIs(b, ST_PAREN_L)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, ST_PAREN_L);
+    r = r && callExpression_1(b, l + 1);
+    r = r && consumeToken(b, ST_PAREN_R);
+    exit_section_(b, m, CALL_EXPRESSION, r);
+    return r;
+  }
+
+  // argList?
+  private static boolean callExpression_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "callExpression_1")) return false;
+    argList(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
   // addExpression (
   //     (OP_EQ | OP_NEQ | OP_GT | OP_LT | OP_GEQ | OP_LEQ | KW_IN | KW_SUBSETS)
   //     addExpression
@@ -1229,53 +1250,6 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ST_PAREN_L argList? ST_PAREN_R
-  //     | ST_BRACKET_L integerExpression PN_COLON integerExpression ST_BRACKET_R
-  public static boolean postfixOperation(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "postfixOperation")) return false;
-    if (!nextTokenIs(b, "<postfix operation>", ST_BRACKET_L, ST_PAREN_L)) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, POSTFIX_OPERATION, "<postfix operation>");
-    r = postfixOperation_0(b, l + 1);
-    if (!r) r = postfixOperation_1(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // ST_PAREN_L argList? ST_PAREN_R
-  private static boolean postfixOperation_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "postfixOperation_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, ST_PAREN_L);
-    r = r && postfixOperation_0_1(b, l + 1);
-    r = r && consumeToken(b, ST_PAREN_R);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // argList?
-  private static boolean postfixOperation_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "postfixOperation_0_1")) return false;
-    argList(b, l + 1);
-    return true;
-  }
-
-  // ST_BRACKET_L integerExpression PN_COLON integerExpression ST_BRACKET_R
-  private static boolean postfixOperation_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "postfixOperation_1")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, ST_BRACKET_L);
-    r = r && integerExpression(b, l + 1);
-    r = r && consumeToken(b, PN_COLON);
-    r = r && integerExpression(b, l + 1);
-    r = r && consumeToken(b, ST_BRACKET_R);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  /* ********************************************************** */
   // lvalue
   //     | ST_BRACKET_L (expression (PN_COMMA expression)*)? ST_BRACKET_R
   //     | ST_BRACE_L  (expression (PN_COMMA expression)*)? ST_BRACE_R
@@ -1419,7 +1393,7 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // primaryElement (postfixOperation)*
+  // primaryElement (callExpression | sliceExpression)*
   public static boolean primaryExpression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "primaryExpression")) return false;
     boolean r;
@@ -1430,7 +1404,7 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (postfixOperation)*
+  // (callExpression | sliceExpression)*
   private static boolean primaryExpression_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "primaryExpression_1")) return false;
     while (true) {
@@ -1441,13 +1415,12 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // (postfixOperation)
+  // callExpression | sliceExpression
   private static boolean primaryExpression_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "primaryExpression_1_0")) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = postfixOperation(b, l + 1);
-    exit_section_(b, m, null, r);
+    r = callExpression(b, l + 1);
+    if (!r) r = sliceExpression(b, l + 1);
     return r;
   }
 
@@ -1824,6 +1797,22 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, OP_BSLASH);
     r = r && unionExpression(b, l + 1);
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // ST_BRACKET_L integerExpression PN_COLON integerExpression ST_BRACKET_R
+  public static boolean sliceExpression(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "sliceExpression")) return false;
+    if (!nextTokenIs(b, ST_BRACKET_L)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, ST_BRACKET_L);
+    r = r && integerExpression(b, l + 1);
+    r = r && consumeToken(b, PN_COLON);
+    r = r && integerExpression(b, l + 1);
+    r = r && consumeToken(b, ST_BRACKET_R);
+    exit_section_(b, m, SLICE_EXPRESSION, r);
     return r;
   }
 

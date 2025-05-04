@@ -35,6 +35,10 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitCallExpression(@NotNull ProofFrogCallExpression o) {
+    visitPsiElement(o);
+  }
+
   public void visitComparisonExpression(@NotNull ProofFrogComparisonExpression o) {
     visitPsiElement(o);
   }
@@ -139,10 +143,6 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitPostfixOperation(@NotNull ProofFrogPostfixOperation o) {
-    visitPsiElement(o);
-  }
-
   public void visitPrimaryElement(@NotNull ProofFrogPrimaryElement o) {
     visitPsiElement(o);
   }
@@ -192,6 +192,10 @@ public class ProofFrogVisitor extends PsiElementVisitor {
   }
 
   public void visitSetMinusExpression(@NotNull ProofFrogSetMinusExpression o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSliceExpression(@NotNull ProofFrogSliceExpression o) {
     visitPsiElement(o);
   }
 

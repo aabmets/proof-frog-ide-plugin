@@ -15,6 +15,7 @@ public interface ProofFrogTypes {
   IElementType ASSUMPTIONS = new ProofFrogElementType("ASSUMPTIONS");
   IElementType ATOMIC_TYPE = new ProofFrogElementType("ATOMIC_TYPE");
   IElementType BLOCK = new ProofFrogElementType("BLOCK");
+  IElementType CALL_EXPRESSION = new ProofFrogElementType("CALL_EXPRESSION");
   IElementType COMPARISON_EXPRESSION = new ProofFrogElementType("COMPARISON_EXPRESSION");
   IElementType CONCRETE_GAME = new ProofFrogElementType("CONCRETE_GAME");
   IElementType EXPRESSION = new ProofFrogElementType("EXPRESSION");
@@ -41,7 +42,6 @@ public interface ProofFrogTypes {
   IElementType OR_EXPRESSION = new ProofFrogElementType("OR_EXPRESSION");
   IElementType PARAMETERIZED_GAME = new ProofFrogElementType("PARAMETERIZED_GAME");
   IElementType PARAM_LIST = new ProofFrogElementType("PARAM_LIST");
-  IElementType POSTFIX_OPERATION = new ProofFrogElementType("POSTFIX_OPERATION");
   IElementType PRIMARY_ELEMENT = new ProofFrogElementType("PRIMARY_ELEMENT");
   IElementType PRIMARY_EXPRESSION = new ProofFrogElementType("PRIMARY_EXPRESSION");
   IElementType PRIMARY_INTEGER_EXPRESSION = new ProofFrogElementType("PRIMARY_INTEGER_EXPRESSION");
@@ -55,6 +55,7 @@ public interface ProofFrogTypes {
   IElementType SCHEME_BODY = new ProofFrogElementType("SCHEME_BODY");
   IElementType SCHEME_PROGRAM = new ProofFrogElementType("SCHEME_PROGRAM");
   IElementType SET_MINUS_EXPRESSION = new ProofFrogElementType("SET_MINUS_EXPRESSION");
+  IElementType SLICE_EXPRESSION = new ProofFrogElementType("SLICE_EXPRESSION");
   IElementType STATEMENT = new ProofFrogElementType("STATEMENT");
   IElementType STEP_ASSUMPTION = new ProofFrogElementType("STEP_ASSUMPTION");
   IElementType THEOREM = new ProofFrogElementType("THEOREM");
@@ -162,6 +163,9 @@ public interface ProofFrogTypes {
       else if (type == BLOCK) {
         return new ProofFrogBlockImpl(node);
       }
+      else if (type == CALL_EXPRESSION) {
+        return new ProofFrogCallExpressionImpl(node);
+      }
       else if (type == COMPARISON_EXPRESSION) {
         return new ProofFrogComparisonExpressionImpl(node);
       }
@@ -240,9 +244,6 @@ public interface ProofFrogTypes {
       else if (type == PARAM_LIST) {
         return new ProofFrogParamListImpl(node);
       }
-      else if (type == POSTFIX_OPERATION) {
-        return new ProofFrogPostfixOperationImpl(node);
-      }
       else if (type == PRIMARY_ELEMENT) {
         return new ProofFrogPrimaryElementImpl(node);
       }
@@ -281,6 +282,9 @@ public interface ProofFrogTypes {
       }
       else if (type == SET_MINUS_EXPRESSION) {
         return new ProofFrogSetMinusExpressionImpl(node);
+      }
+      else if (type == SLICE_EXPRESSION) {
+        return new ProofFrogSliceExpressionImpl(node);
       }
       else if (type == STATEMENT) {
         return new ProofFrogStatementImpl(node);
