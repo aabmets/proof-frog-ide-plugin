@@ -53,18 +53,13 @@ public interface ProofFrogTokenSets {
         ProofFrogTypes.KW_ORACLES,
         ProofFrogTypes.KW_AGAINST,
         ProofFrogTypes.KW_COMPOSE,
-        ProofFrogTypes.KW_THEOREM,
         ProofFrogTypes.KW_EXTENDS,
         ProofFrogTypes.KW_REQUIRES,
         ProofFrogTypes.KW_INDUCTION,
-        ProofFrogTypes.KW_ASSUME,
-        ProofFrogTypes.KW_PROOF,
-        ProofFrogTypes.KW_GAMES,
         ProofFrogTypes.KW_UNION,
         ProofFrogTypes.KW_CALLS,
         ProofFrogTypes.KW_FROM,
         ProofFrogTypes.KW_ELSE,
-        ProofFrogTypes.KW_LET,
         ProofFrogTypes.KW_FOR,
         ProofFrogTypes.KW_IF,
         ProofFrogTypes.KW_TO,
@@ -73,14 +68,31 @@ public interface ProofFrogTokenSets {
         ProofFrogTypes.KW_NONE
     );
 
-    // Functions
-    TokenSet FUNCTIONS = TokenSet.create(
-        ProofFrogTypes.FN_ADVERSARY,
-        ProofFrogTypes.FN_PRIMITIVE,
-        ProofFrogTypes.FN_REDUCTION,
-        ProofFrogTypes.FN_SCHEME,
-        ProofFrogTypes.FN_PHASE,
-        ProofFrogTypes.FN_GAME
+    // Labels
+    TokenSet LABELS = TokenSet.create(
+        ProofFrogTypes.LB_PROOF,
+        ProofFrogTypes.LB_LET,
+        ProofFrogTypes.LB_ASSUME,
+        ProofFrogTypes.LB_THEOREM,
+        ProofFrogTypes.LB_GAMES
+    );
+
+    // Class declarators
+    TokenSet CLASS_DECLARATORS = TokenSet.create(
+        ProofFrogTypes.CL_PRIMITIVE,
+        ProofFrogTypes.CL_REDUCTION,
+        ProofFrogTypes.CL_SCHEME,
+        ProofFrogTypes.CL_GAME
+    );
+
+    // Properties
+    TokenSet PROPERTIES = TokenSet.create(
+        ProofFrogTypes.PR_ADVERSARY
+    );
+
+    // Named blocks
+    TokenSet NAMED_BLOCKS = TokenSet.create(
+        ProofFrogTypes.NB_PHASE
     );
 
     // Datatypes

@@ -26,9 +26,9 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
             DefaultLanguageHighlighterColors.BRACES
         );
 
-    public static final TextAttributesKey OPERATORS =
+    public static final TextAttributesKey OPERATOR =
         TextAttributesKey.createTextAttributesKey(
-            "PROOFFROG_OPERATORS",
+            "PROOFFROG_OPERATOR",
             DefaultLanguageHighlighterColors.OPERATION_SIGN
         );
 
@@ -38,10 +38,28 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
             DefaultLanguageHighlighterColors.KEYWORD
         );
 
-    public static final TextAttributesKey FUNCTION =
+    public static final TextAttributesKey LABEL =
         TextAttributesKey.createTextAttributesKey(
-            "PROOFFROG_FUNCTION",
-            DefaultLanguageHighlighterColors.FUNCTION_DECLARATION
+            "PROOFFROG_LABEL",
+            DefaultLanguageHighlighterColors.LABEL
+        );
+
+    public static final TextAttributesKey CLASS_DECLARATOR =
+        TextAttributesKey.createTextAttributesKey(
+            "PROOFFROG_CLASS_DECLARATOR",
+            DefaultLanguageHighlighterColors.KEYWORD
+        );
+
+    public static final TextAttributesKey PROPERTY =
+        TextAttributesKey.createTextAttributesKey(
+            "PROOFFROG_PROPERTY",
+            DefaultLanguageHighlighterColors.INSTANCE_FIELD
+        );
+
+    public static final TextAttributesKey NAMED_BLOCK =
+        TextAttributesKey.createTextAttributesKey(
+            "PROOFFROG_NAMED_BLOCK",
+            DefaultLanguageHighlighterColors.INTERFACE_NAME
         );
 
     public static final TextAttributesKey DATATYPE =
@@ -88,9 +106,12 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
 
     private static final TextAttributesKey[] PUNCTUATION_KEYS = new TextAttributesKey[]{PUNCTUATION};
     private static final TextAttributesKey[] STRUCTURE_KEYS = new TextAttributesKey[]{STRUCTURE};
-    private static final TextAttributesKey[] OPERATORS_KEYS = new TextAttributesKey[]{OPERATORS};
+    private static final TextAttributesKey[] OPERATOR_KEYS = new TextAttributesKey[]{OPERATOR};
     private static final TextAttributesKey[] KEYWORD_KEYS = new TextAttributesKey[]{KEYWORD};
-    private static final TextAttributesKey[] FUNCTION_KEYS  = new TextAttributesKey[]{FUNCTION};
+    private static final TextAttributesKey[] LABEL_KEYS  = new TextAttributesKey[]{LABEL};
+    private static final TextAttributesKey[] CLASS_DECLARATOR_KEYS  = new TextAttributesKey[]{CLASS_DECLARATOR};
+    private static final TextAttributesKey[] PROPERTY_KEYS  = new TextAttributesKey[]{PROPERTY};
+    private static final TextAttributesKey[] NAMED_BLOCK_KEYS  = new TextAttributesKey[]{NAMED_BLOCK};
     private static final TextAttributesKey[] DATATYPE_KEYS = new TextAttributesKey[]{DATATYPE};
     private static final TextAttributesKey[] BOOLEAN_KEYS = new TextAttributesKey[]{BOOLEAN};
     private static final TextAttributesKey[] NUMBER_KEYS = new TextAttributesKey[]{NUMBER};
@@ -112,11 +133,17 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
         } else if (ProofFrogTokenSets.STRUCTURE.contains(tokenType)) {
             return STRUCTURE_KEYS;
         } else if (ProofFrogTokenSets.OPERATORS.contains(tokenType)) {
-            return OPERATORS_KEYS;
+            return OPERATOR_KEYS;
         } else if (ProofFrogTokenSets.KEYWORDS.contains(tokenType)) {
             return KEYWORD_KEYS;
-        } else if (ProofFrogTokenSets.FUNCTIONS.contains(tokenType)) {
-            return FUNCTION_KEYS;
+        } else if (ProofFrogTokenSets.LABELS.contains(tokenType)) {
+            return LABEL_KEYS;
+        } else if (ProofFrogTokenSets.CLASS_DECLARATORS.contains(tokenType)) {
+            return CLASS_DECLARATOR_KEYS;
+        } else if (ProofFrogTokenSets.PROPERTIES.contains(tokenType)) {
+            return PROPERTY_KEYS;
+        } else if (ProofFrogTokenSets.NAMED_BLOCKS.contains(tokenType)) {
+            return NAMED_BLOCK_KEYS;
         } else if (ProofFrogTokenSets.DATATYPES.contains(tokenType)) {
             return DATATYPE_KEYS;
         } else if (tokenType.equals(ProofFrogTypes.VL_BOOL)) {

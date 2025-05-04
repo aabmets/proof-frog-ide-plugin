@@ -58,18 +58,13 @@ KW_SUBSETS="subsets"
 KW_ORACLES="oracles"
 KW_AGAINST="against"
 KW_COMPOSE="compose"
-KW_THEOREM="theorem"
 KW_EXTENDS="extends"
 KW_REQUIRES="requires"
 KW_INDUCTION="induction"
-KW_ASSUME="assume"
-KW_PROOF="proof"
-KW_GAMES="games"
 KW_UNION="union"
 KW_CALLS="calls"
 KW_FROM="from"
 KW_ELSE="else"
-KW_LET="let"
 KW_FOR="for"
 KW_IF="if"
 KW_TO="to"
@@ -77,13 +72,24 @@ KW_IN="in"
 KW_AS="as"
 KW_NONE="None"
 
-// --------- Functions ---------
-FN_ADVERSARY="Adversary"
-FN_PRIMITIVE="Primitive"
-FN_REDUCTION="Reduction"
-FN_SCHEME="Scheme"
-FN_PHASE="Phase"
-FN_GAME="Game"
+// --------- Labels ---------
+LB_PROOF="proof"
+LB_LET="let"
+LB_ASSUME="assume"
+LB_THEOREM="theorem"
+LB_GAMES="games"
+
+// --------- Class declarators ---------
+CL_PRIMITIVE="Primitive"
+CL_REDUCTION="Reduction"
+CL_SCHEME="Scheme"
+CL_GAME="Game"
+
+// --------- Properties ---------
+PR_ADVERSARY="Adversary"
+
+// --------- Named blocks ---------
+NB_PHASE="Phase"
 
 // --------- Datatypes ---------
 DT_SET="Set"
@@ -106,7 +112,7 @@ VL_WHITE_SPACE=[ \t\r\n]+
 %%
 
 // --------- Punctuation ---------
-{PN_SEMI}          { return ProofFrogTypes.PN_SEMI; }
+{PN_SEMI}           { return ProofFrogTypes.PN_SEMI; }
 {PN_COLON}          { return ProofFrogTypes.PN_COLON; }
 {PN_COMMA}          { return ProofFrogTypes.PN_COMMA; }
 {PN_PERIOD}         { return ProofFrogTypes.PN_PERIOD; }
@@ -120,8 +126,8 @@ VL_WHITE_SPACE=[ \t\r\n]+
 {ST_PAREN_R}        { return ProofFrogTypes.ST_PAREN_R; }
 
 // --------- Operators ---------
-{OP_SAMPLE}           { return ProofFrogTypes.OP_SAMPLE; }
-{OP_ASSIGN}           { return ProofFrogTypes.OP_ASSIGN; }
+{OP_SAMPLE}         { return ProofFrogTypes.OP_SAMPLE; }
+{OP_ASSIGN}         { return ProofFrogTypes.OP_ASSIGN; }
 {OP_MULT}           { return ProofFrogTypes.OP_MULT; }
 {OP_ADD}            { return ProofFrogTypes.OP_ADD; }
 {OP_SUB}            { return ProofFrogTypes.OP_SUB; }
@@ -147,18 +153,13 @@ VL_WHITE_SPACE=[ \t\r\n]+
 {KW_ORACLES}        { return ProofFrogTypes.KW_ORACLES; }
 {KW_AGAINST}        { return ProofFrogTypes.KW_AGAINST; }
 {KW_COMPOSE}        { return ProofFrogTypes.KW_COMPOSE; }
-{KW_THEOREM}        { return ProofFrogTypes.KW_THEOREM; }
 {KW_EXTENDS}        { return ProofFrogTypes.KW_EXTENDS; }
 {KW_REQUIRES}       { return ProofFrogTypes.KW_REQUIRES; }
 {KW_INDUCTION}      { return ProofFrogTypes.KW_INDUCTION; }
-{KW_ASSUME}         { return ProofFrogTypes.KW_ASSUME; }
-{KW_PROOF}          { return ProofFrogTypes.KW_PROOF; }
-{KW_GAMES}          { return ProofFrogTypes.KW_GAMES; }
 {KW_UNION}          { return ProofFrogTypes.KW_UNION; }
 {KW_CALLS}          { return ProofFrogTypes.KW_CALLS; }
 {KW_FROM}           { return ProofFrogTypes.KW_FROM; }
 {KW_ELSE}           { return ProofFrogTypes.KW_ELSE; }
-{KW_LET}            { return ProofFrogTypes.KW_LET; }
 {KW_FOR}            { return ProofFrogTypes.KW_FOR; }
 {KW_IF}             { return ProofFrogTypes.KW_IF; }
 {KW_TO}             { return ProofFrogTypes.KW_TO; }
@@ -166,13 +167,24 @@ VL_WHITE_SPACE=[ \t\r\n]+
 {KW_AS}             { return ProofFrogTypes.KW_AS; }
 {KW_NONE}           { return ProofFrogTypes.KW_NONE; }
 
-// --------- Functions ---------
-{FN_ADVERSARY}      { return ProofFrogTypes.FN_ADVERSARY; }
-{FN_PRIMITIVE}      { return ProofFrogTypes.FN_PRIMITIVE; }
-{FN_REDUCTION}      { return ProofFrogTypes.FN_REDUCTION; }
-{FN_SCHEME}         { return ProofFrogTypes.FN_SCHEME; }
-{FN_PHASE}          { return ProofFrogTypes.FN_PHASE; }
-{FN_GAME}           { return ProofFrogTypes.FN_GAME; }
+// --------- Labels ---------
+{LB_PROOF}          { return ProofFrogTypes.LB_PROOF; }
+{LB_LET}            { return ProofFrogTypes.LB_LET; }
+{LB_ASSUME}         { return ProofFrogTypes.LB_ASSUME; }
+{LB_THEOREM}        { return ProofFrogTypes.LB_THEOREM; }
+{LB_GAMES}          { return ProofFrogTypes.LB_GAMES; }
+
+// --------- Class declarators ---------
+{CL_PRIMITIVE}      { return ProofFrogTypes.CL_PRIMITIVE; }
+{CL_REDUCTION}      { return ProofFrogTypes.CL_REDUCTION; }
+{CL_SCHEME}         { return ProofFrogTypes.CL_SCHEME; }
+{CL_GAME}           { return ProofFrogTypes.CL_GAME; }
+
+// --------- Properties ---------
+{PR_ADVERSARY}      { return ProofFrogTypes.PR_ADVERSARY; }
+
+// --------- Named blocks ---------
+{NB_PHASE}          { return ProofFrogTypes.NB_PHASE; }
 
 // --------- Data types ---------
 {DT_SET}            { return ProofFrogTypes.DT_SET; }
@@ -193,4 +205,4 @@ VL_WHITE_SPACE=[ \t\r\n]+
 {VL_WHITE_SPACE}    { return TokenType.WHITE_SPACE; }
 
 // --------- Fallback ---------
-[^]                { return TokenType.BAD_CHARACTER; }
+[^]                 { return TokenType.BAD_CHARACTER; }

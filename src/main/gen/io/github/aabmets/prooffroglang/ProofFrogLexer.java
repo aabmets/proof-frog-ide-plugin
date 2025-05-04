@@ -986,7 +986,7 @@ class ProofFrogLexer implements FlexLexer {
           // fall through
           case 117: break;
           case 44:
-            { return ProofFrogTypes.KW_LET;
+            { return ProofFrogTypes.LB_LET;
             }
           // fall through
           case 118: break;
@@ -996,7 +996,7 @@ class ProofFrogLexer implements FlexLexer {
           // fall through
           case 119: break;
           case 46:
-            { return ProofFrogTypes.FN_GAME;
+            { return ProofFrogTypes.CL_GAME;
             }
           // fall through
           case 120: break;
@@ -1031,7 +1031,7 @@ class ProofFrogLexer implements FlexLexer {
           // fall through
           case 126: break;
           case 53:
-            { return ProofFrogTypes.FN_PHASE;
+            { return ProofFrogTypes.NB_PHASE;
             }
           // fall through
           case 127: break;
@@ -1041,12 +1041,12 @@ class ProofFrogLexer implements FlexLexer {
           // fall through
           case 128: break;
           case 55:
-            { return ProofFrogTypes.KW_GAMES;
+            { return ProofFrogTypes.LB_GAMES;
             }
           // fall through
           case 129: break;
           case 56:
-            { return ProofFrogTypes.KW_PROOF;
+            { return ProofFrogTypes.LB_PROOF;
             }
           // fall through
           case 130: break;
@@ -1056,12 +1056,12 @@ class ProofFrogLexer implements FlexLexer {
           // fall through
           case 131: break;
           case 58:
-            { return ProofFrogTypes.FN_SCHEME;
+            { return ProofFrogTypes.CL_SCHEME;
             }
           // fall through
           case 132: break;
           case 59:
-            { return ProofFrogTypes.KW_ASSUME;
+            { return ProofFrogTypes.LB_ASSUME;
             }
           // fall through
           case 133: break;
@@ -1106,7 +1106,7 @@ class ProofFrogLexer implements FlexLexer {
           // fall through
           case 141: break;
           case 68:
-            { return ProofFrogTypes.KW_THEOREM;
+            { return ProofFrogTypes.LB_THEOREM;
             }
           // fall through
           case 142: break;
@@ -1116,7 +1116,7 @@ class ProofFrogLexer implements FlexLexer {
           // fall through
           case 143: break;
           case 70:
-            { return ProofFrogTypes.FN_ADVERSARY;
+            { return ProofFrogTypes.PR_ADVERSARY;
             }
           // fall through
           case 144: break;
@@ -1126,12 +1126,12 @@ class ProofFrogLexer implements FlexLexer {
           // fall through
           case 145: break;
           case 72:
-            { return ProofFrogTypes.FN_PRIMITIVE;
+            { return ProofFrogTypes.CL_PRIMITIVE;
             }
           // fall through
           case 146: break;
           case 73:
-            { return ProofFrogTypes.FN_REDUCTION;
+            { return ProofFrogTypes.CL_REDUCTION;
             }
           // fall through
           case 147: break;
