@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface ProofFrogAtomicType extends PsiElement {
 
   @Nullable
-  ProofFrogIntegerExpression getIntegerExpression();
+  ProofFrogIntegerExpr getIntegerExpr();
 
   @Nullable
   ProofFrogLvalue getLvalue();

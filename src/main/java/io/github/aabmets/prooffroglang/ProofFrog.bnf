@@ -21,7 +21,7 @@ file ::= (
 
 // Primitive files grammar
 primitiveProgram ::=
-    CL_PRIMITIVE VL_IDENT ST_PAREN_L paramList? ST_PAREN_R
+    CL_PRIMITIVE id ST_PAREN_L paramList? ST_PAREN_R
     ST_BRACE_L primitiveBody ST_BRACE_R
     ;
 primitiveBody ::= ((initializedField | methodSignature) PN_SEMI)*;
@@ -30,24 +30,25 @@ primitiveBody ::= ((initializedField | methodSignature) PN_SEMI)*;
 // Scheme files grammar
 schemeProgram ::= moduleImport* scheme;
 scheme ::=
-    CL_SCHEME VL_IDENT ST_PAREN_L paramList? ST_PAREN_R
-    KW_EXTENDS VL_IDENT ST_BRACE_L schemeBody ST_BRACE_R
+    CL_SCHEME id ST_PAREN_L paramList? ST_PAREN_R
+    KW_EXTENDS id ST_BRACE_L schemeBody ST_BRACE_R
     ;
 schemeBody ::=
     (KW_REQUIRES expression PN_SEMI)*
     (field PN_SEMI | method)+
     ;
 
+
 // Game files grammar
 gameProgram ::= moduleImport* game game gameExport;
-gameExport ::= KW_EXPORT KW_AS VL_IDENT PN_SEMI;
+gameExport ::= KW_EXPORT KW_AS id PN_SEMI;
 
 
 // Proof files grammar
 proofProgram ::= moduleImport* proofHelpers proof;
 proofHelpers ::= (reduction | game)*;
 reduction ::=
-    CL_REDUCTION VL_IDENT ST_PAREN_L paramList? ST_PAREN_R
+    CL_REDUCTION id ST_PAREN_L paramList? ST_PAREN_R
     KW_COMPOSE parameterizedGame KW_AGAINST gameAdversary
     ST_BRACE_L gameBody ST_BRACE_R
     ;
@@ -64,22 +65,24 @@ theorem ::= parameterizedGame PN_SEMI;
 gameList ::= gameStep PN_SEMI (gameStep PN_SEMI | induction | stepAssumption)*;
 gameStep ::=
     concreteGame KW_COMPOSE parameterizedGame KW_AGAINST gameAdversary |  // reductionStep
-	(concreteGame | parameterizedGame) KW_AGAINST gameAdversary            // regularStep
+	(concreteGame | parameterizedGame) KW_AGAINST gameAdversary           // regularStep
 	;
 induction ::=
-    KW_INDUCTION ST_PAREN_L VL_IDENT KW_FROM integerExpression KW_TO
-    integerExpression ST_PAREN_R ST_BRACE_L gameList ST_BRACE_R
+    KW_INDUCTION ST_PAREN_L id KW_FROM integerExpr KW_TO
+    integerExpr ST_PAREN_R ST_BRACE_L gameList ST_BRACE_R
     ;
 stepAssumption ::= LB_ASSUME expression PN_SEMI;
-concreteGame ::= parameterizedGame PN_PERIOD VL_IDENT;
+concreteGame ::= parameterizedGame PN_PERIOD id;
 gameAdversary ::= parameterizedGame PN_PERIOD PR_ADVERSARY;
 
 
 // Shared grammar
 
-moduleImport ::= KW_IMPORT VL_FILESTRING (KW_AS VL_IDENT)? PN_SEMI;
+id ::= VL_IDENTIFIER
 
-game ::= CL_GAME VL_IDENT ST_PAREN_L paramList? ST_PAREN_R ST_BRACE_L gameBody ST_BRACE_R;
+moduleImport ::= KW_IMPORT VL_FILE_PATH (KW_AS id)? PN_SEMI;
+
+game ::= CL_GAME id ST_PAREN_L paramList? ST_PAREN_R ST_BRACE_L gameBody ST_BRACE_R;
 
 gameBody ::=
     (field PN_SEMI)* method+ |
@@ -88,7 +91,8 @@ gameBody ::=
 
 gamePhase ::=
     NB_PHASE ST_BRACE_L (method)+ KW_ORACLES PN_COLON
-    ST_BRACKET_L id (PN_COMMA id)* ST_BRACKET_R PN_SEMI ST_BRACE_R
+    ST_BRACKET_L id (PN_COMMA id)* ST_BRACKET_R
+    PN_SEMI ST_BRACE_R
     ;
 
 field ::= variable (OP_ASSIGN expression)?;
@@ -100,17 +104,36 @@ method ::= methodSignature block;
 block ::= ST_BRACE_L statement* ST_BRACE_R;
 
 statement ::=
-      type id PN_SEMI                                             // varDeclStatement
-	| type lvalue OP_ASSIGN expression PN_SEMI                       // varDeclWithValueStatement
-	| type lvalue OP_SAMPLE expression PN_SEMI                       // varDeclWithSampleStatement
-	| lvalue OP_ASSIGN expression PN_SEMI                            // assignmentStatement
-	| lvalue OP_SAMPLE expression PN_SEMI                            // sampleStatement
-	| expression ST_PAREN_L argList? ST_PAREN_R PN_SEMI             // functionCallStatement
-	| KW_RETURN expression PN_SEMI                                 // returnStatement
-	| KW_IF ST_PAREN_L expression ST_PAREN_R block (KW_ELSE KW_IF ST_PAREN_L expression ST_PAREN_R block )* (KW_ELSE block )?  // ifStatement
-	| KW_FOR ST_PAREN_L DT_INT id OP_ASSIGN expression KW_TO expression ST_PAREN_R block  // numericForStatement
-	| KW_FOR ST_PAREN_L type id KW_IN expression ST_PAREN_R block     // genericForStatement
-	;
+      varDeclStmt
+    | varDeclAssignStmt
+    | varDeclSampleStmt
+    | assignStmt
+    | sampleStmt
+    | callStmt
+    | returnStmt
+    | conditionalStmt
+    | integerLoopStmt
+    | genericLoopStmt
+    ;
+varDeclStmt ::= variable PN_SEMI;
+varDeclAssignStmt ::= type lvalue OP_ASSIGN expression PN_SEMI;
+varDeclSampleStmt ::= type lvalue OP_SAMPLE expression PN_SEMI;
+assignStmt ::= lvalue OP_ASSIGN expression PN_SEMI;
+sampleStmt ::= lvalue OP_SAMPLE expression PN_SEMI;
+callStmt ::= expression ST_PAREN_L argList? ST_PAREN_R PN_SEMI;
+returnStmt ::= KW_RETURN expression PN_SEMI;
+conditionalStmt ::=
+    KW_IF ST_PAREN_L expression ST_PAREN_R block
+    (KW_ELSE KW_IF ST_PAREN_L expression ST_PAREN_R block)*
+    (KW_ELSE block)?
+    ;
+integerLoopStmt ::=
+    KW_FOR ST_PAREN_L DT_INT id OP_ASSIGN
+    expression KW_TO expression ST_PAREN_R block
+    ;
+genericLoopStmt ::=
+    KW_FOR ST_PAREN_L variable KW_IN expression ST_PAREN_R block
+    ;
 
 lvalue ::= (id | parameterizedGame) (PN_PERIOD id | ST_BRACKET_L expression ST_BRACKET_R)*;
 
@@ -118,24 +141,24 @@ methodSignature ::= type id ST_PAREN_L paramList? ST_PAREN_R;
 
 paramList ::= variable (PN_COMMA variable)*;
 
-expression ::= setMinusExpression ;
-setMinusExpression ::= unionExpression (OP_BSLASH unionExpression)*;
-unionExpression ::= orExpression (KW_UNION orExpression)*;
-orExpression ::= andExpression (OP_OR andExpression)*;
-andExpression ::= comparisonExpression (OP_AND comparisonExpression)*;
-comparisonExpression ::= addExpression (
+expression ::= setMinusExpr ;
+setMinusExpr ::= unionExpr (OP_BSLASH unionExpr)*;
+unionExpr ::= orExpr (KW_UNION orExpr)*;
+orExpr ::= andExpr (OP_OR andExpr)*;
+andExpr ::= compareExpr (OP_AND compareExpr)*;
+compareExpr ::= addExpr (
     (OP_EQ | OP_NEQ | OP_GT | OP_LT | OP_GEQ | OP_LEQ | KW_IN | KW_SUBSETS)
-    addExpression
+    addExpr
 )?;
-addExpression ::= multiplyExpression ( (OP_ADD | OP_SUB) multiplyExpression )*;
-multiplyExpression ::= unaryExpression ( (OP_MULT | OP_DIV) unaryExpression )*;
-unaryExpression ::=
-      OP_NOT unaryExpression
-    | OP_VBAR unaryExpression OP_VBAR
-    | primaryExpression
+addExpr ::= multiplyExpr ( (OP_ADD | OP_SUB) multiplyExpr )*;
+multiplyExpr ::= unaryExpr ( (OP_MULT | OP_DIV) unaryExpr )*;
+unaryExpr ::=
+      OP_NOT unaryExpr
+    | OP_VBAR unaryExpr OP_VBAR
+    | primaryExpr
     ;
-primaryExpression ::= primaryElement (callExpression | sliceExpression)*;
-primaryElement ::=
+primaryExpr ::= primaryElem (callExpr | sliceExpr)*;
+primaryElem ::=
       lvalue
     | ST_BRACKET_L (expression (PN_COMMA expression)*)? ST_BRACKET_R
     | ST_BRACE_L  (expression (PN_COMMA expression)*)? ST_BRACE_R
@@ -146,14 +169,14 @@ primaryElement ::=
     | KW_NONE
     | ST_PAREN_L expression ST_PAREN_R
     ;
-callExpression ::= ST_PAREN_L argList? ST_PAREN_R;
-sliceExpression ::= ST_BRACKET_L integerExpression PN_COLON integerExpression ST_BRACKET_R;
+callExpr ::= ST_PAREN_L argList? ST_PAREN_R;
+sliceExpr ::= ST_BRACKET_L integerExpr PN_COLON integerExpr ST_BRACKET_R;
 
 argList ::= expression (PN_COMMA expression)*;
 
 variable ::= type id;
 
-parameterizedGame ::= VL_IDENT ST_PAREN_L argList? ST_PAREN_R;
+parameterizedGame ::= id ST_PAREN_L argList? ST_PAREN_R;
 
 type ::= typeProduct ;
 typeProduct ::= typePostfix (OP_MULT typePostfix)*;
@@ -164,27 +187,25 @@ atomicType ::=
     | DT_BOOL
     | DT_VOID
     | DT_MAP OP_LT type PN_COMMA type OP_GT
-    | DT_ARRAY OP_LT type PN_COMMA integerExpression OP_GT
+    | DT_ARRAY OP_LT type PN_COMMA integerExpr OP_GT
     | DT_INT
-    | DT_BITSTRING OP_LT integerExpression OP_GT
+    | DT_BITSTRING OP_LT integerExpr OP_GT
     | DT_BITSTRING
     | lvalue
     ;
 
-integerExpression ::= additiveIntegerExpression ;
-additiveIntegerExpression ::=
-      multiplicativeIntegerExpression
-    ( (OP_ADD | OP_SUB) multiplicativeIntegerExpression )*
+integerExpr ::= addIntegerExpr ;
+addIntegerExpr ::=
+      multiplyIntegerExpr
+    ( (OP_ADD | OP_SUB) multiplyIntegerExpr )*
     ;
-multiplicativeIntegerExpression ::=
-      primaryIntegerExpression
-    ( (OP_MULT | OP_DIV) primaryIntegerExpression )*
+multiplyIntegerExpr ::=
+      primaryIntegerExpr
+    ( (OP_MULT | OP_DIV) primaryIntegerExpr )*
     ;
-primaryIntegerExpression ::=
+primaryIntegerExpr ::=
       lvalue
     | VL_INT
     | VL_BINARYNUM
-    | ST_PAREN_L integerExpression ST_PAREN_R
+    | ST_PAREN_L integerExpr ST_PAREN_R
     ;
-
-id ::= VL_IDENT | KW_IN;

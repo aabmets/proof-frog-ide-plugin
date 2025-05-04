@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface ProofFrogConcreteGame extends PsiElement {
 
   @NotNull
+  ProofFrogId getId();
+
+  @NotNull
   ProofFrogParameterizedGame getParameterizedGame();
 
 }

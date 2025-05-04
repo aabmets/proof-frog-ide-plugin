@@ -105,8 +105,8 @@ VL_BOOL=true|false
 VL_INT=[0-9]+
 VL_BINARYNUM="0b"[01]+
 VL_LINE_COMMENT="//".*
-VL_FILESTRING=\'([-0-9a-zA-Z_$/.=>< ]+)\'
-VL_IDENT=[a-zA-Z_$][a-zA-Z_0-9$]*
+VL_FILE_PATH=\'([-0-9a-zA-Z_$/.=>< ]+)\'
+VL_IDENTIFIER=[a-zA-Z_$][a-zA-Z_0-9$]*
 VL_WHITE_SPACE=[ \t\r\n]+
 
 %%
@@ -200,8 +200,8 @@ VL_WHITE_SPACE=[ \t\r\n]+
 {VL_INT}            { return ProofFrogTypes.VL_INT; }
 {VL_BINARYNUM}      { return ProofFrogTypes.VL_BINARYNUM; }
 {VL_LINE_COMMENT}   { return ProofFrogTypes.VL_LINE_COMMENT; }
-{VL_FILESTRING}     { return ProofFrogTypes.VL_FILESTRING; }
-{VL_IDENT}          { return ProofFrogTypes.VL_IDENT; }
+{VL_FILE_PATH}      { return ProofFrogTypes.VL_FILE_PATH; }
+{VL_IDENTIFIER}     { return ProofFrogTypes.VL_IDENTIFIER; }
 {VL_WHITE_SPACE}    { return TokenType.WHITE_SPACE; }
 
 // --------- Fallback ---------

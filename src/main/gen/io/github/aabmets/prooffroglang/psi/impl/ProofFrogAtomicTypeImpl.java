@@ -29,8 +29,8 @@ public class ProofFrogAtomicTypeImpl extends ASTWrapperPsiElement implements Pro
 
   @Override
   @Nullable
-  public ProofFrogIntegerExpression getIntegerExpression() {
-    return findChildByClass(ProofFrogIntegerExpression.class);
+  public ProofFrogIntegerExpr getIntegerExpr() {
+    return findChildByClass(ProofFrogIntegerExpr.class);
   }
 
   @Override

@@ -8,16 +8,19 @@ import io.github.aabmets.prooffroglang.psi.impl.*;
 
 public interface ProofFrogTypes {
 
-  IElementType ADDITIVE_INTEGER_EXPRESSION = new ProofFrogElementType("ADDITIVE_INTEGER_EXPRESSION");
-  IElementType ADD_EXPRESSION = new ProofFrogElementType("ADD_EXPRESSION");
-  IElementType AND_EXPRESSION = new ProofFrogElementType("AND_EXPRESSION");
+  IElementType ADD_EXPR = new ProofFrogElementType("ADD_EXPR");
+  IElementType ADD_INTEGER_EXPR = new ProofFrogElementType("ADD_INTEGER_EXPR");
+  IElementType AND_EXPR = new ProofFrogElementType("AND_EXPR");
   IElementType ARG_LIST = new ProofFrogElementType("ARG_LIST");
+  IElementType ASSIGN_STMT = new ProofFrogElementType("ASSIGN_STMT");
   IElementType ASSUMPTIONS = new ProofFrogElementType("ASSUMPTIONS");
   IElementType ATOMIC_TYPE = new ProofFrogElementType("ATOMIC_TYPE");
   IElementType BLOCK = new ProofFrogElementType("BLOCK");
-  IElementType CALL_EXPRESSION = new ProofFrogElementType("CALL_EXPRESSION");
-  IElementType COMPARISON_EXPRESSION = new ProofFrogElementType("COMPARISON_EXPRESSION");
+  IElementType CALL_EXPR = new ProofFrogElementType("CALL_EXPR");
+  IElementType CALL_STMT = new ProofFrogElementType("CALL_STMT");
+  IElementType COMPARE_EXPR = new ProofFrogElementType("COMPARE_EXPR");
   IElementType CONCRETE_GAME = new ProofFrogElementType("CONCRETE_GAME");
+  IElementType CONDITIONAL_STMT = new ProofFrogElementType("CONDITIONAL_STMT");
   IElementType EXPRESSION = new ProofFrogElementType("EXPRESSION");
   IElementType FIELD = new ProofFrogElementType("FIELD");
   IElementType GAME = new ProofFrogElementType("GAME");
@@ -28,43 +31,50 @@ public interface ProofFrogTypes {
   IElementType GAME_PHASE = new ProofFrogElementType("GAME_PHASE");
   IElementType GAME_PROGRAM = new ProofFrogElementType("GAME_PROGRAM");
   IElementType GAME_STEP = new ProofFrogElementType("GAME_STEP");
+  IElementType GENERIC_LOOP_STMT = new ProofFrogElementType("GENERIC_LOOP_STMT");
   IElementType ID = new ProofFrogElementType("ID");
   IElementType INDUCTION = new ProofFrogElementType("INDUCTION");
   IElementType INITIALIZED_FIELD = new ProofFrogElementType("INITIALIZED_FIELD");
-  IElementType INTEGER_EXPRESSION = new ProofFrogElementType("INTEGER_EXPRESSION");
+  IElementType INTEGER_EXPR = new ProofFrogElementType("INTEGER_EXPR");
+  IElementType INTEGER_LOOP_STMT = new ProofFrogElementType("INTEGER_LOOP_STMT");
   IElementType LETS = new ProofFrogElementType("LETS");
   IElementType LVALUE = new ProofFrogElementType("LVALUE");
   IElementType METHOD = new ProofFrogElementType("METHOD");
   IElementType METHOD_SIGNATURE = new ProofFrogElementType("METHOD_SIGNATURE");
   IElementType MODULE_IMPORT = new ProofFrogElementType("MODULE_IMPORT");
-  IElementType MULTIPLICATIVE_INTEGER_EXPRESSION = new ProofFrogElementType("MULTIPLICATIVE_INTEGER_EXPRESSION");
-  IElementType MULTIPLY_EXPRESSION = new ProofFrogElementType("MULTIPLY_EXPRESSION");
-  IElementType OR_EXPRESSION = new ProofFrogElementType("OR_EXPRESSION");
+  IElementType MULTIPLY_EXPR = new ProofFrogElementType("MULTIPLY_EXPR");
+  IElementType MULTIPLY_INTEGER_EXPR = new ProofFrogElementType("MULTIPLY_INTEGER_EXPR");
+  IElementType OR_EXPR = new ProofFrogElementType("OR_EXPR");
   IElementType PARAMETERIZED_GAME = new ProofFrogElementType("PARAMETERIZED_GAME");
   IElementType PARAM_LIST = new ProofFrogElementType("PARAM_LIST");
-  IElementType PRIMARY_ELEMENT = new ProofFrogElementType("PRIMARY_ELEMENT");
-  IElementType PRIMARY_EXPRESSION = new ProofFrogElementType("PRIMARY_EXPRESSION");
-  IElementType PRIMARY_INTEGER_EXPRESSION = new ProofFrogElementType("PRIMARY_INTEGER_EXPRESSION");
+  IElementType PRIMARY_ELEM = new ProofFrogElementType("PRIMARY_ELEM");
+  IElementType PRIMARY_EXPR = new ProofFrogElementType("PRIMARY_EXPR");
+  IElementType PRIMARY_INTEGER_EXPR = new ProofFrogElementType("PRIMARY_INTEGER_EXPR");
   IElementType PRIMITIVE_BODY = new ProofFrogElementType("PRIMITIVE_BODY");
   IElementType PRIMITIVE_PROGRAM = new ProofFrogElementType("PRIMITIVE_PROGRAM");
   IElementType PROOF = new ProofFrogElementType("PROOF");
   IElementType PROOF_HELPERS = new ProofFrogElementType("PROOF_HELPERS");
   IElementType PROOF_PROGRAM = new ProofFrogElementType("PROOF_PROGRAM");
   IElementType REDUCTION = new ProofFrogElementType("REDUCTION");
+  IElementType RETURN_STMT = new ProofFrogElementType("RETURN_STMT");
+  IElementType SAMPLE_STMT = new ProofFrogElementType("SAMPLE_STMT");
   IElementType SCHEME = new ProofFrogElementType("SCHEME");
   IElementType SCHEME_BODY = new ProofFrogElementType("SCHEME_BODY");
   IElementType SCHEME_PROGRAM = new ProofFrogElementType("SCHEME_PROGRAM");
-  IElementType SET_MINUS_EXPRESSION = new ProofFrogElementType("SET_MINUS_EXPRESSION");
-  IElementType SLICE_EXPRESSION = new ProofFrogElementType("SLICE_EXPRESSION");
+  IElementType SET_MINUS_EXPR = new ProofFrogElementType("SET_MINUS_EXPR");
+  IElementType SLICE_EXPR = new ProofFrogElementType("SLICE_EXPR");
   IElementType STATEMENT = new ProofFrogElementType("STATEMENT");
   IElementType STEP_ASSUMPTION = new ProofFrogElementType("STEP_ASSUMPTION");
   IElementType THEOREM = new ProofFrogElementType("THEOREM");
   IElementType TYPE = new ProofFrogElementType("TYPE");
   IElementType TYPE_POSTFIX = new ProofFrogElementType("TYPE_POSTFIX");
   IElementType TYPE_PRODUCT = new ProofFrogElementType("TYPE_PRODUCT");
-  IElementType UNARY_EXPRESSION = new ProofFrogElementType("UNARY_EXPRESSION");
-  IElementType UNION_EXPRESSION = new ProofFrogElementType("UNION_EXPRESSION");
+  IElementType UNARY_EXPR = new ProofFrogElementType("UNARY_EXPR");
+  IElementType UNION_EXPR = new ProofFrogElementType("UNION_EXPR");
   IElementType VARIABLE = new ProofFrogElementType("VARIABLE");
+  IElementType VAR_DECL_ASSIGN_STMT = new ProofFrogElementType("VAR_DECL_ASSIGN_STMT");
+  IElementType VAR_DECL_SAMPLE_STMT = new ProofFrogElementType("VAR_DECL_SAMPLE_STMT");
+  IElementType VAR_DECL_STMT = new ProofFrogElementType("VAR_DECL_STMT");
 
   IElementType CL_GAME = new ProofFrogTokenType("CL_GAME");
   IElementType CL_PRIMITIVE = new ProofFrogTokenType("CL_PRIMITIVE");
@@ -134,25 +144,28 @@ public interface ProofFrogTypes {
   IElementType ST_PAREN_R = new ProofFrogTokenType("ST_PAREN_R");
   IElementType VL_BINARYNUM = new ProofFrogTokenType("VL_BINARYNUM");
   IElementType VL_BOOL = new ProofFrogTokenType("VL_BOOL");
-  IElementType VL_FILESTRING = new ProofFrogTokenType("VL_FILESTRING");
-  IElementType VL_IDENT = new ProofFrogTokenType("VL_IDENT");
+  IElementType VL_FILE_PATH = new ProofFrogTokenType("VL_FILE_PATH");
+  IElementType VL_IDENTIFIER = new ProofFrogTokenType("VL_IDENTIFIER");
   IElementType VL_INT = new ProofFrogTokenType("VL_INT");
   IElementType VL_LINE_COMMENT = new ProofFrogTokenType("VL_LINE_COMMENT");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == ADDITIVE_INTEGER_EXPRESSION) {
-        return new ProofFrogAdditiveIntegerExpressionImpl(node);
+      if (type == ADD_EXPR) {
+        return new ProofFrogAddExprImpl(node);
       }
-      else if (type == ADD_EXPRESSION) {
-        return new ProofFrogAddExpressionImpl(node);
+      else if (type == ADD_INTEGER_EXPR) {
+        return new ProofFrogAddIntegerExprImpl(node);
       }
-      else if (type == AND_EXPRESSION) {
-        return new ProofFrogAndExpressionImpl(node);
+      else if (type == AND_EXPR) {
+        return new ProofFrogAndExprImpl(node);
       }
       else if (type == ARG_LIST) {
         return new ProofFrogArgListImpl(node);
+      }
+      else if (type == ASSIGN_STMT) {
+        return new ProofFrogAssignStmtImpl(node);
       }
       else if (type == ASSUMPTIONS) {
         return new ProofFrogAssumptionsImpl(node);
@@ -163,14 +176,20 @@ public interface ProofFrogTypes {
       else if (type == BLOCK) {
         return new ProofFrogBlockImpl(node);
       }
-      else if (type == CALL_EXPRESSION) {
-        return new ProofFrogCallExpressionImpl(node);
+      else if (type == CALL_EXPR) {
+        return new ProofFrogCallExprImpl(node);
       }
-      else if (type == COMPARISON_EXPRESSION) {
-        return new ProofFrogComparisonExpressionImpl(node);
+      else if (type == CALL_STMT) {
+        return new ProofFrogCallStmtImpl(node);
+      }
+      else if (type == COMPARE_EXPR) {
+        return new ProofFrogCompareExprImpl(node);
       }
       else if (type == CONCRETE_GAME) {
         return new ProofFrogConcreteGameImpl(node);
+      }
+      else if (type == CONDITIONAL_STMT) {
+        return new ProofFrogConditionalStmtImpl(node);
       }
       else if (type == EXPRESSION) {
         return new ProofFrogExpressionImpl(node);
@@ -202,6 +221,9 @@ public interface ProofFrogTypes {
       else if (type == GAME_STEP) {
         return new ProofFrogGameStepImpl(node);
       }
+      else if (type == GENERIC_LOOP_STMT) {
+        return new ProofFrogGenericLoopStmtImpl(node);
+      }
       else if (type == ID) {
         return new ProofFrogIdImpl(node);
       }
@@ -211,8 +233,11 @@ public interface ProofFrogTypes {
       else if (type == INITIALIZED_FIELD) {
         return new ProofFrogInitializedFieldImpl(node);
       }
-      else if (type == INTEGER_EXPRESSION) {
-        return new ProofFrogIntegerExpressionImpl(node);
+      else if (type == INTEGER_EXPR) {
+        return new ProofFrogIntegerExprImpl(node);
+      }
+      else if (type == INTEGER_LOOP_STMT) {
+        return new ProofFrogIntegerLoopStmtImpl(node);
       }
       else if (type == LETS) {
         return new ProofFrogLetsImpl(node);
@@ -229,14 +254,14 @@ public interface ProofFrogTypes {
       else if (type == MODULE_IMPORT) {
         return new ProofFrogModuleImportImpl(node);
       }
-      else if (type == MULTIPLICATIVE_INTEGER_EXPRESSION) {
-        return new ProofFrogMultiplicativeIntegerExpressionImpl(node);
+      else if (type == MULTIPLY_EXPR) {
+        return new ProofFrogMultiplyExprImpl(node);
       }
-      else if (type == MULTIPLY_EXPRESSION) {
-        return new ProofFrogMultiplyExpressionImpl(node);
+      else if (type == MULTIPLY_INTEGER_EXPR) {
+        return new ProofFrogMultiplyIntegerExprImpl(node);
       }
-      else if (type == OR_EXPRESSION) {
-        return new ProofFrogOrExpressionImpl(node);
+      else if (type == OR_EXPR) {
+        return new ProofFrogOrExprImpl(node);
       }
       else if (type == PARAMETERIZED_GAME) {
         return new ProofFrogParameterizedGameImpl(node);
@@ -244,14 +269,14 @@ public interface ProofFrogTypes {
       else if (type == PARAM_LIST) {
         return new ProofFrogParamListImpl(node);
       }
-      else if (type == PRIMARY_ELEMENT) {
-        return new ProofFrogPrimaryElementImpl(node);
+      else if (type == PRIMARY_ELEM) {
+        return new ProofFrogPrimaryElemImpl(node);
       }
-      else if (type == PRIMARY_EXPRESSION) {
-        return new ProofFrogPrimaryExpressionImpl(node);
+      else if (type == PRIMARY_EXPR) {
+        return new ProofFrogPrimaryExprImpl(node);
       }
-      else if (type == PRIMARY_INTEGER_EXPRESSION) {
-        return new ProofFrogPrimaryIntegerExpressionImpl(node);
+      else if (type == PRIMARY_INTEGER_EXPR) {
+        return new ProofFrogPrimaryIntegerExprImpl(node);
       }
       else if (type == PRIMITIVE_BODY) {
         return new ProofFrogPrimitiveBodyImpl(node);
@@ -271,6 +296,12 @@ public interface ProofFrogTypes {
       else if (type == REDUCTION) {
         return new ProofFrogReductionImpl(node);
       }
+      else if (type == RETURN_STMT) {
+        return new ProofFrogReturnStmtImpl(node);
+      }
+      else if (type == SAMPLE_STMT) {
+        return new ProofFrogSampleStmtImpl(node);
+      }
       else if (type == SCHEME) {
         return new ProofFrogSchemeImpl(node);
       }
@@ -280,11 +311,11 @@ public interface ProofFrogTypes {
       else if (type == SCHEME_PROGRAM) {
         return new ProofFrogSchemeProgramImpl(node);
       }
-      else if (type == SET_MINUS_EXPRESSION) {
-        return new ProofFrogSetMinusExpressionImpl(node);
+      else if (type == SET_MINUS_EXPR) {
+        return new ProofFrogSetMinusExprImpl(node);
       }
-      else if (type == SLICE_EXPRESSION) {
-        return new ProofFrogSliceExpressionImpl(node);
+      else if (type == SLICE_EXPR) {
+        return new ProofFrogSliceExprImpl(node);
       }
       else if (type == STATEMENT) {
         return new ProofFrogStatementImpl(node);
@@ -304,14 +335,23 @@ public interface ProofFrogTypes {
       else if (type == TYPE_PRODUCT) {
         return new ProofFrogTypeProductImpl(node);
       }
-      else if (type == UNARY_EXPRESSION) {
-        return new ProofFrogUnaryExpressionImpl(node);
+      else if (type == UNARY_EXPR) {
+        return new ProofFrogUnaryExprImpl(node);
       }
-      else if (type == UNION_EXPRESSION) {
-        return new ProofFrogUnionExpressionImpl(node);
+      else if (type == UNION_EXPR) {
+        return new ProofFrogUnionExprImpl(node);
       }
       else if (type == VARIABLE) {
         return new ProofFrogVariableImpl(node);
+      }
+      else if (type == VAR_DECL_ASSIGN_STMT) {
+        return new ProofFrogVarDeclAssignStmtImpl(node);
+      }
+      else if (type == VAR_DECL_SAMPLE_STMT) {
+        return new ProofFrogVarDeclSampleStmtImpl(node);
+      }
+      else if (type == VAR_DECL_STMT) {
+        return new ProofFrogVarDeclStmtImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

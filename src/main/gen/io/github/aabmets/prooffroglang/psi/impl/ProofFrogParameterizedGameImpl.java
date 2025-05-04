@@ -33,4 +33,10 @@ public class ProofFrogParameterizedGameImpl extends ASTWrapperPsiElement impleme
     return findChildByClass(ProofFrogArgList.class);
   }
 
+  @Override
+  @NotNull
+  public ProofFrogId getId() {
+    return findNotNullChildByClass(ProofFrogId.class);
+  }
+
 }

@@ -27,4 +27,10 @@ public class ProofFrogModuleImportImpl extends ASTWrapperPsiElement implements P
     else super.accept(visitor);
   }
 
+  @Override
+  @Nullable
+  public ProofFrogId getId() {
+    return findChildByClass(ProofFrogId.class);
+  }
+
 }

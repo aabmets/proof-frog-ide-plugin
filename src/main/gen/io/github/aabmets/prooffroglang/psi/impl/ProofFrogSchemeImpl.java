@@ -28,6 +28,12 @@ public class ProofFrogSchemeImpl extends ASTWrapperPsiElement implements ProofFr
   }
 
   @Override
+  @NotNull
+  public List<ProofFrogId> getIdList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, ProofFrogId.class);
+  }
+
+  @Override
   @Nullable
   public ProofFrogParamList getParamList() {
     return findChildByClass(ProofFrogParamList.class);

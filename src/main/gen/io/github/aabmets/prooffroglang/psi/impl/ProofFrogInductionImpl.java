@@ -35,8 +35,14 @@ public class ProofFrogInductionImpl extends ASTWrapperPsiElement implements Proo
 
   @Override
   @NotNull
-  public List<ProofFrogIntegerExpression> getIntegerExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, ProofFrogIntegerExpression.class);
+  public ProofFrogId getId() {
+    return findNotNullChildByClass(ProofFrogId.class);
+  }
+
+  @Override
+  @NotNull
+  public List<ProofFrogIntegerExpr> getIntegerExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, ProofFrogIntegerExpr.class);
   }
 
 }

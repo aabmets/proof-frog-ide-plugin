@@ -27,4 +27,10 @@ public class ProofFrogGameExportImpl extends ASTWrapperPsiElement implements Pro
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public ProofFrogId getId() {
+    return findNotNullChildByClass(ProofFrogId.class);
+  }
+
 }

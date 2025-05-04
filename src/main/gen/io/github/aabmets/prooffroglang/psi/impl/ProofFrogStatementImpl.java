@@ -29,38 +29,62 @@ public class ProofFrogStatementImpl extends ASTWrapperPsiElement implements Proo
 
   @Override
   @Nullable
-  public ProofFrogArgList getArgList() {
-    return findChildByClass(ProofFrogArgList.class);
-  }
-
-  @Override
-  @NotNull
-  public List<ProofFrogBlock> getBlockList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, ProofFrogBlock.class);
+  public ProofFrogAssignStmt getAssignStmt() {
+    return findChildByClass(ProofFrogAssignStmt.class);
   }
 
   @Override
   @Nullable
-  public ProofFrogExpression getExpression() {
-    return findChildByClass(ProofFrogExpression.class);
+  public ProofFrogCallStmt getCallStmt() {
+    return findChildByClass(ProofFrogCallStmt.class);
   }
 
   @Override
   @Nullable
-  public ProofFrogId getId() {
-    return findChildByClass(ProofFrogId.class);
+  public ProofFrogConditionalStmt getConditionalStmt() {
+    return findChildByClass(ProofFrogConditionalStmt.class);
   }
 
   @Override
   @Nullable
-  public ProofFrogLvalue getLvalue() {
-    return findChildByClass(ProofFrogLvalue.class);
+  public ProofFrogGenericLoopStmt getGenericLoopStmt() {
+    return findChildByClass(ProofFrogGenericLoopStmt.class);
   }
 
   @Override
   @Nullable
-  public ProofFrogType getType() {
-    return findChildByClass(ProofFrogType.class);
+  public ProofFrogIntegerLoopStmt getIntegerLoopStmt() {
+    return findChildByClass(ProofFrogIntegerLoopStmt.class);
+  }
+
+  @Override
+  @Nullable
+  public ProofFrogReturnStmt getReturnStmt() {
+    return findChildByClass(ProofFrogReturnStmt.class);
+  }
+
+  @Override
+  @Nullable
+  public ProofFrogSampleStmt getSampleStmt() {
+    return findChildByClass(ProofFrogSampleStmt.class);
+  }
+
+  @Override
+  @Nullable
+  public ProofFrogVarDeclAssignStmt getVarDeclAssignStmt() {
+    return findChildByClass(ProofFrogVarDeclAssignStmt.class);
+  }
+
+  @Override
+  @Nullable
+  public ProofFrogVarDeclSampleStmt getVarDeclSampleStmt() {
+    return findChildByClass(ProofFrogVarDeclSampleStmt.class);
+  }
+
+  @Override
+  @Nullable
+  public ProofFrogVarDeclStmt getVarDeclStmt() {
+    return findChildByClass(ProofFrogVarDeclStmt.class);
   }
 
 }

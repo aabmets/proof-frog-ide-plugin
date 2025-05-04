@@ -7,19 +7,23 @@ import com.intellij.psi.PsiElement;
 
 public class ProofFrogVisitor extends PsiElementVisitor {
 
-  public void visitAddExpression(@NotNull ProofFrogAddExpression o) {
+  public void visitAddExpr(@NotNull ProofFrogAddExpr o) {
     visitPsiElement(o);
   }
 
-  public void visitAdditiveIntegerExpression(@NotNull ProofFrogAdditiveIntegerExpression o) {
+  public void visitAddIntegerExpr(@NotNull ProofFrogAddIntegerExpr o) {
     visitPsiElement(o);
   }
 
-  public void visitAndExpression(@NotNull ProofFrogAndExpression o) {
+  public void visitAndExpr(@NotNull ProofFrogAndExpr o) {
     visitPsiElement(o);
   }
 
   public void visitArgList(@NotNull ProofFrogArgList o) {
+    visitPsiElement(o);
+  }
+
+  public void visitAssignStmt(@NotNull ProofFrogAssignStmt o) {
     visitPsiElement(o);
   }
 
@@ -35,15 +39,23 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitCallExpression(@NotNull ProofFrogCallExpression o) {
+  public void visitCallExpr(@NotNull ProofFrogCallExpr o) {
     visitPsiElement(o);
   }
 
-  public void visitComparisonExpression(@NotNull ProofFrogComparisonExpression o) {
+  public void visitCallStmt(@NotNull ProofFrogCallStmt o) {
+    visitPsiElement(o);
+  }
+
+  public void visitCompareExpr(@NotNull ProofFrogCompareExpr o) {
     visitPsiElement(o);
   }
 
   public void visitConcreteGame(@NotNull ProofFrogConcreteGame o) {
+    visitPsiElement(o);
+  }
+
+  public void visitConditionalStmt(@NotNull ProofFrogConditionalStmt o) {
     visitPsiElement(o);
   }
 
@@ -87,6 +99,10 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitGenericLoopStmt(@NotNull ProofFrogGenericLoopStmt o) {
+    visitPsiElement(o);
+  }
+
   public void visitId(@NotNull ProofFrogId o) {
     visitPsiElement(o);
   }
@@ -99,7 +115,11 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitIntegerExpression(@NotNull ProofFrogIntegerExpression o) {
+  public void visitIntegerExpr(@NotNull ProofFrogIntegerExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitIntegerLoopStmt(@NotNull ProofFrogIntegerLoopStmt o) {
     visitPsiElement(o);
   }
 
@@ -123,15 +143,15 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitMultiplicativeIntegerExpression(@NotNull ProofFrogMultiplicativeIntegerExpression o) {
+  public void visitMultiplyExpr(@NotNull ProofFrogMultiplyExpr o) {
     visitPsiElement(o);
   }
 
-  public void visitMultiplyExpression(@NotNull ProofFrogMultiplyExpression o) {
+  public void visitMultiplyIntegerExpr(@NotNull ProofFrogMultiplyIntegerExpr o) {
     visitPsiElement(o);
   }
 
-  public void visitOrExpression(@NotNull ProofFrogOrExpression o) {
+  public void visitOrExpr(@NotNull ProofFrogOrExpr o) {
     visitPsiElement(o);
   }
 
@@ -143,15 +163,15 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitPrimaryElement(@NotNull ProofFrogPrimaryElement o) {
+  public void visitPrimaryElem(@NotNull ProofFrogPrimaryElem o) {
     visitPsiElement(o);
   }
 
-  public void visitPrimaryExpression(@NotNull ProofFrogPrimaryExpression o) {
+  public void visitPrimaryExpr(@NotNull ProofFrogPrimaryExpr o) {
     visitPsiElement(o);
   }
 
-  public void visitPrimaryIntegerExpression(@NotNull ProofFrogPrimaryIntegerExpression o) {
+  public void visitPrimaryIntegerExpr(@NotNull ProofFrogPrimaryIntegerExpr o) {
     visitPsiElement(o);
   }
 
@@ -179,6 +199,14 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitReturnStmt(@NotNull ProofFrogReturnStmt o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSampleStmt(@NotNull ProofFrogSampleStmt o) {
+    visitPsiElement(o);
+  }
+
   public void visitScheme(@NotNull ProofFrogScheme o) {
     visitPsiElement(o);
   }
@@ -191,11 +219,11 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitSetMinusExpression(@NotNull ProofFrogSetMinusExpression o) {
+  public void visitSetMinusExpr(@NotNull ProofFrogSetMinusExpr o) {
     visitPsiElement(o);
   }
 
-  public void visitSliceExpression(@NotNull ProofFrogSliceExpression o) {
+  public void visitSliceExpr(@NotNull ProofFrogSliceExpr o) {
     visitPsiElement(o);
   }
 
@@ -223,11 +251,23 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitUnaryExpression(@NotNull ProofFrogUnaryExpression o) {
+  public void visitUnaryExpr(@NotNull ProofFrogUnaryExpr o) {
     visitPsiElement(o);
   }
 
-  public void visitUnionExpression(@NotNull ProofFrogUnionExpression o) {
+  public void visitUnionExpr(@NotNull ProofFrogUnionExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitVarDeclAssignStmt(@NotNull ProofFrogVarDeclAssignStmt o) {
+    visitPsiElement(o);
+  }
+
+  public void visitVarDeclSampleStmt(@NotNull ProofFrogVarDeclSampleStmt o) {
+    visitPsiElement(o);
+  }
+
+  public void visitVarDeclStmt(@NotNull ProofFrogVarDeclStmt o) {
     visitPsiElement(o);
   }
 

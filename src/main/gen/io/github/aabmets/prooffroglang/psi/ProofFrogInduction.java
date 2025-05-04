@@ -11,6 +11,9 @@ public interface ProofFrogInduction extends PsiElement {
   ProofFrogGameList getGameList();
 
   @NotNull
-  List<ProofFrogIntegerExpression> getIntegerExpressionList();
+  ProofFrogId getId();
+
+  @NotNull
+  List<ProofFrogIntegerExpr> getIntegerExprList();
 
 }

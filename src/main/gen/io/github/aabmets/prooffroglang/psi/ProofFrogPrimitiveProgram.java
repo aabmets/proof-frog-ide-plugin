@@ -7,6 +7,9 @@ import com.intellij.psi.PsiElement;
 
 public interface ProofFrogPrimitiveProgram extends PsiElement {
 
+  @NotNull
+  ProofFrogId getId();
+
   @Nullable
   ProofFrogParamList getParamList();
 

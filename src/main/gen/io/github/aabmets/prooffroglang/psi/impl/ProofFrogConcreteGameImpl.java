@@ -29,6 +29,12 @@ public class ProofFrogConcreteGameImpl extends ASTWrapperPsiElement implements P
 
   @Override
   @NotNull
+  public ProofFrogId getId() {
+    return findNotNullChildByClass(ProofFrogId.class);
+  }
+
+  @Override
+  @NotNull
   public ProofFrogParameterizedGame getParameterizedGame() {
     return findNotNullChildByClass(ProofFrogParameterizedGame.class);
   }

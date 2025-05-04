@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface ProofFrogExpression extends PsiElement {
 
   @NotNull
-  ProofFrogSetMinusExpression getSetMinusExpression();
+  ProofFrogSetMinusExpr getSetMinusExpr();
 
 }

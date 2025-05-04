@@ -1,0 +1,19 @@
+// This is a generated file. Not intended for manual editing.
+package io.github.aabmets.prooffroglang.psi;
+
+import java.util.List;
+import org.jetbrains.annotations.*;
+import com.intellij.psi.PsiElement;
+
+public interface ProofFrogVarDeclAssignStmt extends PsiElement {
+
+  @NotNull
+  ProofFrogExpression getExpression();
+
+  @NotNull
+  ProofFrogLvalue getLvalue();
+
+  @NotNull
+  ProofFrogType getType();
+
+}

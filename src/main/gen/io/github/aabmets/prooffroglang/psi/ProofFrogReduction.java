@@ -13,6 +13,9 @@ public interface ProofFrogReduction extends PsiElement {
   @NotNull
   ProofFrogGameBody getGameBody();
 
+  @NotNull
+  ProofFrogId getId();
+
   @Nullable
   ProofFrogParamList getParamList();
 

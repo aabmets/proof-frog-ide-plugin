@@ -29,8 +29,8 @@ public class ProofFrogExpressionImpl extends ASTWrapperPsiElement implements Pro
 
   @Override
   @NotNull
-  public ProofFrogSetMinusExpression getSetMinusExpression() {
-    return findNotNullChildByClass(ProofFrogSetMinusExpression.class);
+  public ProofFrogSetMinusExpr getSetMinusExpr() {
+    return findNotNullChildByClass(ProofFrogSetMinusExpr.class);
   }
 
 }

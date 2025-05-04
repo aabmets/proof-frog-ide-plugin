@@ -10,4 +10,7 @@ public interface ProofFrogParameterizedGame extends PsiElement {
   @Nullable
   ProofFrogArgList getArgList();
 
+  @NotNull
+  ProofFrogId getId();
+
 }

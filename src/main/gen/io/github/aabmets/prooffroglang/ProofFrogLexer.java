@@ -786,7 +786,7 @@ class ProofFrogLexer implements FlexLexer {
           // fall through
           case 77: break;
           case 4:
-            { return ProofFrogTypes.VL_IDENT;
+            { return ProofFrogTypes.VL_IDENTIFIER;
             }
           // fall through
           case 78: break;
@@ -956,7 +956,7 @@ class ProofFrogLexer implements FlexLexer {
           // fall through
           case 111: break;
           case 38:
-            { return ProofFrogTypes.VL_FILESTRING;
+            { return ProofFrogTypes.VL_FILE_PATH;
             }
           // fall through
           case 112: break;

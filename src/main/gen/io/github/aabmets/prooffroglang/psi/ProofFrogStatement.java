@@ -8,21 +8,33 @@ import com.intellij.psi.PsiElement;
 public interface ProofFrogStatement extends PsiElement {
 
   @Nullable
-  ProofFrogArgList getArgList();
-
-  @NotNull
-  List<ProofFrogBlock> getBlockList();
+  ProofFrogAssignStmt getAssignStmt();
 
   @Nullable
-  ProofFrogExpression getExpression();
+  ProofFrogCallStmt getCallStmt();
 
   @Nullable
-  ProofFrogId getId();
+  ProofFrogConditionalStmt getConditionalStmt();
 
   @Nullable
-  ProofFrogLvalue getLvalue();
+  ProofFrogGenericLoopStmt getGenericLoopStmt();
 
   @Nullable
-  ProofFrogType getType();
+  ProofFrogIntegerLoopStmt getIntegerLoopStmt();
+
+  @Nullable
+  ProofFrogReturnStmt getReturnStmt();
+
+  @Nullable
+  ProofFrogSampleStmt getSampleStmt();
+
+  @Nullable
+  ProofFrogVarDeclAssignStmt getVarDeclAssignStmt();
+
+  @Nullable
+  ProofFrogVarDeclSampleStmt getVarDeclSampleStmt();
+
+  @Nullable
+  ProofFrogVarDeclStmt getVarDeclStmt();
 
 }

@@ -40,6 +40,12 @@ public class ProofFrogReductionImpl extends ASTWrapperPsiElement implements Proo
   }
 
   @Override
+  @NotNull
+  public ProofFrogId getId() {
+    return findNotNullChildByClass(ProofFrogId.class);
+  }
+
+  @Override
   @Nullable
   public ProofFrogParamList getParamList() {
     return findChildByClass(ProofFrogParamList.class);

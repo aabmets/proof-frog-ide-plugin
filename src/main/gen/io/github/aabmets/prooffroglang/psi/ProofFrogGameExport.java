@@ -7,4 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface ProofFrogGameExport extends PsiElement {
 
+  @NotNull
+  ProofFrogId getId();
+
 }
