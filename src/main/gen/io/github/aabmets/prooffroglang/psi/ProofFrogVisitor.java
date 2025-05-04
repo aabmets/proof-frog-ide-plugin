@@ -95,6 +95,10 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitGameSignature(@NotNull ProofFrogGameSignature o) {
+    visitPsiElement(o);
+  }
+
   public void visitGameStep(@NotNull ProofFrogGameStep o) {
     visitPsiElement(o);
   }
@@ -187,11 +191,11 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitProof(@NotNull ProofFrogProof o) {
+  public void visitPrimitiveSignature(@NotNull ProofFrogPrimitiveSignature o) {
     visitPsiElement(o);
   }
 
-  public void visitProofHelpers(@NotNull ProofFrogProofHelpers o) {
+  public void visitProof(@NotNull ProofFrogProof o) {
     visitPsiElement(o);
   }
 
@@ -200,6 +204,10 @@ public class ProofFrogVisitor extends PsiElementVisitor {
   }
 
   public void visitReduction(@NotNull ProofFrogReduction o) {
+    visitPsiElement(o);
+  }
+
+  public void visitReductionSignature(@NotNull ProofFrogReductionSignature o) {
     visitPsiElement(o);
   }
 
@@ -220,6 +228,10 @@ public class ProofFrogVisitor extends PsiElementVisitor {
   }
 
   public void visitSchemeProgram(@NotNull ProofFrogSchemeProgram o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSchemeSignature(@NotNull ProofFrogSchemeSignature o) {
     visitPsiElement(o);
   }
 

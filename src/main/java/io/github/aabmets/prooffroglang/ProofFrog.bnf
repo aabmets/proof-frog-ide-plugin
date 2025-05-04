@@ -31,37 +31,41 @@ private proofContent ::= &<<isProofFile>> proofProgram;
 
 // Primitive files grammar
 primitiveProgram ::= primitive;
-primitive ::=
-    CL_PRIMITIVE id ST_PAREN_L paramList? ST_PAREN_R
-    ST_BRACE_L primitiveBody ST_BRACE_R
-    ;
+primitive ::= primitiveSignature ST_BRACE_L primitiveBody ST_BRACE_R;
+primitiveSignature ::= CL_PRIMITIVE id ST_PAREN_L paramList? ST_PAREN_R;
 primitiveBody ::= ((initializedField | methodSignature) PN_SEMI)*;
 
 
 // Scheme files grammar
 schemeProgram ::= moduleImport* scheme;
-scheme ::=
-    CL_SCHEME id ST_PAREN_L paramList? ST_PAREN_R
-    KW_EXTENDS id ST_BRACE_L schemeBody ST_BRACE_R
-    ;
-schemeBody ::=
-    (KW_REQUIRES expression PN_SEMI)*
-    (field PN_SEMI | method)+
-    ;
+scheme ::= schemeSignature ST_BRACE_L schemeBody ST_BRACE_R;
+schemeSignature ::= CL_SCHEME id ST_PAREN_L paramList? ST_PAREN_R KW_EXTENDS id;
+schemeBody ::= (KW_REQUIRES expression PN_SEMI)* (field PN_SEMI | method)+;
 
 
 // Game files grammar
 gameProgram ::= moduleImport* game game gameExport;
+game ::= gameSignature ST_BRACE_L gameBody ST_BRACE_R;
+gameSignature ::= CL_GAME id ST_PAREN_L paramList? ST_PAREN_R;
+gameBody ::=
+    (field PN_SEMI)* method+ |
+    (field PN_SEMI)* method*
+    gamePhase+
+    ;
+gamePhase ::=
+    NB_PHASE ST_BRACE_L (method)+ KW_ORACLES PN_COLON
+    ST_BRACKET_L id (PN_COMMA id)* ST_BRACKET_R
+    PN_SEMI ST_BRACE_R
+    ;
 gameExport ::= KW_EXPORT KW_AS id PN_SEMI;
 
 
 // Proof files grammar
-proofProgram ::= moduleImport* proofHelpers proof;
-proofHelpers ::= (reduction | game)*;
-reduction ::=
+proofProgram ::= moduleImport* (reduction | game)* proof;
+reduction ::= reductionSignature ST_BRACE_L gameBody ST_BRACE_R;
+reductionSignature ::=
     CL_REDUCTION id ST_PAREN_L paramList? ST_PAREN_R
     KW_COMPOSE parameterizedGame KW_AGAINST gameAdversary
-    ST_BRACE_L gameBody ST_BRACE_R
     ;
 proof ::=
     LB_PROOF PN_COLON
@@ -71,7 +75,10 @@ proof ::=
     LB_GAMES PN_COLON gameList
     ;
 lets ::= (field PN_SEMI)*;
-assumptions ::= (parameterizedGame PN_SEMI)* (KW_CALLS (OP_LEQ | OP_LT) expression PN_SEMI)?;
+assumptions ::=
+    (parameterizedGame PN_SEMI)*
+    (KW_CALLS (OP_LEQ | OP_LT) expression PN_SEMI)?
+    ;
 theorem ::= parameterizedGame PN_SEMI;
 gameList ::= gameStep PN_SEMI (gameStep PN_SEMI | induction | stepAssumption)*;
 gameStep ::=
@@ -92,19 +99,6 @@ gameAdversary ::= parameterizedGame PN_PERIOD PR_ADVERSARY;
 id ::= VL_IDENTIFIER
 
 moduleImport ::= KW_IMPORT VL_FILE_PATH (KW_AS id)? PN_SEMI;
-
-game ::= CL_GAME id ST_PAREN_L paramList? ST_PAREN_R ST_BRACE_L gameBody ST_BRACE_R;
-
-gameBody ::=
-    (field PN_SEMI)* method+ |
-    (field PN_SEMI)* method* gamePhase+
-    ;
-
-gamePhase ::=
-    NB_PHASE ST_BRACE_L (method)+ KW_ORACLES PN_COLON
-    ST_BRACKET_L id (PN_COMMA id)* ST_BRACKET_R
-    PN_SEMI ST_BRACE_R
-    ;
 
 field ::= variable (OP_ASSIGN expression)?;
 

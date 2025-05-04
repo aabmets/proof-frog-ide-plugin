@@ -11,14 +11,14 @@ import static io.github.aabmets.prooffroglang.psi.ProofFrogTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.github.aabmets.prooffroglang.psi.*;
 
-public class ProofFrogProofHelpersImpl extends ASTWrapperPsiElement implements ProofFrogProofHelpers {
+public class ProofFrogSchemeSignatureImpl extends ASTWrapperPsiElement implements ProofFrogSchemeSignature {
 
-  public ProofFrogProofHelpersImpl(@NotNull ASTNode node) {
+  public ProofFrogSchemeSignatureImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull ProofFrogVisitor visitor) {
-    visitor.visitProofHelpers(this);
+    visitor.visitSchemeSignature(this);
   }
 
   @Override
@@ -29,14 +29,14 @@ public class ProofFrogProofHelpersImpl extends ASTWrapperPsiElement implements P
 
   @Override
   @NotNull
-  public List<ProofFrogGame> getGameList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, ProofFrogGame.class);
+  public List<ProofFrogId> getIdList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, ProofFrogId.class);
   }
 
   @Override
-  @NotNull
-  public List<ProofFrogReduction> getReductionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, ProofFrogReduction.class);
+  @Nullable
+  public ProofFrogParamList getParamList() {
+    return findChildByClass(ProofFrogParamList.class);
   }
 
 }

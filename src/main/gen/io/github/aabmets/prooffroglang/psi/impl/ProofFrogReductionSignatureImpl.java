@@ -11,14 +11,14 @@ import static io.github.aabmets.prooffroglang.psi.ProofFrogTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.github.aabmets.prooffroglang.psi.*;
 
-public class ProofFrogPrimitiveImpl extends ASTWrapperPsiElement implements ProofFrogPrimitive {
+public class ProofFrogReductionSignatureImpl extends ASTWrapperPsiElement implements ProofFrogReductionSignature {
 
-  public ProofFrogPrimitiveImpl(@NotNull ASTNode node) {
+  public ProofFrogReductionSignatureImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull ProofFrogVisitor visitor) {
-    visitor.visitPrimitive(this);
+    visitor.visitReductionSignature(this);
   }
 
   @Override
@@ -29,14 +29,26 @@ public class ProofFrogPrimitiveImpl extends ASTWrapperPsiElement implements Proo
 
   @Override
   @NotNull
-  public ProofFrogPrimitiveBody getPrimitiveBody() {
-    return findNotNullChildByClass(ProofFrogPrimitiveBody.class);
+  public ProofFrogGameAdversary getGameAdversary() {
+    return findNotNullChildByClass(ProofFrogGameAdversary.class);
   }
 
   @Override
   @NotNull
-  public ProofFrogPrimitiveSignature getPrimitiveSignature() {
-    return findNotNullChildByClass(ProofFrogPrimitiveSignature.class);
+  public ProofFrogId getId() {
+    return findNotNullChildByClass(ProofFrogId.class);
+  }
+
+  @Override
+  @Nullable
+  public ProofFrogParamList getParamList() {
+    return findChildByClass(ProofFrogParamList.class);
+  }
+
+  @Override
+  @NotNull
+  public ProofFrogParameterizedGame getParameterizedGame() {
+    return findNotNullChildByClass(ProofFrogParameterizedGame.class);
   }
 
 }

@@ -8,18 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface ProofFrogReduction extends PsiElement {
 
   @NotNull
-  ProofFrogGameAdversary getGameAdversary();
-
-  @NotNull
   ProofFrogGameBody getGameBody();
 
   @NotNull
-  ProofFrogId getId();
-
-  @Nullable
-  ProofFrogParamList getParamList();
-
-  @NotNull
-  ProofFrogParameterizedGame getParameterizedGame();
+  ProofFrogReductionSignature getReductionSignature();
 
 }

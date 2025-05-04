@@ -30,6 +30,7 @@ public interface ProofFrogTypes {
   IElementType GAME_LIST = new ProofFrogElementType("GAME_LIST");
   IElementType GAME_PHASE = new ProofFrogElementType("GAME_PHASE");
   IElementType GAME_PROGRAM = new ProofFrogElementType("GAME_PROGRAM");
+  IElementType GAME_SIGNATURE = new ProofFrogElementType("GAME_SIGNATURE");
   IElementType GAME_STEP = new ProofFrogElementType("GAME_STEP");
   IElementType GENERIC_LOOP_STMT = new ProofFrogElementType("GENERIC_LOOP_STMT");
   IElementType ID = new ProofFrogElementType("ID");
@@ -53,15 +54,17 @@ public interface ProofFrogTypes {
   IElementType PRIMITIVE = new ProofFrogElementType("PRIMITIVE");
   IElementType PRIMITIVE_BODY = new ProofFrogElementType("PRIMITIVE_BODY");
   IElementType PRIMITIVE_PROGRAM = new ProofFrogElementType("PRIMITIVE_PROGRAM");
+  IElementType PRIMITIVE_SIGNATURE = new ProofFrogElementType("PRIMITIVE_SIGNATURE");
   IElementType PROOF = new ProofFrogElementType("PROOF");
-  IElementType PROOF_HELPERS = new ProofFrogElementType("PROOF_HELPERS");
   IElementType PROOF_PROGRAM = new ProofFrogElementType("PROOF_PROGRAM");
   IElementType REDUCTION = new ProofFrogElementType("REDUCTION");
+  IElementType REDUCTION_SIGNATURE = new ProofFrogElementType("REDUCTION_SIGNATURE");
   IElementType RETURN_STMT = new ProofFrogElementType("RETURN_STMT");
   IElementType SAMPLE_STMT = new ProofFrogElementType("SAMPLE_STMT");
   IElementType SCHEME = new ProofFrogElementType("SCHEME");
   IElementType SCHEME_BODY = new ProofFrogElementType("SCHEME_BODY");
   IElementType SCHEME_PROGRAM = new ProofFrogElementType("SCHEME_PROGRAM");
+  IElementType SCHEME_SIGNATURE = new ProofFrogElementType("SCHEME_SIGNATURE");
   IElementType SET_MINUS_EXPR = new ProofFrogElementType("SET_MINUS_EXPR");
   IElementType SLICE_EXPR = new ProofFrogElementType("SLICE_EXPR");
   IElementType STATEMENT = new ProofFrogElementType("STATEMENT");
@@ -222,6 +225,9 @@ public interface ProofFrogTypes {
       else if (type == GAME_PROGRAM) {
         return new ProofFrogGameProgramImpl(node);
       }
+      else if (type == GAME_SIGNATURE) {
+        return new ProofFrogGameSignatureImpl(node);
+      }
       else if (type == GAME_STEP) {
         return new ProofFrogGameStepImpl(node);
       }
@@ -291,17 +297,20 @@ public interface ProofFrogTypes {
       else if (type == PRIMITIVE_PROGRAM) {
         return new ProofFrogPrimitiveProgramImpl(node);
       }
+      else if (type == PRIMITIVE_SIGNATURE) {
+        return new ProofFrogPrimitiveSignatureImpl(node);
+      }
       else if (type == PROOF) {
         return new ProofFrogProofImpl(node);
-      }
-      else if (type == PROOF_HELPERS) {
-        return new ProofFrogProofHelpersImpl(node);
       }
       else if (type == PROOF_PROGRAM) {
         return new ProofFrogProofProgramImpl(node);
       }
       else if (type == REDUCTION) {
         return new ProofFrogReductionImpl(node);
+      }
+      else if (type == REDUCTION_SIGNATURE) {
+        return new ProofFrogReductionSignatureImpl(node);
       }
       else if (type == RETURN_STMT) {
         return new ProofFrogReturnStmtImpl(node);
@@ -317,6 +326,9 @@ public interface ProofFrogTypes {
       }
       else if (type == SCHEME_PROGRAM) {
         return new ProofFrogSchemeProgramImpl(node);
+      }
+      else if (type == SCHEME_SIGNATURE) {
+        return new ProofFrogSchemeSignatureImpl(node);
       }
       else if (type == SET_MINUS_EXPR) {
         return new ProofFrogSetMinusExprImpl(node);

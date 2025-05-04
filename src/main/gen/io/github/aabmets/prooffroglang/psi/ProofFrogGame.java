@@ -11,9 +11,6 @@ public interface ProofFrogGame extends PsiElement {
   ProofFrogGameBody getGameBody();
 
   @NotNull
-  ProofFrogId getId();
-
-  @Nullable
-  ProofFrogParamList getParamList();
+  ProofFrogGameSignature getGameSignature();
 
 }

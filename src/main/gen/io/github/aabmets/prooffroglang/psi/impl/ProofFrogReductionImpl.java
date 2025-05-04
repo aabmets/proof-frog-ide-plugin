@@ -29,32 +29,14 @@ public class ProofFrogReductionImpl extends ASTWrapperPsiElement implements Proo
 
   @Override
   @NotNull
-  public ProofFrogGameAdversary getGameAdversary() {
-    return findNotNullChildByClass(ProofFrogGameAdversary.class);
-  }
-
-  @Override
-  @NotNull
   public ProofFrogGameBody getGameBody() {
     return findNotNullChildByClass(ProofFrogGameBody.class);
   }
 
   @Override
   @NotNull
-  public ProofFrogId getId() {
-    return findNotNullChildByClass(ProofFrogId.class);
-  }
-
-  @Override
-  @Nullable
-  public ProofFrogParamList getParamList() {
-    return findChildByClass(ProofFrogParamList.class);
-  }
-
-  @Override
-  @NotNull
-  public ProofFrogParameterizedGame getParameterizedGame() {
-    return findNotNullChildByClass(ProofFrogParameterizedGame.class);
+  public ProofFrogReductionSignature getReductionSignature() {
+    return findNotNullChildByClass(ProofFrogReductionSignature.class);
   }
 
 }

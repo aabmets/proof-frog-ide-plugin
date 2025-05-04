@@ -8,12 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface ProofFrogScheme extends PsiElement {
 
   @NotNull
-  List<ProofFrogId> getIdList();
-
-  @Nullable
-  ProofFrogParamList getParamList();
+  ProofFrogSchemeBody getSchemeBody();
 
   @NotNull
-  ProofFrogSchemeBody getSchemeBody();
+  ProofFrogSchemeSignature getSchemeSignature();
 
 }

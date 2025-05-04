@@ -4,15 +4,13 @@ import com.intellij.psi.tree.TokenSet;
 
 public interface ProofFrogTokenSets {
 
-    // Punctuation
-    TokenSet PUNCTUATION = TokenSet.create(
+    TokenSet DELIMITERS = TokenSet.create(
         ProofFrogTypes.PN_SEMI,
         ProofFrogTypes.PN_COLON,
         ProofFrogTypes.PN_COMMA,
         ProofFrogTypes.PN_PERIOD
     );
 
-    // Structure
     TokenSet STRUCTURE = TokenSet.create(
         ProofFrogTypes.ST_BRACE_L,
         ProofFrogTypes.ST_BRACE_R,
@@ -22,7 +20,6 @@ public interface ProofFrogTokenSets {
         ProofFrogTypes.ST_PAREN_R
     );
 
-    // Operators
     TokenSet OPERATORS = TokenSet.create(
         ProofFrogTypes.OP_SAMPLE,
         ProofFrogTypes.OP_ASSIGN,
@@ -44,7 +41,6 @@ public interface ProofFrogTokenSets {
         ProofFrogTypes.OP_BSLASH
     );
 
-    // Keywords
     TokenSet KEYWORDS = TokenSet.create(
         ProofFrogTypes.KW_IMPORT,
         ProofFrogTypes.KW_EXPORT,
@@ -68,7 +64,6 @@ public interface ProofFrogTokenSets {
         ProofFrogTypes.KW_NONE
     );
 
-    // Labels
     TokenSet LABELS = TokenSet.create(
         ProofFrogTypes.LB_PROOF,
         ProofFrogTypes.LB_LET,
@@ -77,25 +72,21 @@ public interface ProofFrogTokenSets {
         ProofFrogTypes.LB_GAMES
     );
 
-    // Class declarators
-    TokenSet CLASS_DECLARATORS = TokenSet.create(
+    TokenSet CLASS_KEYWORDS = TokenSet.create(
         ProofFrogTypes.CL_PRIMITIVE,
         ProofFrogTypes.CL_REDUCTION,
         ProofFrogTypes.CL_SCHEME,
         ProofFrogTypes.CL_GAME
     );
 
-    // Properties
-    TokenSet PROPERTIES = TokenSet.create(
-        ProofFrogTypes.PR_ADVERSARY
-    );
-
-    // Named blocks
     TokenSet NAMED_BLOCKS = TokenSet.create(
         ProofFrogTypes.NB_PHASE
     );
 
-    // Datatypes
+    TokenSet PROPERTIES = TokenSet.create(
+        ProofFrogTypes.PR_ADVERSARY
+    );
+
     TokenSet DATATYPES = TokenSet.create(
         ProofFrogTypes.DT_SET,
         ProofFrogTypes.DT_BOOL,
@@ -106,9 +97,24 @@ public interface ProofFrogTokenSets {
         ProofFrogTypes.DT_BITSTRING
     );
 
-    // Comments
     TokenSet COMMENTS = TokenSet.create(
         ProofFrogTypes.VL_LINE_COMMENT
+    );
+
+    TokenSet VARIABLES = TokenSet.create(
+        ProofFrogTypes.VARIABLE,
+        ProofFrogTypes.VAR_DECL_ASSIGN_STMT,
+        ProofFrogTypes.VAR_DECL_SAMPLE_STMT,
+        ProofFrogTypes.VAR_DECL_STMT,
+        ProofFrogTypes.ASSIGN_STMT,
+        ProofFrogTypes.SAMPLE_STMT
+    );
+
+    TokenSet CLASS_SIGNATURES = TokenSet.create(
+        ProofFrogTypes.PRIMITIVE_SIGNATURE,
+        ProofFrogTypes.REDUCTION_SIGNATURE,
+        ProofFrogTypes.SCHEME_SIGNATURE,
+        ProofFrogTypes.GAME_SIGNATURE
     );
 
 }

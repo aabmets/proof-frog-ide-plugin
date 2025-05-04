@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface ProofFrogProofHelpers extends PsiElement {
+public interface ProofFrogGameSignature extends PsiElement {
 
   @NotNull
-  List<ProofFrogGame> getGameList();
+  ProofFrogId getId();
 
-  @NotNull
-  List<ProofFrogReduction> getReductionList();
+  @Nullable
+  ProofFrogParamList getParamList();
 
 }

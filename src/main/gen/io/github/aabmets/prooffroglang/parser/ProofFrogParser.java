@@ -206,7 +206,8 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (parameterizedGame PN_SEMI)* (KW_CALLS (OP_LEQ | OP_LT) expression PN_SEMI)?
+  // (parameterizedGame PN_SEMI)*
+  //     (KW_CALLS (OP_LEQ | OP_LT) expression PN_SEMI)?
   public static boolean assumptions(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "assumptions")) return false;
     boolean r;
@@ -737,28 +738,18 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // CL_GAME id ST_PAREN_L paramList? ST_PAREN_R ST_BRACE_L gameBody ST_BRACE_R
+  // gameSignature ST_BRACE_L gameBody ST_BRACE_R
   public static boolean game(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "game")) return false;
     if (!nextTokenIs(b, CL_GAME)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, CL_GAME);
-    r = r && id(b, l + 1);
-    r = r && consumeToken(b, ST_PAREN_L);
-    r = r && game_3(b, l + 1);
-    r = r && consumeTokens(b, 0, ST_PAREN_R, ST_BRACE_L);
+    r = gameSignature(b, l + 1);
+    r = r && consumeToken(b, ST_BRACE_L);
     r = r && gameBody(b, l + 1);
     r = r && consumeToken(b, ST_BRACE_R);
     exit_section_(b, m, GAME, r);
     return r;
-  }
-
-  // paramList?
-  private static boolean game_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "game_3")) return false;
-    paramList(b, l + 1);
-    return true;
   }
 
   /* ********************************************************** */
@@ -776,7 +767,8 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // (field PN_SEMI)* method+ |
-  //     (field PN_SEMI)* method* gamePhase+
+  //     (field PN_SEMI)* method*
+  //     gamePhase+
   public static boolean gameBody(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "gameBody")) return false;
     boolean r;
@@ -835,7 +827,8 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (field PN_SEMI)* method* gamePhase+
+  // (field PN_SEMI)* method*
+  //     gamePhase+
   private static boolean gameBody_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "gameBody_1")) return false;
     boolean r;
@@ -1068,6 +1061,29 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
       if (!moduleImport(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "gameProgram_0", c)) break;
     }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // CL_GAME id ST_PAREN_L paramList? ST_PAREN_R
+  public static boolean gameSignature(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "gameSignature")) return false;
+    if (!nextTokenIs(b, CL_GAME)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, CL_GAME);
+    r = r && id(b, l + 1);
+    r = r && consumeToken(b, ST_PAREN_L);
+    r = r && gameSignature_3(b, l + 1);
+    r = r && consumeToken(b, ST_PAREN_R);
+    exit_section_(b, m, GAME_SIGNATURE, r);
+    return r;
+  }
+
+  // paramList?
+  private static boolean gameSignature_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "gameSignature_3")) return false;
+    paramList(b, l + 1);
     return true;
   }
 
@@ -1754,29 +1770,18 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // CL_PRIMITIVE id ST_PAREN_L paramList? ST_PAREN_R
-  //     ST_BRACE_L primitiveBody ST_BRACE_R
+  // primitiveSignature ST_BRACE_L primitiveBody ST_BRACE_R
   public static boolean primitive(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "primitive")) return false;
     if (!nextTokenIs(b, CL_PRIMITIVE)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, CL_PRIMITIVE);
-    r = r && id(b, l + 1);
-    r = r && consumeToken(b, ST_PAREN_L);
-    r = r && primitive_3(b, l + 1);
-    r = r && consumeTokens(b, 0, ST_PAREN_R, ST_BRACE_L);
+    r = primitiveSignature(b, l + 1);
+    r = r && consumeToken(b, ST_BRACE_L);
     r = r && primitiveBody(b, l + 1);
     r = r && consumeToken(b, ST_BRACE_R);
     exit_section_(b, m, PRIMITIVE, r);
     return r;
-  }
-
-  // paramList?
-  private static boolean primitive_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "primitive_3")) return false;
-    paramList(b, l + 1);
-    return true;
   }
 
   /* ********************************************************** */
@@ -1845,6 +1850,29 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     r = primitive(b, l + 1);
     exit_section_(b, m, PRIMITIVE_PROGRAM, r);
     return r;
+  }
+
+  /* ********************************************************** */
+  // CL_PRIMITIVE id ST_PAREN_L paramList? ST_PAREN_R
+  public static boolean primitiveSignature(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "primitiveSignature")) return false;
+    if (!nextTokenIs(b, CL_PRIMITIVE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, CL_PRIMITIVE);
+    r = r && id(b, l + 1);
+    r = r && consumeToken(b, ST_PAREN_L);
+    r = r && primitiveSignature_3(b, l + 1);
+    r = r && consumeToken(b, ST_PAREN_R);
+    exit_section_(b, m, PRIMITIVE_SIGNATURE, r);
+    return r;
+  }
+
+  // paramList?
+  private static boolean primitiveSignature_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "primitiveSignature_3")) return false;
+    paramList(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */
@@ -1928,36 +1956,13 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (reduction | game)*
-  public static boolean proofHelpers(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "proofHelpers")) return false;
-    Marker m = enter_section_(b, l, _NONE_, PROOF_HELPERS, "<proof helpers>");
-    while (true) {
-      int c = current_position_(b);
-      if (!proofHelpers_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "proofHelpers", c)) break;
-    }
-    exit_section_(b, l, m, true, false, null);
-    return true;
-  }
-
-  // reduction | game
-  private static boolean proofHelpers_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "proofHelpers_0")) return false;
-    boolean r;
-    r = reduction(b, l + 1);
-    if (!r) r = game(b, l + 1);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // moduleImport* proofHelpers proof
+  // moduleImport* (reduction | game)* proof
   public static boolean proofProgram(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "proofProgram")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, PROOF_PROGRAM, "<proof program>");
     r = proofProgram_0(b, l + 1);
-    r = r && proofHelpers(b, l + 1);
+    r = r && proofProgram_1(b, l + 1);
     r = r && proof(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -1974,23 +1979,34 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     return true;
   }
 
+  // (reduction | game)*
+  private static boolean proofProgram_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "proofProgram_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!proofProgram_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "proofProgram_1", c)) break;
+    }
+    return true;
+  }
+
+  // reduction | game
+  private static boolean proofProgram_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "proofProgram_1_0")) return false;
+    boolean r;
+    r = reduction(b, l + 1);
+    if (!r) r = game(b, l + 1);
+    return r;
+  }
+
   /* ********************************************************** */
-  // CL_REDUCTION id ST_PAREN_L paramList? ST_PAREN_R
-  //     KW_COMPOSE parameterizedGame KW_AGAINST gameAdversary
-  //     ST_BRACE_L gameBody ST_BRACE_R
+  // reductionSignature ST_BRACE_L gameBody ST_BRACE_R
   public static boolean reduction(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "reduction")) return false;
     if (!nextTokenIs(b, CL_REDUCTION)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, CL_REDUCTION);
-    r = r && id(b, l + 1);
-    r = r && consumeToken(b, ST_PAREN_L);
-    r = r && reduction_3(b, l + 1);
-    r = r && consumeTokens(b, 0, ST_PAREN_R, KW_COMPOSE);
-    r = r && parameterizedGame(b, l + 1);
-    r = r && consumeToken(b, KW_AGAINST);
-    r = r && gameAdversary(b, l + 1);
+    r = reductionSignature(b, l + 1);
     r = r && consumeToken(b, ST_BRACE_L);
     r = r && gameBody(b, l + 1);
     r = r && consumeToken(b, ST_BRACE_R);
@@ -1998,9 +2014,29 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     return r;
   }
 
+  /* ********************************************************** */
+  // CL_REDUCTION id ST_PAREN_L paramList? ST_PAREN_R
+  //     KW_COMPOSE parameterizedGame KW_AGAINST gameAdversary
+  public static boolean reductionSignature(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "reductionSignature")) return false;
+    if (!nextTokenIs(b, CL_REDUCTION)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, CL_REDUCTION);
+    r = r && id(b, l + 1);
+    r = r && consumeToken(b, ST_PAREN_L);
+    r = r && reductionSignature_3(b, l + 1);
+    r = r && consumeTokens(b, 0, ST_PAREN_R, KW_COMPOSE);
+    r = r && parameterizedGame(b, l + 1);
+    r = r && consumeToken(b, KW_AGAINST);
+    r = r && gameAdversary(b, l + 1);
+    exit_section_(b, m, REDUCTION_SIGNATURE, r);
+    return r;
+  }
+
   // paramList?
-  private static boolean reduction_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "reduction_3")) return false;
+  private static boolean reductionSignature_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "reductionSignature_3")) return false;
     paramList(b, l + 1);
     return true;
   }
@@ -2035,19 +2071,13 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // CL_SCHEME id ST_PAREN_L paramList? ST_PAREN_R
-  //     KW_EXTENDS id ST_BRACE_L schemeBody ST_BRACE_R
+  // schemeSignature ST_BRACE_L schemeBody ST_BRACE_R
   public static boolean scheme(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "scheme")) return false;
     if (!nextTokenIs(b, CL_SCHEME)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, CL_SCHEME);
-    r = r && id(b, l + 1);
-    r = r && consumeToken(b, ST_PAREN_L);
-    r = r && scheme_3(b, l + 1);
-    r = r && consumeTokens(b, 0, ST_PAREN_R, KW_EXTENDS);
-    r = r && id(b, l + 1);
+    r = schemeSignature(b, l + 1);
     r = r && consumeToken(b, ST_BRACE_L);
     r = r && schemeBody(b, l + 1);
     r = r && consumeToken(b, ST_BRACE_R);
@@ -2055,16 +2085,8 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // paramList?
-  private static boolean scheme_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "scheme_3")) return false;
-    paramList(b, l + 1);
-    return true;
-  }
-
   /* ********************************************************** */
-  // (KW_REQUIRES expression PN_SEMI)*
-  //     (field PN_SEMI | method)+
+  // (KW_REQUIRES expression PN_SEMI)* (field PN_SEMI | method)+
   public static boolean schemeBody(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "schemeBody")) return false;
     boolean r;
@@ -2178,6 +2200,30 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
       if (!moduleImport(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "schemeProgram_0", c)) break;
     }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // CL_SCHEME id ST_PAREN_L paramList? ST_PAREN_R KW_EXTENDS id
+  public static boolean schemeSignature(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "schemeSignature")) return false;
+    if (!nextTokenIs(b, CL_SCHEME)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, CL_SCHEME);
+    r = r && id(b, l + 1);
+    r = r && consumeToken(b, ST_PAREN_L);
+    r = r && schemeSignature_3(b, l + 1);
+    r = r && consumeTokens(b, 0, ST_PAREN_R, KW_EXTENDS);
+    r = r && id(b, l + 1);
+    exit_section_(b, m, SCHEME_SIGNATURE, r);
+    return r;
+  }
+
+  // paramList?
+  private static boolean schemeSignature_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "schemeSignature_3")) return false;
+    paramList(b, l + 1);
     return true;
   }
 

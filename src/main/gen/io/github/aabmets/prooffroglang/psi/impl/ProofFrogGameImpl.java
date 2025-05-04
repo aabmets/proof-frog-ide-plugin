@@ -35,14 +35,8 @@ public class ProofFrogGameImpl extends ASTWrapperPsiElement implements ProofFrog
 
   @Override
   @NotNull
-  public ProofFrogId getId() {
-    return findNotNullChildByClass(ProofFrogId.class);
-  }
-
-  @Override
-  @Nullable
-  public ProofFrogParamList getParamList() {
-    return findChildByClass(ProofFrogParamList.class);
+  public ProofFrogGameSignature getGameSignature() {
+    return findNotNullChildByClass(ProofFrogGameSignature.class);
   }
 
 }

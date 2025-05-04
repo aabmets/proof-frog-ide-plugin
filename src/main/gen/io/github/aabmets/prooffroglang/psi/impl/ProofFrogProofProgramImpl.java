@@ -29,6 +29,12 @@ public class ProofFrogProofProgramImpl extends ASTWrapperPsiElement implements P
 
   @Override
   @NotNull
+  public List<ProofFrogGame> getGameList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, ProofFrogGame.class);
+  }
+
+  @Override
+  @NotNull
   public List<ProofFrogModuleImport> getModuleImportList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, ProofFrogModuleImport.class);
   }
@@ -41,8 +47,8 @@ public class ProofFrogProofProgramImpl extends ASTWrapperPsiElement implements P
 
   @Override
   @NotNull
-  public ProofFrogProofHelpers getProofHelpers() {
-    return findNotNullChildByClass(ProofFrogProofHelpers.class);
+  public List<ProofFrogReduction> getReductionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, ProofFrogReduction.class);
   }
 
 }
