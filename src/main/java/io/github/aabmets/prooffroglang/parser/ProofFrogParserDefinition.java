@@ -1,6 +1,7 @@
-package io.github.aabmets.prooffroglang;
+package io.github.aabmets.prooffroglang.parser;
 
-import io.github.aabmets.prooffroglang.parser.ProofFrogParser;
+import io.github.aabmets.prooffroglang.ProofFrogLanguage;
+import io.github.aabmets.prooffroglang.ProofFrogLexerAdapter;
 import io.github.aabmets.prooffroglang.psi.ProofFrogFile;
 import io.github.aabmets.prooffroglang.psi.ProofFrogTokenSets;
 import io.github.aabmets.prooffroglang.psi.ProofFrogTypes;

@@ -175,6 +175,10 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitPrimitive(@NotNull ProofFrogPrimitive o) {
+    visitPsiElement(o);
+  }
+
   public void visitPrimitiveBody(@NotNull ProofFrogPrimitiveBody o) {
     visitPsiElement(o);
   }

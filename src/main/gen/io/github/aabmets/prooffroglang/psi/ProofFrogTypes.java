@@ -50,6 +50,7 @@ public interface ProofFrogTypes {
   IElementType PRIMARY_ELEM = new ProofFrogElementType("PRIMARY_ELEM");
   IElementType PRIMARY_EXPR = new ProofFrogElementType("PRIMARY_EXPR");
   IElementType PRIMARY_INTEGER_EXPR = new ProofFrogElementType("PRIMARY_INTEGER_EXPR");
+  IElementType PRIMITIVE = new ProofFrogElementType("PRIMITIVE");
   IElementType PRIMITIVE_BODY = new ProofFrogElementType("PRIMITIVE_BODY");
   IElementType PRIMITIVE_PROGRAM = new ProofFrogElementType("PRIMITIVE_PROGRAM");
   IElementType PROOF = new ProofFrogElementType("PROOF");
@@ -277,6 +278,9 @@ public interface ProofFrogTypes {
       }
       else if (type == PRIMARY_INTEGER_EXPR) {
         return new ProofFrogPrimaryIntegerExprImpl(node);
+      }
+      else if (type == PRIMITIVE) {
+        return new ProofFrogPrimitiveImpl(node);
       }
       else if (type == PRIMITIVE_BODY) {
         return new ProofFrogPrimitiveBodyImpl(node);

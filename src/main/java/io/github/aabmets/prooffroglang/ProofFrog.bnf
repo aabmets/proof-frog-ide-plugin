@@ -8,19 +8,30 @@
     elementTypeHolderClass="io.github.aabmets.prooffroglang.psi.ProofFrogTypes"
     elementTypeClass="io.github.aabmets.prooffroglang.psi.ProofFrogElementType"
     tokenTypeClass="io.github.aabmets.prooffroglang.psi.ProofFrogTokenType"
+    parserUtilClass="io.github.aabmets.prooffroglang.parser.ProofFrogParserUtil"
 }
 
-file ::= (
-    primitiveProgram |
-    schemeProgram |
-    gameProgram |
-    proofProgram |
-    VL_LINE_COMMENT
-);
+//file ::= (
+//    primitiveProgram |
+//    schemeProgram |
+//    gameProgram |
+//    proofProgram |
+//    VL_LINE_COMMENT
+//);
+
+file ::= <<fileContent>> | VL_LINE_COMMENT;
+
+private fileContent ::= primitiveContent | schemeContent | gameContent | proofContent;
+
+private primitiveContent ::= &<<isPrimitiveFile>> primitiveProgram;
+private schemeContent ::= &<<isSchemeFile>> schemeProgram;
+private gameContent ::= &<<isGameFile>> gameProgram;
+private proofContent ::= &<<isProofFile>> proofProgram;
 
 
 // Primitive files grammar
-primitiveProgram ::=
+primitiveProgram ::= primitive;
+primitive ::=
     CL_PRIMITIVE id ST_PAREN_L paramList? ST_PAREN_R
     ST_BRACE_L primitiveBody ST_BRACE_R
     ;

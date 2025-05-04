@@ -32,7 +32,7 @@
             extensions="primitive;scheme;game;proof"/>
         <lang.parserDefinition
             language="ProofFrog"
-            implementationClass="io.github.aabmets.prooffroglang.ProofFrogParserDefinition"/>
+            implementationClass="io.github.aabmets.prooffroglang.parser.ProofFrogParserDefinition"/>
         <lang.syntaxHighlighterFactory
             language="ProofFrog"
             implementationClass="io.github.aabmets.prooffroglang.ProofFrogSyntaxHighlighterFactory"/>

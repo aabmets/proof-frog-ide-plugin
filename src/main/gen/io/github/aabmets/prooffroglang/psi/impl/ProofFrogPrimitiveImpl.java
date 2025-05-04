@@ -11,14 +11,14 @@ import static io.github.aabmets.prooffroglang.psi.ProofFrogTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.github.aabmets.prooffroglang.psi.*;
 
-public class ProofFrogPrimitiveProgramImpl extends ASTWrapperPsiElement implements ProofFrogPrimitiveProgram {
+public class ProofFrogPrimitiveImpl extends ASTWrapperPsiElement implements ProofFrogPrimitive {
 
-  public ProofFrogPrimitiveProgramImpl(@NotNull ASTNode node) {
+  public ProofFrogPrimitiveImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull ProofFrogVisitor visitor) {
-    visitor.visitPrimitiveProgram(this);
+    visitor.visitPrimitive(this);
   }
 
   @Override
@@ -29,8 +29,20 @@ public class ProofFrogPrimitiveProgramImpl extends ASTWrapperPsiElement implemen
 
   @Override
   @NotNull
-  public ProofFrogPrimitive getPrimitive() {
-    return findNotNullChildByClass(ProofFrogPrimitive.class);
+  public ProofFrogId getId() {
+    return findNotNullChildByClass(ProofFrogId.class);
+  }
+
+  @Override
+  @Nullable
+  public ProofFrogParamList getParamList() {
+    return findChildByClass(ProofFrogParamList.class);
+  }
+
+  @Override
+  @NotNull
+  public ProofFrogPrimitiveBody getPrimitiveBody() {
+    return findNotNullChildByClass(ProofFrogPrimitiveBody.class);
   }
 
 }
