@@ -11,14 +11,14 @@ import static io.github.aabmets.prooffroglang.psi.ProofFrogTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.github.aabmets.prooffroglang.psi.*;
 
-public class ProofFrogTypePostfixImpl extends ASTWrapperPsiElement implements ProofFrogTypePostfix {
+public class ProofFrogTypedSetImpl extends ASTWrapperPsiElement implements ProofFrogTypedSet {
 
-  public ProofFrogTypePostfixImpl(@NotNull ASTNode node) {
+  public ProofFrogTypedSetImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull ProofFrogVisitor visitor) {
-    visitor.visitTypePostfix(this);
+    visitor.visitTypedSet(this);
   }
 
   @Override
@@ -29,8 +29,8 @@ public class ProofFrogTypePostfixImpl extends ASTWrapperPsiElement implements Pr
 
   @Override
   @NotNull
-  public ProofFrogAtomicType getAtomicType() {
-    return findNotNullChildByClass(ProofFrogAtomicType.class);
+  public ProofFrogType getType() {
+    return findNotNullChildByClass(ProofFrogType.class);
   }
 
 }

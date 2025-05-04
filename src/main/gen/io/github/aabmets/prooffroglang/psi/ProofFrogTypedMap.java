@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface ProofFrogTypePostfix extends PsiElement {
+public interface ProofFrogTypedMap extends PsiElement {
 
   @NotNull
-  ProofFrogAtomicType getAtomicType();
+  List<ProofFrogType> getTypeList();
 
 }

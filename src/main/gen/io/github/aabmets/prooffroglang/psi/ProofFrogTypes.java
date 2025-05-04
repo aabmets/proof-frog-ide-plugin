@@ -68,7 +68,10 @@ public interface ProofFrogTypes {
   IElementType STEP_ASSUMPTION = new ProofFrogElementType("STEP_ASSUMPTION");
   IElementType THEOREM = new ProofFrogElementType("THEOREM");
   IElementType TYPE = new ProofFrogElementType("TYPE");
-  IElementType TYPE_POSTFIX = new ProofFrogElementType("TYPE_POSTFIX");
+  IElementType TYPED_ARRAY = new ProofFrogElementType("TYPED_ARRAY");
+  IElementType TYPED_BIT_STRING = new ProofFrogElementType("TYPED_BIT_STRING");
+  IElementType TYPED_MAP = new ProofFrogElementType("TYPED_MAP");
+  IElementType TYPED_SET = new ProofFrogElementType("TYPED_SET");
   IElementType TYPE_PRODUCT = new ProofFrogElementType("TYPE_PRODUCT");
   IElementType UNARY_EXPR = new ProofFrogElementType("UNARY_EXPR");
   IElementType UNION_EXPR = new ProofFrogElementType("UNION_EXPR");
@@ -333,8 +336,17 @@ public interface ProofFrogTypes {
       else if (type == TYPE) {
         return new ProofFrogTypeImpl(node);
       }
-      else if (type == TYPE_POSTFIX) {
-        return new ProofFrogTypePostfixImpl(node);
+      else if (type == TYPED_ARRAY) {
+        return new ProofFrogTypedArrayImpl(node);
+      }
+      else if (type == TYPED_BIT_STRING) {
+        return new ProofFrogTypedBitStringImpl(node);
+      }
+      else if (type == TYPED_MAP) {
+        return new ProofFrogTypedMapImpl(node);
+      }
+      else if (type == TYPED_SET) {
+        return new ProofFrogTypedSetImpl(node);
       }
       else if (type == TYPE_PRODUCT) {
         return new ProofFrogTypeProductImpl(node);

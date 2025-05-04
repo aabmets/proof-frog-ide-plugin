@@ -190,20 +190,23 @@ variable ::= type id;
 parameterizedGame ::= id ST_PAREN_L argList? ST_PAREN_R;
 
 type ::= typeProduct ;
-typeProduct ::= typePostfix (OP_MULT typePostfix)*;
-typePostfix ::= atomicType OP_OPT*;
+typeProduct ::= atomicType (OP_MULT atomicType)*;
 atomicType ::=
-      DT_SET OP_LT type OP_GT
-    | DT_SET
-    | DT_BOOL
-    | DT_VOID
-    | DT_MAP OP_LT type PN_COMMA type OP_GT
-    | DT_ARRAY OP_LT type PN_COMMA integerExpr OP_GT
-    | DT_INT
-    | DT_BITSTRING OP_LT integerExpr OP_GT
-    | DT_BITSTRING
-    | lvalue
+      typedSet OP_OPT?
+    | typedMap OP_OPT?
+    | typedArray OP_OPT?
+    | typedBitString OP_OPT?
+    | lvalue OP_OPT?
+    | DT_SET OP_OPT?
+    | DT_BOOL OP_OPT?
+    | DT_VOID OP_OPT?
+    | DT_INT OP_OPT?
+    | DT_BITSTRING OP_OPT?
     ;
+typedSet ::= DT_SET OP_LT type OP_GT;
+typedMap ::= DT_MAP OP_LT type PN_COMMA type OP_GT;
+typedArray ::= DT_ARRAY OP_LT type PN_COMMA integerExpr OP_GT;
+typedBitString ::= DT_BITSTRING OP_LT integerExpr OP_GT;
 
 integerExpr ::= addIntegerExpr ;
 addIntegerExpr ::=

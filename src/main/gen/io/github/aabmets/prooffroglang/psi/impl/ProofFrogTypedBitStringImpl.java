@@ -11,14 +11,14 @@ import static io.github.aabmets.prooffroglang.psi.ProofFrogTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.github.aabmets.prooffroglang.psi.*;
 
-public class ProofFrogTypeProductImpl extends ASTWrapperPsiElement implements ProofFrogTypeProduct {
+public class ProofFrogTypedBitStringImpl extends ASTWrapperPsiElement implements ProofFrogTypedBitString {
 
-  public ProofFrogTypeProductImpl(@NotNull ASTNode node) {
+  public ProofFrogTypedBitStringImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull ProofFrogVisitor visitor) {
-    visitor.visitTypeProduct(this);
+    visitor.visitTypedBitString(this);
   }
 
   @Override
@@ -29,8 +29,8 @@ public class ProofFrogTypeProductImpl extends ASTWrapperPsiElement implements Pr
 
   @Override
   @NotNull
-  public List<ProofFrogAtomicType> getAtomicTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, ProofFrogAtomicType.class);
+  public ProofFrogIntegerExpr getIntegerExpr() {
+    return findNotNullChildByClass(ProofFrogIntegerExpr.class);
   }
 
 }

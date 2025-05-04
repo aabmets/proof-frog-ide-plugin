@@ -247,11 +247,23 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitTypePostfix(@NotNull ProofFrogTypePostfix o) {
+  public void visitTypeProduct(@NotNull ProofFrogTypeProduct o) {
     visitPsiElement(o);
   }
 
-  public void visitTypeProduct(@NotNull ProofFrogTypeProduct o) {
+  public void visitTypedArray(@NotNull ProofFrogTypedArray o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTypedBitString(@NotNull ProofFrogTypedBitString o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTypedMap(@NotNull ProofFrogTypedMap o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTypedSet(@NotNull ProofFrogTypedSet o) {
     visitPsiElement(o);
   }
 

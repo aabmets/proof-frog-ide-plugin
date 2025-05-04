@@ -98,6 +98,12 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
             DefaultLanguageHighlighterColors.IDENTIFIER
         );
 
+//    public static final TextAttributesKey IDENTIFIER =
+//        TextAttributesKey.createTextAttributesKey(
+//            "PROOFFROG_IDENTIFIER",
+//            DefaultLanguageHighlighterColors.IDENTIFIER
+//        );
+
     public static final TextAttributesKey BAD_CHARACTER =
         TextAttributesKey.createTextAttributesKey(
             "PROOFFROG_BAD_CHARACTER",
@@ -164,8 +170,8 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
             return COMMENT_KEYS;
         } else if (tokenType.equals(ProofFrogTypes.VL_FILE_PATH)) {
             return STRING_KEYS;
-        } else if (tokenType.equals(ProofFrogTypes.VL_IDENTIFIER)) {
-            return IDENTIFIER_KEYS;
+//        } else if (tokenType.equals(ProofFrogTypes.VL_IDENTIFIER)) {
+//            return IDENTIFIER_KEYS;
         } else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
             return BAD_CHAR_KEYS;
         } else {

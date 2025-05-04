@@ -269,84 +269,212 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // DT_SET OP_LT type OP_GT
-  //     | DT_SET
-  //     | DT_BOOL
-  //     | DT_VOID
-  //     | DT_MAP OP_LT type PN_COMMA type OP_GT
-  //     | DT_ARRAY OP_LT type PN_COMMA integerExpr OP_GT
-  //     | DT_INT
-  //     | DT_BITSTRING OP_LT integerExpr OP_GT
-  //     | DT_BITSTRING
-  //     | lvalue
+  // typedSet OP_OPT?
+  //     | typedMap OP_OPT?
+  //     | typedArray OP_OPT?
+  //     | typedBitString OP_OPT?
+  //     | lvalue OP_OPT?
+  //     | DT_SET OP_OPT?
+  //     | DT_BOOL OP_OPT?
+  //     | DT_VOID OP_OPT?
+  //     | DT_INT OP_OPT?
+  //     | DT_BITSTRING OP_OPT?
   public static boolean atomicType(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "atomicType")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ATOMIC_TYPE, "<atomic type>");
     r = atomicType_0(b, l + 1);
-    if (!r) r = consumeToken(b, DT_SET);
-    if (!r) r = consumeToken(b, DT_BOOL);
-    if (!r) r = consumeToken(b, DT_VOID);
+    if (!r) r = atomicType_1(b, l + 1);
+    if (!r) r = atomicType_2(b, l + 1);
+    if (!r) r = atomicType_3(b, l + 1);
     if (!r) r = atomicType_4(b, l + 1);
     if (!r) r = atomicType_5(b, l + 1);
-    if (!r) r = consumeToken(b, DT_INT);
+    if (!r) r = atomicType_6(b, l + 1);
     if (!r) r = atomicType_7(b, l + 1);
-    if (!r) r = consumeToken(b, DT_BITSTRING);
-    if (!r) r = lvalue(b, l + 1);
+    if (!r) r = atomicType_8(b, l + 1);
+    if (!r) r = atomicType_9(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // DT_SET OP_LT type OP_GT
+  // typedSet OP_OPT?
   private static boolean atomicType_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "atomicType_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, DT_SET, OP_LT);
-    r = r && type(b, l + 1);
-    r = r && consumeToken(b, OP_GT);
+    r = typedSet(b, l + 1);
+    r = r && atomicType_0_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // DT_MAP OP_LT type PN_COMMA type OP_GT
+  // OP_OPT?
+  private static boolean atomicType_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atomicType_0_1")) return false;
+    consumeToken(b, OP_OPT);
+    return true;
+  }
+
+  // typedMap OP_OPT?
+  private static boolean atomicType_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atomicType_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = typedMap(b, l + 1);
+    r = r && atomicType_1_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // OP_OPT?
+  private static boolean atomicType_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atomicType_1_1")) return false;
+    consumeToken(b, OP_OPT);
+    return true;
+  }
+
+  // typedArray OP_OPT?
+  private static boolean atomicType_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atomicType_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = typedArray(b, l + 1);
+    r = r && atomicType_2_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // OP_OPT?
+  private static boolean atomicType_2_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atomicType_2_1")) return false;
+    consumeToken(b, OP_OPT);
+    return true;
+  }
+
+  // typedBitString OP_OPT?
+  private static boolean atomicType_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atomicType_3")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = typedBitString(b, l + 1);
+    r = r && atomicType_3_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // OP_OPT?
+  private static boolean atomicType_3_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atomicType_3_1")) return false;
+    consumeToken(b, OP_OPT);
+    return true;
+  }
+
+  // lvalue OP_OPT?
   private static boolean atomicType_4(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "atomicType_4")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, DT_MAP, OP_LT);
-    r = r && type(b, l + 1);
-    r = r && consumeToken(b, PN_COMMA);
-    r = r && type(b, l + 1);
-    r = r && consumeToken(b, OP_GT);
+    r = lvalue(b, l + 1);
+    r = r && atomicType_4_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // DT_ARRAY OP_LT type PN_COMMA integerExpr OP_GT
+  // OP_OPT?
+  private static boolean atomicType_4_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atomicType_4_1")) return false;
+    consumeToken(b, OP_OPT);
+    return true;
+  }
+
+  // DT_SET OP_OPT?
   private static boolean atomicType_5(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "atomicType_5")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, DT_ARRAY, OP_LT);
-    r = r && type(b, l + 1);
-    r = r && consumeToken(b, PN_COMMA);
-    r = r && integerExpr(b, l + 1);
-    r = r && consumeToken(b, OP_GT);
+    r = consumeToken(b, DT_SET);
+    r = r && atomicType_5_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // DT_BITSTRING OP_LT integerExpr OP_GT
+  // OP_OPT?
+  private static boolean atomicType_5_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atomicType_5_1")) return false;
+    consumeToken(b, OP_OPT);
+    return true;
+  }
+
+  // DT_BOOL OP_OPT?
+  private static boolean atomicType_6(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atomicType_6")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, DT_BOOL);
+    r = r && atomicType_6_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // OP_OPT?
+  private static boolean atomicType_6_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atomicType_6_1")) return false;
+    consumeToken(b, OP_OPT);
+    return true;
+  }
+
+  // DT_VOID OP_OPT?
   private static boolean atomicType_7(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "atomicType_7")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, DT_BITSTRING, OP_LT);
-    r = r && integerExpr(b, l + 1);
-    r = r && consumeToken(b, OP_GT);
+    r = consumeToken(b, DT_VOID);
+    r = r && atomicType_7_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
+  }
+
+  // OP_OPT?
+  private static boolean atomicType_7_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atomicType_7_1")) return false;
+    consumeToken(b, OP_OPT);
+    return true;
+  }
+
+  // DT_INT OP_OPT?
+  private static boolean atomicType_8(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atomicType_8")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, DT_INT);
+    r = r && atomicType_8_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // OP_OPT?
+  private static boolean atomicType_8_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atomicType_8_1")) return false;
+    consumeToken(b, OP_OPT);
+    return true;
+  }
+
+  // DT_BITSTRING OP_OPT?
+  private static boolean atomicType_9(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atomicType_9")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, DT_BITSTRING);
+    r = r && atomicType_9_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // OP_OPT?
+  private static boolean atomicType_9_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "atomicType_9_1")) return false;
+    consumeToken(b, OP_OPT);
+    return true;
   }
 
   /* ********************************************************** */
@@ -2171,41 +2299,18 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // atomicType OP_OPT*
-  public static boolean typePostfix(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "typePostfix")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, TYPE_POSTFIX, "<type postfix>");
-    r = atomicType(b, l + 1);
-    r = r && typePostfix_1(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // OP_OPT*
-  private static boolean typePostfix_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "typePostfix_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!consumeToken(b, OP_OPT)) break;
-      if (!empty_element_parsed_guard_(b, "typePostfix_1", c)) break;
-    }
-    return true;
-  }
-
-  /* ********************************************************** */
-  // typePostfix (OP_MULT typePostfix)*
+  // atomicType (OP_MULT atomicType)*
   public static boolean typeProduct(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "typeProduct")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, TYPE_PRODUCT, "<type product>");
-    r = typePostfix(b, l + 1);
+    r = atomicType(b, l + 1);
     r = r && typeProduct_1(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // (OP_MULT typePostfix)*
+  // (OP_MULT atomicType)*
   private static boolean typeProduct_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "typeProduct_1")) return false;
     while (true) {
@@ -2216,14 +2321,74 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // OP_MULT typePostfix
+  // OP_MULT atomicType
   private static boolean typeProduct_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "typeProduct_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, OP_MULT);
-    r = r && typePostfix(b, l + 1);
+    r = r && atomicType(b, l + 1);
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // DT_ARRAY OP_LT type PN_COMMA integerExpr OP_GT
+  public static boolean typedArray(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "typedArray")) return false;
+    if (!nextTokenIs(b, DT_ARRAY)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, DT_ARRAY, OP_LT);
+    r = r && type(b, l + 1);
+    r = r && consumeToken(b, PN_COMMA);
+    r = r && integerExpr(b, l + 1);
+    r = r && consumeToken(b, OP_GT);
+    exit_section_(b, m, TYPED_ARRAY, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // DT_BITSTRING OP_LT integerExpr OP_GT
+  public static boolean typedBitString(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "typedBitString")) return false;
+    if (!nextTokenIs(b, DT_BITSTRING)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, DT_BITSTRING, OP_LT);
+    r = r && integerExpr(b, l + 1);
+    r = r && consumeToken(b, OP_GT);
+    exit_section_(b, m, TYPED_BIT_STRING, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // DT_MAP OP_LT type PN_COMMA type OP_GT
+  public static boolean typedMap(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "typedMap")) return false;
+    if (!nextTokenIs(b, DT_MAP)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, DT_MAP, OP_LT);
+    r = r && type(b, l + 1);
+    r = r && consumeToken(b, PN_COMMA);
+    r = r && type(b, l + 1);
+    r = r && consumeToken(b, OP_GT);
+    exit_section_(b, m, TYPED_MAP, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // DT_SET OP_LT type OP_GT
+  public static boolean typedSet(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "typedSet")) return false;
+    if (!nextTokenIs(b, DT_SET)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, DT_SET, OP_LT);
+    r = r && type(b, l + 1);
+    r = r && consumeToken(b, OP_GT);
+    exit_section_(b, m, TYPED_SET, r);
     return r;
   }
 

@@ -8,12 +8,18 @@ import com.intellij.psi.PsiElement;
 public interface ProofFrogAtomicType extends PsiElement {
 
   @Nullable
-  ProofFrogIntegerExpr getIntegerExpr();
-
-  @Nullable
   ProofFrogLvalue getLvalue();
 
   @Nullable
-  ProofFrogType getType();
+  ProofFrogTypedArray getTypedArray();
+
+  @Nullable
+  ProofFrogTypedBitString getTypedBitString();
+
+  @Nullable
+  ProofFrogTypedMap getTypedMap();
+
+  @Nullable
+  ProofFrogTypedSet getTypedSet();
 
 }

@@ -29,20 +29,32 @@ public class ProofFrogAtomicTypeImpl extends ASTWrapperPsiElement implements Pro
 
   @Override
   @Nullable
-  public ProofFrogIntegerExpr getIntegerExpr() {
-    return findChildByClass(ProofFrogIntegerExpr.class);
-  }
-
-  @Override
-  @Nullable
   public ProofFrogLvalue getLvalue() {
     return findChildByClass(ProofFrogLvalue.class);
   }
 
   @Override
   @Nullable
-  public ProofFrogType getType() {
-    return findChildByClass(ProofFrogType.class);
+  public ProofFrogTypedArray getTypedArray() {
+    return findChildByClass(ProofFrogTypedArray.class);
+  }
+
+  @Override
+  @Nullable
+  public ProofFrogTypedBitString getTypedBitString() {
+    return findChildByClass(ProofFrogTypedBitString.class);
+  }
+
+  @Override
+  @Nullable
+  public ProofFrogTypedMap getTypedMap() {
+    return findChildByClass(ProofFrogTypedMap.class);
+  }
+
+  @Override
+  @Nullable
+  public ProofFrogTypedSet getTypedSet() {
+    return findChildByClass(ProofFrogTypedSet.class);
   }
 
 }

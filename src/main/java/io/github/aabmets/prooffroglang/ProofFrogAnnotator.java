@@ -16,13 +16,20 @@ public class ProofFrogAnnotator implements Annotator {
 
     @Override
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        if (element.getNode().getElementType() != ProofFrogTypes.VL_IDENTIFIER) {
-            return;
+        if (element.getNode().getElementType() == ProofFrogTypes.VL_IDENTIFIER) {
+            annotateIdentifier(element, holder);
         }
+    }
 
+    private void annotateIdentifier(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
         PsiElement prevSibling = PsiTreeUtil.prevLeaf(element);
-        while (prevSibling != null && (prevSibling.getNode().getElementType() == TokenType.WHITE_SPACE)) {
-            prevSibling = PsiTreeUtil.prevLeaf(prevSibling);
+        while (prevSibling != null) {
+            IElementType elemType = prevSibling.getNode().getElementType();
+            if (elemType == TokenType.WHITE_SPACE) {
+                prevSibling = PsiTreeUtil.prevLeaf(prevSibling);
+                continue;
+            }
+            break;
         }
 
         if (prevSibling != null) {
