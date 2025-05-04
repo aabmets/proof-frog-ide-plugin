@@ -1,4 +1,4 @@
-package io.github.aabmets.prooffroglang;
+package io.github.aabmets.prooffroglang.highlighter;
 
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory;

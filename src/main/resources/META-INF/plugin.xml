@@ -35,7 +35,7 @@
             implementationClass="io.github.aabmets.prooffroglang.parser.ProofFrogParserDefinition"/>
         <lang.syntaxHighlighterFactory
             language="ProofFrog"
-            implementationClass="io.github.aabmets.prooffroglang.ProofFrogSyntaxHighlighterFactory"/>
+            implementationClass="io.github.aabmets.prooffroglang.highlighter.ProofFrogSyntaxHighlighterFactory"/>
         <colorSettingsPage
             implementation="io.github.aabmets.prooffroglang.ProofFrogColorSettingsPage"/>
         <annotator

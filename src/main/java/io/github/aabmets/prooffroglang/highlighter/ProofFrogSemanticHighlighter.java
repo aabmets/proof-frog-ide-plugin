@@ -1,0 +1,20 @@
+package io.github.aabmets.prooffroglang.highlighter;
+
+import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
+import com.intellij.openapi.editor.colors.TextAttributesKey;
+
+public class ProofFrogSemanticHighlighter {
+
+    public static final TextAttributesKey CLASS_NAME =
+        TextAttributesKey.createTextAttributesKey(
+            "PROOFFROG_CLASS_NAME",
+            DefaultLanguageHighlighterColors.CLASS_NAME
+        );
+
+    public static final TextAttributesKey LOCAL_VARIABLE =
+        TextAttributesKey.createTextAttributesKey(
+            "PROOFFROG_LOCAL_VARIABLE",
+            DefaultLanguageHighlighterColors.LOCAL_VARIABLE
+        );
+
+}

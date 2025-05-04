@@ -1,5 +1,9 @@
 package io.github.aabmets.prooffroglang;
 
+import io.github.aabmets.prooffroglang.highlighter.*;
+
+import javax.swing.*;
+import java.util.Map;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
@@ -7,28 +11,25 @@ import com.intellij.openapi.options.colors.ColorDescriptor;
 import com.intellij.openapi.options.colors.ColorSettingsPage;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
-import java.util.Map;
-
 public class ProofFrogColorSettingsPage implements ColorSettingsPage {
 
     private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[] {
-        new AttributesDescriptor("Punctuation", ProofFrogSyntaxHighlighter.PUNCTUATION),
-        new AttributesDescriptor("Structure", ProofFrogSyntaxHighlighter.STRUCTURE),
-        new AttributesDescriptor("Operators", ProofFrogSyntaxHighlighter.OPERATOR),
-        new AttributesDescriptor("Keywords", ProofFrogSyntaxHighlighter.KEYWORD),
-        new AttributesDescriptor("Labels", ProofFrogSyntaxHighlighter.LABEL),
-        new AttributesDescriptor("Class declarators", ProofFrogSyntaxHighlighter.CLASS_DECLARATOR),
-        new AttributesDescriptor("Properties", ProofFrogSyntaxHighlighter.PROPERTY),
-        new AttributesDescriptor("Named blocks", ProofFrogSyntaxHighlighter.NAMED_BLOCK),
-        new AttributesDescriptor("Data types", ProofFrogSyntaxHighlighter.DATATYPE),
-        new AttributesDescriptor("Literals//Booleans", ProofFrogSyntaxHighlighter.BOOLEAN),
-        new AttributesDescriptor("Literals//Numbers", ProofFrogSyntaxHighlighter.NUMBER),
-        new AttributesDescriptor("Literals//Strings", ProofFrogSyntaxHighlighter.STRING),
-        new AttributesDescriptor("Identifiers", ProofFrogSyntaxHighlighter.IDENTIFIER),
-        new AttributesDescriptor("Line comment", ProofFrogSyntaxHighlighter.COMMENT),
-        new AttributesDescriptor("Bad character", ProofFrogSyntaxHighlighter.BAD_CHARACTER),
-        new AttributesDescriptor("Class names", ProofFrogSyntaxHighlighter.CLASS_NAME),
+        new AttributesDescriptor("Delimiters", ProofFrogDelimiterHighlighter.KEY),
+        new AttributesDescriptor("Structure", ProofFrogStructureHighlighter.KEY),
+        new AttributesDescriptor("Operators", ProofFrogOperatorHighlighter.KEY),
+        new AttributesDescriptor("Keywords", ProofFrogKeywordHighlighter.KEY),
+        new AttributesDescriptor("Labels", ProofFrogLabelHighlighter.KEY),
+        new AttributesDescriptor("Data types", ProofFrogDatatypeHighlighter.KEY),
+        new AttributesDescriptor("Various//Class keyword", ProofFrogVariousHighlighter.CLASS_KEYWORDS),
+        new AttributesDescriptor("Various//Property", ProofFrogVariousHighlighter.PROPERTY),
+        new AttributesDescriptor("Various//Named block", ProofFrogVariousHighlighter.NAMED_BLOCK),
+        new AttributesDescriptor("Various//Bad character", ProofFrogValueHighlighter.BAD_CHARACTER),
+        new AttributesDescriptor("Literals//Boolean", ProofFrogValueHighlighter.BOOLEAN),
+        new AttributesDescriptor("Literals//Number", ProofFrogValueHighlighter.NUMBER),
+        new AttributesDescriptor("Literals//String", ProofFrogValueHighlighter.STRING),
+        new AttributesDescriptor("Literals//Comment", ProofFrogValueHighlighter.COMMENT),
+        new AttributesDescriptor("Identifiers//Class", ProofFrogSemanticHighlighter.CLASS_NAME),
+        new AttributesDescriptor("Identifiers//Variable", ProofFrogSemanticHighlighter.LOCAL_VARIABLE),
     };
 
     @NotNull
@@ -61,7 +62,7 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
     @NotNull
     @Override
     public Map<String, TextAttributesKey> getAdditionalHighlightingTagToDescriptorMap() {
-        return Map.of("class", ProofFrogSyntaxHighlighter.CLASS_NAME);
+        return Map.of("class", ProofFrogSemanticHighlighter.CLASS_NAME);
     }
 
     @NotNull
