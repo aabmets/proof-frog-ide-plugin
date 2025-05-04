@@ -154,9 +154,9 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
             return NUMBER_KEYS;
         } else if (tokenType.equals(ProofFrogTypes.VL_LINE_COMMENT)) {
             return COMMENT_KEYS;
-        } else if (tokenType.equals(ProofFrogTypes.VL_FILESTRING)) {
+        } else if (tokenType.equals(ProofFrogTypes.VL_FILE_PATH)) {
             return STRING_KEYS;
-        } else if (tokenType.equals(ProofFrogTypes.VL_IDENT)) {
+        } else if (tokenType.equals(ProofFrogTypes.VL_IDENTIFIER)) {
             return IDENTIFIER_KEYS;
         } else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
             return BAD_CHAR_KEYS;
