@@ -104,6 +104,13 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
             HighlighterColors.BAD_CHARACTER
         );
 
+    public static final TextAttributesKey CLASS_NAME =
+        TextAttributesKey.createTextAttributesKey(
+            "PROOFFROG_CLASS_NAME",
+            DefaultLanguageHighlighterColors.CLASS_NAME
+        );
+
+
     private static final TextAttributesKey[] PUNCTUATION_KEYS = new TextAttributesKey[]{PUNCTUATION};
     private static final TextAttributesKey[] STRUCTURE_KEYS = new TextAttributesKey[]{STRUCTURE};
     private static final TextAttributesKey[] OPERATOR_KEYS = new TextAttributesKey[]{OPERATOR};
@@ -120,6 +127,7 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] IDENTIFIER_KEYS = new TextAttributesKey[]{IDENTIFIER};
     private static final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[]{BAD_CHARACTER};
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
+    private static final TextAttributesKey[] CLASS_NAME_KEYS = new TextAttributesKey[]{CLASS_NAME};
 
     @Override
     public @NotNull Lexer getHighlightingLexer() {

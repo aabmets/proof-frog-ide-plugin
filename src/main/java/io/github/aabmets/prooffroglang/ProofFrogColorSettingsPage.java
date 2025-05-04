@@ -28,6 +28,7 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
         new AttributesDescriptor("Identifiers", ProofFrogSyntaxHighlighter.IDENTIFIER),
         new AttributesDescriptor("Line comment", ProofFrogSyntaxHighlighter.COMMENT),
         new AttributesDescriptor("Bad character", ProofFrogSyntaxHighlighter.BAD_CHARACTER),
+        new AttributesDescriptor("Class names", ProofFrogSyntaxHighlighter.CLASS_NAME),
     };
 
     @NotNull
@@ -60,7 +61,7 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
     @NotNull
     @Override
     public Map<String, TextAttributesKey> getAdditionalHighlightingTagToDescriptorMap() {
-        return Map.of();
+        return Map.of("class", ProofFrogSyntaxHighlighter.CLASS_NAME);
     }
 
     @NotNull
@@ -70,15 +71,15 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
             // Example ProofFrog code
             import 'examples/Primitives/SecretSharing.primitive';
             
-            Scheme OTP(Int l) extends SecretSharing {
-                Set Message = BitString<l>;
-                Set Shares = BitString<l>;
+            Scheme <class>OTP</class>(Int length) extends SecretSharing {
+                Set Message = BitString<length>;
+                Set Shares = BitString<length>;
                 Int shareCount = 2;
                 Int threshold = 2;
             
                 Array<Shares, shareCount> Share(Message m) {
-                    BitString<l> s0 <- BitString<l>;
-                    BitString<l> s1 = s1 + m;
+                    BitString<length> s0 <- BitString<l>;
+                    BitString<length> s1 = s1 + m;
                     return [s0, s1];
                 }
             
