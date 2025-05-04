@@ -1,5 +1,14 @@
-# proof-frog-ide-plugin
-ProofFrog DSL Plugin for JetBrains IDE-s
+# ProofFrog Plugin for JetBrains IDE-s
+
+## Description
+**[ProofFrog](https://github.com/ProofFrog/ProofFrog)** is a work-in-progress tool for verifying cryptographic game-hopping proofs.  
+All security properties in ProofFrog are written via pairs of indistinguishable games.
+
+This plugin provides syntax highlighting, annotations, code completion, and other features   
+for the ProofFrog [Domain Specific Language](https://en.wikipedia.org/wiki/Domain-specific_language), which is described in detail in the [thesis paper](https://dspacemainprd01.lib.uwaterloo.ca/server/api/core/bitstreams/b0056349-bcb8-4d69-8b45-dd3808e945d0/content).
+
+
+## Development
 
 This plugin must be developed with IntelliJ IDEA IDE (Community or Ultimate).  
 Development of this plugin requires the following plugins from the IDE marketplace:  
@@ -23,7 +32,7 @@ cd ..
 git submodule update --init --recursive
 ```
 
-Let sources root = `src/main/java/io/github/aabmets/prooffroglang`.  
+Let sources root equal `src/main/java/io/github/aabmets/prooffroglang`.  
 To modify the syntax rules of this plugin, modify `ProofFrog.bnf` and `ProofFrog.flex` in sources root.
 
 Then in `ProofFrog.bnf` context menu select `Generate Parser Code`  
