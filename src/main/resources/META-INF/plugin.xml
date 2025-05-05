@@ -36,6 +36,12 @@
         <lang.syntaxHighlighterFactory
             language="ProofFrog"
             implementationClass="io.github.aabmets.prooffroglang.highlighter.ProofFrogSyntaxHighlighterFactory"/>
+        <lang.refactoringSupport
+            language="ProofFrog"
+            implementationClass="io.github.aabmets.prooffroglang.ProofFrogRefactoringSupportProvider"/>
+        <psi.referenceContributor
+            language="ProofFrog"
+            implementation="io.github.aabmets.prooffroglang.reference.ProofFrogReferenceContributor"/>
         <colorSettingsPage
             implementation="io.github.aabmets.prooffroglang.ProofFrogColorSettingsPage"/>
         <annotator
