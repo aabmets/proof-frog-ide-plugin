@@ -3,6 +3,7 @@ package io.github.aabmets.prooffroglang;
 import io.github.aabmets.prooffroglang.highlighter.ProofFrogSemanticHighlighter;
 import io.github.aabmets.prooffroglang.psi.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.function.BiFunction;
 import com.intellij.lang.annotation.AnnotationHolder;
@@ -19,7 +20,8 @@ public class ProofFrogAnnotator implements Annotator {
         List.of(
             this::annotateClassNames,
             this::annotateMethodSignatures,
-            this::annotateLocalVariables
+            this::annotateLocalVariables,
+            this::annotateMethodCalls
         );
 
     @Override
@@ -56,12 +58,42 @@ public class ProofFrogAnnotator implements Annotator {
     }
 
     private boolean annotateLocalVariables(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        IElementType parentType = ProofFrogPsiUtils.safeGetParentElementType(element);
-        if (ProofFrogTokenSets.VARIABLES.contains(parentType)) {
-            PsiElement parent = PsiTreeUtil.getParentOfType(element, ProofFrogMethod.class, true);
-            if (parent != null && element instanceof ProofFrogId) {
+        PsiElement method = PsiTreeUtil.getParentOfType(element, ProofFrogMethod.class, true);
+        if (method != null && element instanceof ProofFrogLvalue) {
+            PsiElement metSig = PsiTreeUtil.getChildOfType(method, ProofFrogMethodSignature.class);
+            Collection<ProofFrogVariable> metSigVars = PsiTreeUtil.findChildrenOfType(metSig, ProofFrogVariable.class);
+            for (ProofFrogVariable msv : metSigVars) {
+                if (element.getText().equals(msv.getId().getText())) {
+                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                        .textAttributes(ProofFrogSemanticHighlighter.PARAMETER)
+                        .create();
+                    return true;
+                }
+            }
+            PsiElement metBlock = PsiTreeUtil.getParentOfType(element, ProofFrogBlock.class);
+            if (metBlock != null) {
+                IElementType elemType = ProofFrogPsiUtils.safeGetParentElementType(element);
+                if (!(ProofFrogTokenSets.VARIABLES.contains(elemType))){
+                    return false;
+                }
                 holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
                     .textAttributes(ProofFrogSemanticHighlighter.LOCAL_VARIABLE)
+                    .create();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean annotateMethodCalls(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
+        PsiElement method = PsiTreeUtil.getParentOfType(element, ProofFrogMethod.class, true);
+        if (method != null && element instanceof ProofFrogId) {
+            IElementType prevElemType = ProofFrogPsiUtils.safeGetPreviousElementType(element);
+            PsiElement primElem = PsiTreeUtil.getParentOfType(element, ProofFrogPrimaryElem.class, true);
+            IElementType callExpr = ProofFrogPsiUtils.safeGetNextElementType(primElem);
+            if (prevElemType == ProofFrogTypes.PN_PERIOD && callExpr != null) {
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                    .textAttributes(ProofFrogSemanticHighlighter.METHOD_CALL)
                     .create();
                 return true;
             }

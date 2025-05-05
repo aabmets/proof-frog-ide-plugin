@@ -28,8 +28,17 @@ public class ProofFrogPsiUtils {
     }
 
     @Nullable
-    public static IElementType safeGetPreviousElementType(@NotNull PsiElement element) {
+    public static IElementType safeGetPreviousElementType(@Nullable PsiElement element) {
         PsiElement prevElem = PsiTreeUtil.skipWhitespacesBackward(element);
+        if (prevElem == null) {
+            return null;
+        }
+        return safeGetElementType(prevElem);
+    }
+
+    @Nullable
+    public static IElementType safeGetNextElementType(@Nullable PsiElement element) {
+        PsiElement prevElem = PsiTreeUtil.skipWhitespacesForward(element);
         if (prevElem == null) {
             return null;
         }

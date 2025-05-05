@@ -5,6 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface ProofFrogId extends PsiElement {
+public interface ProofFrogId extends ProofFrogNamedElement {
+
+  String getName();
+
+  PsiElement setName(@NotNull String name);
+
+  @Nullable PsiElement getNameIdentifier();
 
 }

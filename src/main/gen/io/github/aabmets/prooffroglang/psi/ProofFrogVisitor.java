@@ -108,7 +108,7 @@ public class ProofFrogVisitor extends PsiElementVisitor {
   }
 
   public void visitId(@NotNull ProofFrogId o) {
-    visitPsiElement(o);
+    visitNamedElement(o);
   }
 
   public void visitInduction(@NotNull ProofFrogInduction o) {
@@ -300,6 +300,10 @@ public class ProofFrogVisitor extends PsiElementVisitor {
   }
 
   public void visitVariable(@NotNull ProofFrogVariable o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNamedElement(@NotNull ProofFrogNamedElement o) {
     visitPsiElement(o);
   }
 

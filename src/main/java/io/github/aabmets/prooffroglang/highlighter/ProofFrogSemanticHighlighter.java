@@ -23,4 +23,10 @@ public class ProofFrogSemanticHighlighter {
             DefaultLanguageHighlighterColors.PARAMETER
         );
 
+    public static final TextAttributesKey METHOD_CALL =
+        TextAttributesKey.createTextAttributesKey(
+            "PROOFFROG_METHOD_CALL",
+            DefaultLanguageHighlighterColors.FUNCTION_CALL
+        );
+
 }

@@ -11,14 +11,6 @@
     parserUtilClass="io.github.aabmets.prooffroglang.parser.ProofFrogParserUtil"
 }
 
-//file ::= (
-//    primitiveProgram |
-//    schemeProgram |
-//    gameProgram |
-//    proofProgram |
-//    VL_LINE_COMMENT
-//);
-
 file ::= <<fileContent>> | VL_LINE_COMMENT;
 
 private fileContent ::= primitiveContent | schemeContent | gameContent | proofContent;
@@ -96,7 +88,11 @@ gameAdversary ::= parameterizedGame PN_PERIOD PR_ADVERSARY;
 
 // Shared grammar
 
-id ::= VL_IDENTIFIER
+id ::= VL_IDENTIFIER {
+    mixin="io.github.aabmets.prooffroglang.psi.impl.ProofFrogNamedElementImpl"
+    implements="io.github.aabmets.prooffroglang.psi.ProofFrogNamedElement"
+    methods=[getName setName getNameIdentifier]
+}
 
 moduleImport ::= KW_IMPORT VL_FILE_PATH (KW_AS id)? PN_SEMI;
 
