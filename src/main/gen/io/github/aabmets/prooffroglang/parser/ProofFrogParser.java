@@ -1567,75 +1567,75 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // lvalue
-  //     | ST_BRACKET_L (expression (PN_COMMA expression)*)? ST_BRACKET_R
-  //     | ST_BRACE_L  (expression (PN_COMMA expression)*)? ST_BRACE_R
-  //     | type
+  //     | VL_INT
   //     | VL_BINARYNUM
-  //     | DT_INT
   //     | VL_BOOL
   //     | KW_NONE
+  //     | type
+  //     | ST_BRACKET_L (expression (PN_COMMA expression)*)? ST_BRACKET_R
+  //     | ST_BRACE_L  (expression (PN_COMMA expression)*)? ST_BRACE_R
   //     | ST_PAREN_L expression ST_PAREN_R
   public static boolean primaryElem(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "primaryElem")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, PRIMARY_ELEM, "<primary elem>");
     r = lvalue(b, l + 1);
-    if (!r) r = primaryElem_1(b, l + 1);
-    if (!r) r = primaryElem_2(b, l + 1);
-    if (!r) r = type(b, l + 1);
+    if (!r) r = consumeToken(b, VL_INT);
     if (!r) r = consumeToken(b, VL_BINARYNUM);
-    if (!r) r = consumeToken(b, DT_INT);
     if (!r) r = consumeToken(b, VL_BOOL);
     if (!r) r = consumeToken(b, KW_NONE);
+    if (!r) r = type(b, l + 1);
+    if (!r) r = primaryElem_6(b, l + 1);
+    if (!r) r = primaryElem_7(b, l + 1);
     if (!r) r = primaryElem_8(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   // ST_BRACKET_L (expression (PN_COMMA expression)*)? ST_BRACKET_R
-  private static boolean primaryElem_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "primaryElem_1")) return false;
+  private static boolean primaryElem_6(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "primaryElem_6")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, ST_BRACKET_L);
-    r = r && primaryElem_1_1(b, l + 1);
+    r = r && primaryElem_6_1(b, l + 1);
     r = r && consumeToken(b, ST_BRACKET_R);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // (expression (PN_COMMA expression)*)?
-  private static boolean primaryElem_1_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "primaryElem_1_1")) return false;
-    primaryElem_1_1_0(b, l + 1);
+  private static boolean primaryElem_6_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "primaryElem_6_1")) return false;
+    primaryElem_6_1_0(b, l + 1);
     return true;
   }
 
   // expression (PN_COMMA expression)*
-  private static boolean primaryElem_1_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "primaryElem_1_1_0")) return false;
+  private static boolean primaryElem_6_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "primaryElem_6_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = expression(b, l + 1);
-    r = r && primaryElem_1_1_0_1(b, l + 1);
+    r = r && primaryElem_6_1_0_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // (PN_COMMA expression)*
-  private static boolean primaryElem_1_1_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "primaryElem_1_1_0_1")) return false;
+  private static boolean primaryElem_6_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "primaryElem_6_1_0_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!primaryElem_1_1_0_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "primaryElem_1_1_0_1", c)) break;
+      if (!primaryElem_6_1_0_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "primaryElem_6_1_0_1", c)) break;
     }
     return true;
   }
 
   // PN_COMMA expression
-  private static boolean primaryElem_1_1_0_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "primaryElem_1_1_0_1_0")) return false;
+  private static boolean primaryElem_6_1_0_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "primaryElem_6_1_0_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, PN_COMMA);
@@ -1645,49 +1645,49 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   // ST_BRACE_L  (expression (PN_COMMA expression)*)? ST_BRACE_R
-  private static boolean primaryElem_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "primaryElem_2")) return false;
+  private static boolean primaryElem_7(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "primaryElem_7")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, ST_BRACE_L);
-    r = r && primaryElem_2_1(b, l + 1);
+    r = r && primaryElem_7_1(b, l + 1);
     r = r && consumeToken(b, ST_BRACE_R);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // (expression (PN_COMMA expression)*)?
-  private static boolean primaryElem_2_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "primaryElem_2_1")) return false;
-    primaryElem_2_1_0(b, l + 1);
+  private static boolean primaryElem_7_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "primaryElem_7_1")) return false;
+    primaryElem_7_1_0(b, l + 1);
     return true;
   }
 
   // expression (PN_COMMA expression)*
-  private static boolean primaryElem_2_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "primaryElem_2_1_0")) return false;
+  private static boolean primaryElem_7_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "primaryElem_7_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = expression(b, l + 1);
-    r = r && primaryElem_2_1_0_1(b, l + 1);
+    r = r && primaryElem_7_1_0_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // (PN_COMMA expression)*
-  private static boolean primaryElem_2_1_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "primaryElem_2_1_0_1")) return false;
+  private static boolean primaryElem_7_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "primaryElem_7_1_0_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!primaryElem_2_1_0_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "primaryElem_2_1_0_1", c)) break;
+      if (!primaryElem_7_1_0_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "primaryElem_7_1_0_1", c)) break;
     }
     return true;
   }
 
   // PN_COMMA expression
-  private static boolean primaryElem_2_1_0_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "primaryElem_2_1_0_1_0")) return false;
+  private static boolean primaryElem_7_1_0_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "primaryElem_7_1_0_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, PN_COMMA);
@@ -2440,7 +2440,8 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // OP_NOT unaryExpr
-  //     | OP_VBAR unaryExpr OP_VBAR
+  //     | OP_SUB unaryExpr
+  //     | OP_VBAR expression OP_VBAR
   //     | primaryExpr
   public static boolean unaryExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "unaryExpr")) return false;
@@ -2448,6 +2449,7 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b, l, _NONE_, UNARY_EXPR, "<unary expr>");
     r = unaryExpr_0(b, l + 1);
     if (!r) r = unaryExpr_1(b, l + 1);
+    if (!r) r = unaryExpr_2(b, l + 1);
     if (!r) r = primaryExpr(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -2464,13 +2466,24 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // OP_VBAR unaryExpr OP_VBAR
+  // OP_SUB unaryExpr
   private static boolean unaryExpr_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "unaryExpr_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, OP_VBAR);
+    r = consumeToken(b, OP_SUB);
     r = r && unaryExpr(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // OP_VBAR expression OP_VBAR
+  private static boolean unaryExpr_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "unaryExpr_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, OP_VBAR);
+    r = r && expression(b, l + 1);
     r = r && consumeToken(b, OP_VBAR);
     exit_section_(b, m, null, r);
     return r;

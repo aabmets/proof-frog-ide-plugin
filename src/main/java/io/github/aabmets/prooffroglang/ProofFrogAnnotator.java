@@ -18,6 +18,7 @@ public class ProofFrogAnnotator implements Annotator {
     private final List<BiFunction<PsiElement,AnnotationHolder,Boolean>> annotators =
         List.of(
             this::annotateClassNames,
+            this::annotateMethodSignatures,
             this::annotateLocalVariables
         );
 
@@ -31,12 +32,22 @@ public class ProofFrogAnnotator implements Annotator {
     }
 
     private boolean annotateClassNames(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        PsiElement prevElem = ProofFrogPsiUtils.skipWhitespaceToPreviousSibling(element);
-        if (prevElem != null) {
-            IElementType elemType = prevElem.getNode().getElementType();
-            if (ProofFrogTokenSets.CLASS_KEYWORDS.contains(elemType)) {
+        IElementType prevType = ProofFrogPsiUtils.safeGetPreviousElementType(element);
+        if (ProofFrogTokenSets.CLASS_KEYWORDS.contains(prevType)) {
+            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                .textAttributes(ProofFrogSemanticHighlighter.CLASS_NAME)
+                .create();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean annotateMethodSignatures(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
+        if (element.getParent() instanceof ProofFrogVariable) {
+            PsiElement parent = PsiTreeUtil.getParentOfType(element, ProofFrogMethodSignature.class, true);
+            if (parent != null && element instanceof ProofFrogId) {
                 holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
-                    .textAttributes(ProofFrogSemanticHighlighter.CLASS_NAME)
+                    .textAttributes(ProofFrogSemanticHighlighter.PARAMETER)
                     .create();
                 return true;
             }
@@ -45,10 +56,10 @@ public class ProofFrogAnnotator implements Annotator {
     }
 
     private boolean annotateLocalVariables(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        IElementType parentType = element.getParent().getNode().getElementType();
+        IElementType parentType = ProofFrogPsiUtils.safeGetParentElementType(element);
         if (ProofFrogTokenSets.VARIABLES.contains(parentType)) {
             PsiElement parent = PsiTreeUtil.getParentOfType(element, ProofFrogMethod.class, true);
-            if (parent != null) {
+            if (parent != null && element instanceof ProofFrogId) {
                 holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
                     .textAttributes(ProofFrogSemanticHighlighter.LOCAL_VARIABLE)
                     .create();
@@ -57,6 +68,5 @@ public class ProofFrogAnnotator implements Annotator {
         }
         return false;
     }
-
 
 }

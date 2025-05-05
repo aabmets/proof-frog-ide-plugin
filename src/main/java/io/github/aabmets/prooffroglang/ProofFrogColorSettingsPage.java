@@ -30,6 +30,7 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
         new AttributesDescriptor("Literals//Comment", ProofFrogValueHighlighter.COMMENT),
         new AttributesDescriptor("Identifiers//Class", ProofFrogSemanticHighlighter.CLASS_NAME),
         new AttributesDescriptor("Identifiers//Variable", ProofFrogSemanticHighlighter.LOCAL_VARIABLE),
+        new AttributesDescriptor("Identifiers//Parameter", ProofFrogSemanticHighlighter.PARAMETER),
     };
 
     @NotNull
@@ -62,7 +63,11 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
     @NotNull
     @Override
     public Map<String, TextAttributesKey> getAdditionalHighlightingTagToDescriptorMap() {
-        return Map.of("class", ProofFrogSemanticHighlighter.CLASS_NAME);
+        return Map.of(
+            "class", ProofFrogSemanticHighlighter.CLASS_NAME,
+            "param", ProofFrogSemanticHighlighter.PARAMETER,
+            "var", ProofFrogSemanticHighlighter.LOCAL_VARIABLE
+        );
     }
 
     @NotNull
@@ -78,13 +83,13 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
                 Int shareCount = 2;
                 Int threshold = 2;
             
-                Array<Shares, shareCount> Share(Message m) {
-                    BitString<length> s0 <- BitString<l>;
-                    BitString<length> s1 = s1 + m;
+                Array<Shares, shareCount> Share(Message <param>m</param>) {
+                    BitString<length> <var>s0</var> <- BitString<l>;
+                    BitString<length> <var>s1</var> = s1 + m;
                     return [s0, s1];
                 }
             
-                Message Reconstruct(Array<Shares, shareCount> s) {
+                Message Reconstruct(Array<Shares, shareCount> <param>s</param>) {
                     return s[0] + s[1];
                 }
             }

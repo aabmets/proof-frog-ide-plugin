@@ -159,19 +159,20 @@ addExpr ::= multiplyExpr ( (OP_ADD | OP_SUB) multiplyExpr )*;
 multiplyExpr ::= unaryExpr ( (OP_MULT | OP_DIV) unaryExpr )*;
 unaryExpr ::=
       OP_NOT unaryExpr
-    | OP_VBAR unaryExpr OP_VBAR
+    | OP_SUB unaryExpr
+    | OP_VBAR expression OP_VBAR
     | primaryExpr
     ;
 primaryExpr ::= primaryElem (callExpr | sliceExpr)*;
 primaryElem ::=
       lvalue
-    | ST_BRACKET_L (expression (PN_COMMA expression)*)? ST_BRACKET_R
-    | ST_BRACE_L  (expression (PN_COMMA expression)*)? ST_BRACE_R
-    | type
+    | VL_INT
     | VL_BINARYNUM
-    | DT_INT
     | VL_BOOL
     | KW_NONE
+    | type
+    | ST_BRACKET_L (expression (PN_COMMA expression)*)? ST_BRACKET_R
+    | ST_BRACE_L  (expression (PN_COMMA expression)*)? ST_BRACE_R
     | ST_PAREN_L expression ST_PAREN_R
     ;
 callExpr ::= ST_PAREN_L argList? ST_PAREN_R;

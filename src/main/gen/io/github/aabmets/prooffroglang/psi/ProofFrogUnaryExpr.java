@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface ProofFrogUnaryExpr extends PsiElement {
 
   @Nullable
+  ProofFrogExpression getExpression();
+
+  @Nullable
   ProofFrogPrimaryExpr getPrimaryExpr();
 
   @Nullable

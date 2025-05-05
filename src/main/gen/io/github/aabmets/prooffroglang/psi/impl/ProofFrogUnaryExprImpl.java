@@ -29,6 +29,12 @@ public class ProofFrogUnaryExprImpl extends ASTWrapperPsiElement implements Proo
 
   @Override
   @Nullable
+  public ProofFrogExpression getExpression() {
+    return findChildByClass(ProofFrogExpression.class);
+  }
+
+  @Override
+  @Nullable
   public ProofFrogPrimaryExpr getPrimaryExpr() {
     return findChildByClass(ProofFrogPrimaryExpr.class);
   }
