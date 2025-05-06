@@ -1,5 +1,6 @@
 package io.github.aabmets.prooffroglang;
 
+import com.intellij.psi.TokenType;
 import io.github.aabmets.prooffroglang.highlighter.ProofFrogSemanticHighlighter;
 import io.github.aabmets.prooffroglang.psi.*;
 
@@ -20,8 +21,8 @@ public class ProofFrogAnnotator implements Annotator {
         List.of(
             this::annotateClassNames,
             this::annotateMethodSignatures,
-            this::annotateLocalVariables,
-            this::annotateMethodCalls
+            this::annotateMethodCalls,
+            this::annotateLocalVariables
         );
 
     @Override
@@ -34,7 +35,8 @@ public class ProofFrogAnnotator implements Annotator {
     }
 
     private boolean annotateClassNames(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        IElementType prevType = ProofFrogPsiUtils.safeGetPreviousElementType(element);
+        PsiElement prevElem = PsiTreeUtil.skipWhitespacesBackward(element);
+        IElementType prevType = ProofFrogPsiUtils.safeGetElementType(prevElem);
         if (ProofFrogTokenSets.CLASS_KEYWORDS.contains(prevType)) {
             holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
                 .textAttributes(ProofFrogSemanticHighlighter.CLASS_NAME)
@@ -45,11 +47,35 @@ public class ProofFrogAnnotator implements Annotator {
     }
 
     private boolean annotateMethodSignatures(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        if (element.getParent() instanceof ProofFrogVariable) {
+        if (element.getParent() instanceof ProofFrogVariable && element instanceof ProofFrogId) {
             PsiElement parent = PsiTreeUtil.getParentOfType(element, ProofFrogMethodSignature.class, true);
-            if (parent != null && element instanceof ProofFrogId) {
+            if (parent != null) {
                 holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
                     .textAttributes(ProofFrogSemanticHighlighter.PARAMETER)
+                    .create();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean annotateMethodCalls(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
+        PsiElement parent = PsiTreeUtil.getParentOfType(element, ProofFrogPrimaryElem.class, true);
+        boolean isMethodCall = PsiTreeUtil.getNextSiblingOfType(parent, ProofFrogCallExpr.class) != null;
+        if (isMethodCall && element instanceof ProofFrogId) {
+            IElementType prevType = ProofFrogPsiUtils.safeGetPreviousSiblingType(element);
+            if (prevType != null && prevType.equals(ProofFrogTypes.PN_PERIOD)) {
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                    .textAttributes(ProofFrogSemanticHighlighter.METHOD_CALL)
+                    .create();
+                return true;
+            }
+            PsiElement prevElem = PsiTreeUtil.getParentOfType(parent, ProofFrogExpression.class, true);
+            prevType = ProofFrogPsiUtils.safeGetPreviousSiblingType(prevElem);
+            boolean hasSiblings = ProofFrogPsiUtils.hasSiblings(element);
+            if (!hasSiblings && prevType != null && prevType.equals(TokenType.WHITE_SPACE)) {
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                    .textAttributes(ProofFrogSemanticHighlighter.METHOD_CALL)
                     .create();
                 return true;
             }
@@ -78,22 +104,6 @@ public class ProofFrogAnnotator implements Annotator {
                 }
                 holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
                     .textAttributes(ProofFrogSemanticHighlighter.LOCAL_VARIABLE)
-                    .create();
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean annotateMethodCalls(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        PsiElement method = PsiTreeUtil.getParentOfType(element, ProofFrogMethod.class, true);
-        if (method != null && element instanceof ProofFrogId) {
-            IElementType prevElemType = ProofFrogPsiUtils.safeGetPreviousElementType(element);
-            PsiElement primElem = PsiTreeUtil.getParentOfType(element, ProofFrogPrimaryElem.class, true);
-            IElementType callExpr = ProofFrogPsiUtils.safeGetNextElementType(primElem);
-            if (prevElemType == ProofFrogTypes.PN_PERIOD && callExpr != null) {
-                holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
-                    .textAttributes(ProofFrogSemanticHighlighter.METHOD_CALL)
                     .create();
                 return true;
             }
