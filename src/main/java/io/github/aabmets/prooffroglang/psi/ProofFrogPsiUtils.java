@@ -9,26 +9,26 @@ import org.jetbrains.annotations.Nullable;
 public class ProofFrogPsiUtils {
 
     @Nullable
-    public static IElementType safeGetElementType(@NotNull PsiElement element) {
-        ASTNode elemNode = element.getNode();
-        return elemNode == null ? null : elemNode.getElementType();
+    public static IElementType safeGetElementType(@Nullable PsiElement element) {
+        ASTNode node = element == null ? null : element.getNode();
+        return node == null ? null : node.getElementType();
     }
 
     @Nullable
-    public static IElementType safeGetParentElementType(@NotNull PsiElement element) {
-        PsiElement parent = element.getParent();
+    public static IElementType safeGetParentElementType(@Nullable PsiElement element) {
+        PsiElement parent = element == null ? null : element.getParent();
         return parent == null ? null : safeGetElementType(parent);
     }
 
     @Nullable
-    public static IElementType safeGetPreviousSiblingType(@NotNull PsiElement element) {
-        PsiElement sibling = element.getPrevSibling();
+    public static IElementType safeGetPreviousSiblingType(@Nullable PsiElement element) {
+        PsiElement sibling = element == null ? null : element.getPrevSibling();
         return sibling == null ? null : safeGetElementType(sibling);
     }
 
     @Nullable
-    public static IElementType safeGetNextSiblingType(@NotNull PsiElement element) {
-        PsiElement sibling = element.getNextSibling();
+    public static IElementType safeGetNextSiblingType(@Nullable PsiElement element) {
+        PsiElement sibling = element == null ? null : element.getNextSibling();
         return sibling == null ? null : safeGetElementType(sibling);
     }
 
