@@ -3,7 +3,6 @@ package io.github.aabmets.prooffroglang.psi;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -12,37 +11,25 @@ public class ProofFrogPsiUtils {
     @Nullable
     public static IElementType safeGetElementType(@NotNull PsiElement element) {
         ASTNode elemNode = element.getNode();
-        if (elemNode == null) {
-            return null;
-        }
-        return elemNode.getElementType();
+        return elemNode == null ? null : elemNode.getElementType();
     }
 
     @Nullable
     public static IElementType safeGetParentElementType(@NotNull PsiElement element) {
-        PsiElement parentElem = element.getParent();
-        if (parentElem == null) {
-            return null;
-        }
-        return safeGetElementType(parentElem);
+        PsiElement parent = element.getParent();
+        return parent == null ? null : safeGetElementType(parent);
     }
 
     @Nullable
-    public static IElementType safeGetPreviousElementType(@Nullable PsiElement element) {
-        PsiElement prevElem = PsiTreeUtil.skipWhitespacesBackward(element);
-        if (prevElem == null) {
-            return null;
-        }
-        return safeGetElementType(prevElem);
+    public static IElementType safeGetPreviousSiblingType(@NotNull PsiElement element) {
+        PsiElement sibling = element.getPrevSibling();
+        return sibling == null ? null : safeGetElementType(sibling);
     }
 
     @Nullable
-    public static IElementType safeGetNextElementType(@Nullable PsiElement element) {
-        PsiElement prevElem = PsiTreeUtil.skipWhitespacesForward(element);
-        if (prevElem == null) {
-            return null;
-        }
-        return safeGetElementType(prevElem);
+    public static IElementType safeGetNextSiblingType(@NotNull PsiElement element) {
+        PsiElement sibling = element.getNextSibling();
+        return sibling == null ? null : safeGetElementType(sibling);
     }
 
 }
