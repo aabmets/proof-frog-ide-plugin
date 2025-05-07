@@ -94,7 +94,9 @@ id ::= VL_IDENTIFIER {
     methods=[getName setName getNameIdentifier]
 }
 
-moduleImport ::= KW_IMPORT VL_FILE_PATH (KW_AS id)? PN_SEMI;
+moduleImport ::= KW_IMPORT filePath (KW_AS id)? PN_SEMI;
+
+filePath ::= VL_FILE_PATH;
 
 field ::= variable (OP_ASSIGN expression)?;
 

@@ -67,6 +67,10 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFilePath(@NotNull ProofFrogFilePath o) {
+    visitPsiElement(o);
+  }
+
   public void visitGame(@NotNull ProofFrogGame o) {
     visitPsiElement(o);
   }

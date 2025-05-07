@@ -23,6 +23,7 @@ public interface ProofFrogTypes {
   IElementType CONDITIONAL_STMT = new ProofFrogElementType("CONDITIONAL_STMT");
   IElementType EXPRESSION = new ProofFrogElementType("EXPRESSION");
   IElementType FIELD = new ProofFrogElementType("FIELD");
+  IElementType FILE_PATH = new ProofFrogElementType("FILE_PATH");
   IElementType GAME = new ProofFrogElementType("GAME");
   IElementType GAME_ADVERSARY = new ProofFrogElementType("GAME_ADVERSARY");
   IElementType GAME_BODY = new ProofFrogElementType("GAME_BODY");
@@ -203,6 +204,9 @@ public interface ProofFrogTypes {
       }
       else if (type == FIELD) {
         return new ProofFrogFieldImpl(node);
+      }
+      else if (type == FILE_PATH) {
+        return new ProofFrogFilePathImpl(node);
       }
       else if (type == GAME) {
         return new ProofFrogGameImpl(node);

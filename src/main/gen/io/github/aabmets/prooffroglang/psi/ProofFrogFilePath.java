@@ -5,12 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface ProofFrogModuleImport extends PsiElement {
-
-  @NotNull
-  ProofFrogFilePath getFilePath();
-
-  @Nullable
-  ProofFrogId getId();
+public interface ProofFrogFilePath extends PsiElement {
 
 }

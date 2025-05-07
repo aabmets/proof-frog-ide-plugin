@@ -738,6 +738,18 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // VL_FILE_PATH
+  public static boolean filePath(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "filePath")) return false;
+    if (!nextTokenIs(b, VL_FILE_PATH)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, VL_FILE_PATH);
+    exit_section_(b, m, FILE_PATH, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // gameSignature ST_BRACE_L gameBody ST_BRACE_R
   public static boolean game(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "game")) return false;
@@ -1357,13 +1369,14 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // KW_IMPORT VL_FILE_PATH (KW_AS id)? PN_SEMI
+  // KW_IMPORT filePath (KW_AS id)? PN_SEMI
   public static boolean moduleImport(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "moduleImport")) return false;
     if (!nextTokenIs(b, KW_IMPORT)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, KW_IMPORT, VL_FILE_PATH);
+    r = consumeToken(b, KW_IMPORT);
+    r = r && filePath(b, l + 1);
     r = r && moduleImport_2(b, l + 1);
     r = r && consumeToken(b, PN_SEMI);
     exit_section_(b, m, MODULE_IMPORT, r);
