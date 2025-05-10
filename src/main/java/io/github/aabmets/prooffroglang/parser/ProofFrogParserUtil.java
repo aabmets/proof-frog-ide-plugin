@@ -8,6 +8,7 @@ import com.intellij.openapi.util.io.FileUtilRt;
 import org.jetbrains.annotations.NotNull;
 
 public class ProofFrogParserUtil extends GeneratedParserUtilBase {
+
     private static @NotNull String getExtension(@NotNull PsiBuilder builder) {
         PsiFile file = builder.getUserData(FileContextUtil.CONTAINING_FILE_KEY);
         if (file == null) {

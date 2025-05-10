@@ -1,14 +1,18 @@
 {
     parserClass="io.github.aabmets.prooffroglang.parser.ProofFrogParser"
     extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
     psiClassPrefix="ProofFrog"
     psiImplClassSuffix="Impl"
     psiPackage="io.github.aabmets.prooffroglang.psi"
     psiImplPackage="io.github.aabmets.prooffroglang.psi.impl"
+
     elementTypeHolderClass="io.github.aabmets.prooffroglang.psi.ProofFrogTypes"
     elementTypeClass="io.github.aabmets.prooffroglang.psi.ProofFrogElementType"
     tokenTypeClass="io.github.aabmets.prooffroglang.psi.ProofFrogTokenType"
+
     parserUtilClass="io.github.aabmets.prooffroglang.parser.ProofFrogParserUtil"
+    psiImplUtilClass="io.github.aabmets.prooffroglang.psi.impl.ProofFrogPsiImplUtil"
 }
 
 file ::= <<fileContent>> | VL_LINE_COMMENT;
