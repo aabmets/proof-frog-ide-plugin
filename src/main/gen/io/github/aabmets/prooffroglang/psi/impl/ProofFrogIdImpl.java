@@ -8,9 +8,10 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static io.github.aabmets.prooffroglang.psi.ProofFrogTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.github.aabmets.prooffroglang.psi.*;
 
-public class ProofFrogIdImpl extends ProofFrogNamedElementImpl implements ProofFrogId {
+public class ProofFrogIdImpl extends ASTWrapperPsiElement implements ProofFrogId {
 
   public ProofFrogIdImpl(@NotNull ASTNode node) {
     super(node);

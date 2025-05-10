@@ -88,11 +88,7 @@ gameAdversary ::= parameterizedGame PN_PERIOD PR_ADVERSARY;
 
 // Shared grammar
 
-id ::= VL_IDENTIFIER {
-    mixin="io.github.aabmets.prooffroglang.psi.impl.ProofFrogNamedElementImpl"
-    implements="io.github.aabmets.prooffroglang.psi.ProofFrogNamedElement"
-    methods=[getName setName getNameIdentifier]
-}
+id ::= VL_IDENTIFIER;
 
 moduleImport ::= KW_IMPORT filePath (KW_AS id)? PN_SEMI;
 
