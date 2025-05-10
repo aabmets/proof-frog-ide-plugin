@@ -12,7 +12,6 @@
     tokenTypeClass="io.github.aabmets.prooffroglang.psi.ProofFrogTokenType"
 
     parserUtilClass="io.github.aabmets.prooffroglang.parser.ProofFrogParserUtil"
-    psiImplUtilClass="io.github.aabmets.prooffroglang.psi.impl.ProofFrogPsiImplUtil"
 }
 
 file ::= <<fileContent>> | VL_LINE_COMMENT;
@@ -96,7 +95,10 @@ id ::= VL_IDENTIFIER;
 
 moduleImport ::= KW_IMPORT filePath (KW_AS id)? PN_SEMI;
 
-filePath ::= VL_FILE_PATH;
+filePath ::= VL_FILE_PATH {
+    mixin="io.github.aabmets.prooffroglang.reference.ProofFrogFileReferenceProvider"
+    methods=[getReference]
+};
 
 field ::= variable (OP_ASSIGN expression)?;
 
