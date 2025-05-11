@@ -4,6 +4,7 @@ import com.intellij.psi.TokenType;
 import io.github.aabmets.prooffroglang.highlighter.ProofFrogSemanticHighlighter;
 import io.github.aabmets.prooffroglang.psi.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.BiFunction;
@@ -47,13 +48,25 @@ public class ProofFrogAnnotator implements Annotator {
     }
 
     private boolean annotateMethodSignatures(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        if (element.getParent() instanceof ProofFrogVariable && element instanceof ProofFrogId) {
-            PsiElement parent = PsiTreeUtil.getParentOfType(element, ProofFrogMethodSignature.class, true);
-            if (parent != null) {
+        if (PsiTreeUtil.getParentOfType(element, ProofFrogMethodSignature.class, true) != null) {
+            if (element.getParent() instanceof ProofFrogVariable && element instanceof ProofFrogId) {
                 holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
                     .textAttributes(ProofFrogSemanticHighlighter.PARAMETER)
                     .create();
                 return true;
+            }
+        }
+        PsiElement method = PsiTreeUtil.getParentOfType(element, ProofFrogMethod.class, true);
+        if (method != null && element instanceof ProofFrogLvalue) {
+            PsiElement metSig = PsiTreeUtil.getChildOfType(method, ProofFrogMethodSignature.class);
+            Collection<ProofFrogVariable> metSigVars = PsiTreeUtil.findChildrenOfType(metSig, ProofFrogVariable.class);
+            for (ProofFrogVariable msv : metSigVars) {
+                if (element.getText().equals(msv.getId().getText())) {
+                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                        .textAttributes(ProofFrogSemanticHighlighter.PARAMETER)
+                        .create();
+                    return true;
+                }
             }
         }
         return false;
@@ -85,27 +98,37 @@ public class ProofFrogAnnotator implements Annotator {
 
     private boolean annotateLocalVariables(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
         PsiElement method = PsiTreeUtil.getParentOfType(element, ProofFrogMethod.class, true);
-        if (method != null && element instanceof ProofFrogLvalue) {
-            PsiElement metSig = PsiTreeUtil.getChildOfType(method, ProofFrogMethodSignature.class);
-            Collection<ProofFrogVariable> metSigVars = PsiTreeUtil.findChildrenOfType(metSig, ProofFrogVariable.class);
-            for (ProofFrogVariable msv : metSigVars) {
-                if (element.getText().equals(msv.getId().getText())) {
+        if (method == null || !(element instanceof ProofFrogLvalue)) {
+            return false;
+        }
+        IElementType elemType = ProofFrogPsiUtils.safeGetParentElementType(element);
+        if (ProofFrogTokenSets.VARIABLES.contains(elemType)){
+            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                .textAttributes(ProofFrogSemanticHighlighter.LOCAL_VARIABLE)
+                .create();
+            return true;
+        }
+        PsiElement metBlock = PsiTreeUtil.getChildOfType(method, ProofFrogBlock.class);
+        if (metBlock == null) {
+            return false;
+        }
+        Collection<PsiElement> allVarElements = new ArrayList<>();
+        Collection<PsiElement> blockElements = PsiTreeUtil.findChildrenOfType(metBlock, PsiElement.class);
+        for (PsiElement blockElement : blockElements) {
+            IElementType type = ProofFrogPsiUtils.safeGetElementType(blockElement);
+            if (ProofFrogTokenSets.VARIABLES.contains(type)) {
+                allVarElements.add(blockElement);
+            }
+        }
+        for (PsiElement varElement : allVarElements) {
+            Collection<ProofFrogId> metBodyIds = PsiTreeUtil.findChildrenOfType(varElement, ProofFrogId.class);
+            for (ProofFrogId mbi : metBodyIds) {
+                if (element.getText().equals(mbi.getText())) {
                     holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
-                        .textAttributes(ProofFrogSemanticHighlighter.PARAMETER)
+                        .textAttributes(ProofFrogSemanticHighlighter.LOCAL_VARIABLE)
                         .create();
                     return true;
                 }
-            }
-            PsiElement metBlock = PsiTreeUtil.getParentOfType(element, ProofFrogBlock.class);
-            if (metBlock != null) {
-                IElementType elemType = ProofFrogPsiUtils.safeGetParentElementType(element);
-                if (!(ProofFrogTokenSets.VARIABLES.contains(elemType))){
-                    return false;
-                }
-                holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
-                    .textAttributes(ProofFrogSemanticHighlighter.LOCAL_VARIABLE)
-                    .create();
-                return true;
             }
         }
         return false;
