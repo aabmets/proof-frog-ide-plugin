@@ -1,0 +1,59 @@
+name: Bundle Package and Publish Release
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: ./proof_frog
+
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "true"
+
+      - name: Setup UV package manager
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: 3.13
+          version: "latest"
+
+      - name: Install dependencies
+        run: uv pip install proof_frog pyinstaller
+
+      - name: Copy wrapper script
+        shell: python
+        run: |
+          import shutil
+          shutil.copy('../scripts/proof_frog_wrapper.py', '.')
+
+      - name: Bundle package
+        run: >
+          pyinstaller 
+            --onedir 
+            --paths . 
+            --collect-all antlr4_python3_runtime 
+            --collect-all colorama 
+            --collect-all sympy 
+            --collect-all z3_solver 
+            --collect-all z3 
+            --name proof_frog
+            proof_frog_wrapper.py
+
+      - name: Upload built packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: pkg-${{ matrix.os }}-${{ strategy.job-index }}
+          path: ./dist/proof_frog
