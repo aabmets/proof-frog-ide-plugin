@@ -36,7 +36,8 @@ jobs:
       - name: Bundle Windows package
         if: matrix.os == 'windows-latest'
         shell: pwsh
-        run: & .\create_package.ps1
+        run: |
+          & .\create_package.ps1
 
       - name: Bundle Linux or MacOS package
         if: matrix.os != 'windows-latest'
