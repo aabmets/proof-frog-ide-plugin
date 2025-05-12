@@ -30,17 +30,18 @@ def main():
         'bundle_wrapper.py'
     ], check=True)
 
-    arts_dir = scripts_dir / 'artifacts'
-    arts_dir.mkdir(parents=True, exist_ok=True)
+    dist_dir = scripts_dir / 'dist'
+    artifacts_dir = scripts_dir / 'artifacts'
+    artifacts_dir.mkdir(parents=True, exist_ok=True)
 
     first_tag = list(tags.sys_tags())[0]
     platform = first_tag.platform
     archive_name = f"{proj_name}-{proj_version}-{platform}"
 
     shutil.make_archive(
-        base_name=str(arts_dir / archive_name),
+        base_name=str(artifacts_dir / archive_name),
         format='zip',
-        root_dir=str(arts_dir),
+        root_dir=str(dist_dir),
         base_dir=proj_name
     )
 
