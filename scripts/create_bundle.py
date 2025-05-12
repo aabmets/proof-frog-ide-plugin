@@ -14,10 +14,13 @@ def main():
     platform = first_tag.platform
 
     if 'GITHUB_ENV' in os.environ:
-        with open(os.environ['GITHUB_ENV'], 'a') as f:
+        with open(os.environ['GITHUB_ENV'], 'a') as env:
             artifact_name = f"{proj_name}-{proj_version}-{platform}"
-            f.write(f"artifact_name={artifact_name}\n")
-            f.write(f"proof_frog_version={proj_version}\n")
+            env.write(f"artifact_name={artifact_name}\n")
+
+    if 'GITHUB_OUTPUT' in os.environ:
+        with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+            out.write(f"proof_frog_version={proj_version}\n")
 
     subprocess.run([
         'pyinstaller',

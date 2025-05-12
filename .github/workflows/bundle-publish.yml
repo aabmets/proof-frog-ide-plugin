@@ -10,9 +10,13 @@ concurrency:
 jobs:
   bundle:
     runs-on: ${{ matrix.os }}
+
     defaults:
       run:
         working-directory: ./scripts
+
+    outputs:
+      proof_frog_version: ${{ steps.bundle.outputs.proof_frog_version }}
 
     strategy:
       matrix:
@@ -51,6 +55,9 @@ jobs:
 
     permissions:
       contents: write
+
+    env:
+      proof_frog_version: ${{ needs.bundle.outputs.proof_frog_version }}
 
     steps:
       - name: Download built packages
