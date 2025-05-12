@@ -1,22 +1,17 @@
 import os
 import tomllib
 import subprocess
+import shutil
 from packaging import tags
+from pathlib import Path
 
 
 def main():
-    with open('../proof_frog/pyproject.toml', 'rb') as f:
-        project = tomllib.load(f)['project']
-        proj_name = project['name']
-        proj_version = project['version']
-
-    first_tag = list(tags.sys_tags())[0]
-    platform = first_tag.platform
-
-    if 'GITHUB_ENV' in os.environ:
-        with open(os.environ['GITHUB_ENV'], 'a') as env:
-            artifact_name = f"{proj_name}-{proj_version}-{platform}"
-            env.write(f"artifact_name={artifact_name}\n")
+    scripts_dir = Path(__file__).parent
+    project_toml = scripts_dir.parent / 'proof_frog' / 'pyproject.toml'
+    project = tomllib.load(project_toml.open('rb'))['project']
+    proj_name = project['name']
+    proj_version = project['version']
 
     if 'GITHUB_OUTPUT' in os.environ:
         with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
@@ -34,6 +29,20 @@ def main():
         '--name', proj_name,
         'bundle_wrapper.py'
     ], check=True)
+
+    arts_dir = scripts_dir / 'artifacts'
+    arts_dir.mkdir(parents=True, exist_ok=True)
+
+    first_tag = list(tags.sys_tags())[0]
+    platform = first_tag.platform
+    archive_name = f"{proj_name}-{proj_version}-{platform}"
+
+    shutil.make_archive(
+        base_name=str(arts_dir / archive_name),
+        format='zip',
+        root_dir=str(arts_dir),
+        base_dir=proj_name
+    )
 
 
 if __name__ == "__main__":
