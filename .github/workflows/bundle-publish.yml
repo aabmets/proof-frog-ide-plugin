@@ -50,4 +50,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: pkg-${{ matrix.os }}-${{ strategy.job-index }}
-          path: ./dist/proof_frog
+          path: ./scripts/dist/proof_frog
