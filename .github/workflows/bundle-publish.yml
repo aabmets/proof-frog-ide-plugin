@@ -38,6 +38,7 @@ jobs:
         run: uv pip install proof_frog pyinstaller packaging
 
       - name: Bundle package
+        id: bundle
         run: python create_bundle.py
 
       - name: Upload built packages
