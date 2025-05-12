@@ -1,3 +1,4 @@
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -18,9 +19,8 @@ repositories {
 
 dependencies {
     intellijPlatform {
-        create("IC", "2025.1")
-        bundledPlugin("com.intellij.java")
-        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
+        clion("2025.1")
+        testFramework(TestFrameworkType.Platform)
     }
 }
 
@@ -28,6 +28,11 @@ intellijPlatform {
     pluginConfiguration {
         ideaVersion {
             sinceBuild = "251"
+        }
+    }
+    pluginVerification  {
+        ides {
+            recommended()
         }
     }
 }
