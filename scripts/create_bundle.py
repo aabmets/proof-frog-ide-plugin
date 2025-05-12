@@ -13,10 +13,6 @@ def main():
     proj_name = project['name']
     proj_version = project['version']
 
-    if 'GITHUB_OUTPUT' in os.environ:
-        with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
-            out.write(f"proof_frog_version={proj_version}\n")
-
     subprocess.run([
         'pyinstaller',
         '--onedir',
