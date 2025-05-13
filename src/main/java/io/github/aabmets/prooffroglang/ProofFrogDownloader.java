@@ -118,9 +118,9 @@ public class ProofFrogDownloader {
         }
     }
 
-    public static void downloadProofFrogBinaries(Path pluginDir) throws IOException {
+    public static void downloadProofFrogBinaries(Path downloadDir) throws IOException {
         String latestReleaseUrl = "https://github.com/aabmets/proof-frog-ide-plugin/releases/latest";
-        Path zipPath = pluginDir.resolve("proof_frog.zip");
+        Path zipPath = downloadDir.resolve("proof_frog.zip");
 
         String osName = System.getProperty("os.name").toLowerCase();
         String releaseNameConstraint;
@@ -137,7 +137,7 @@ public class ProofFrogDownloader {
 
         String location = locateGithubRelease(latestReleaseUrl, releaseNameConstraint);
         downloadFileToDisk(location, zipPath);
-        extractArchive(zipPath, pluginDir);
+        extractArchive(zipPath, downloadDir);
         Files.delete(zipPath);
     }
 }
