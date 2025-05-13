@@ -44,5 +44,11 @@
         <lang.commenter
             language="ProofFrog"
             implementationClass="io.github.aabmets.prooffroglang.ProofFrogCommenter"/>
+        <postStartupActivity
+            implementation="io.github.aabmets.prooffroglang.ProofFrogProjectActivity"/>
+        <notificationGroup
+            id="ProofFrog Notifications"
+            displayType="BALLOON"
+            isLogByDefault="true"/>
     </extensions>
 </idea-plugin>
