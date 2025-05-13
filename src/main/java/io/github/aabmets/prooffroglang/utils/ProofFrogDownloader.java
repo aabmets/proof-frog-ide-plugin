@@ -1,4 +1,4 @@
-package io.github.aabmets.prooffroglang;
+package io.github.aabmets.prooffroglang.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
