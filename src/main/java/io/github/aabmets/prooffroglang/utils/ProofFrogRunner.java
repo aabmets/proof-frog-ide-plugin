@@ -40,12 +40,29 @@ public class ProofFrogRunner {
             this.errMsg = "ProofFrog plugin directory not found";
             return;
         }
-        Path exePath = pluginDesc.getPluginPath().resolve("proof_frog/proof_frog.exe");  // TODO: multiplatform compatibility
+        Path exePath = pluginDesc.getPluginPath().resolve(getPluginExePath());
         if (!Files.isExecutable(exePath)) {
             this.errMsg = "ProofFrog runtime missing at:\n" + exePath;
             return;
         }
         this.exePath = exePath.toString();
+    }
+
+    public static String getPluginExePath() {
+        String osName = System.getProperty("os.name").toLowerCase();
+        if (osName.contains("win")) {
+            return "proof_frog/proof_frog.exe";
+        } else if (
+                osName.contains("mac") ||
+                osName.contains("nix") ||
+                osName.contains("nux") ||
+                osName.contains("aix")
+        ) {
+            return "proof_frog/proof_frog";
+        } else {
+            String errMsg = "Unsupported operating system: " + osName;
+            throw new UnsupportedOperationException(errMsg);
+        }
     }
 
     public ProcessHandler createProcessHandler(String command, String filePath) throws ExecutionException {

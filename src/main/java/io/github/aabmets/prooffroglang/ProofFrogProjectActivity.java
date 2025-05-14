@@ -1,8 +1,7 @@
 package io.github.aabmets.prooffroglang;
 
-import io.github.aabmets.prooffroglang.utils.ProofFrogDownloader;
-import io.github.aabmets.prooffroglang.utils.ProofFrogNotifier;
 import io.github.aabmets.prooffroglang.actions.ProofFrogActionManager;
+import io.github.aabmets.prooffroglang.utils.*;
 
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManagerCore;
@@ -30,7 +29,7 @@ public class ProofFrogProjectActivity implements ProjectActivity {
 
         if (descriptor != null) {
             Path pluginDir = descriptor.getPluginPath();
-            Path exePath = pluginDir.resolve("proof_frog/proof_frog.exe");  // TODO: multiplatform compatibility
+            Path exePath = pluginDir.resolve(ProofFrogRunner.getPluginExePath());
 
             if (Files.notExists(exePath)) {
                 try {
