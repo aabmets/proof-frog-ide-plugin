@@ -14,24 +14,35 @@ import org.jetbrains.annotations.NotNull;
 public class ProofFrogColorSettingsPage implements ColorSettingsPage {
 
     private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[] {
-        new AttributesDescriptor("General//Delimiters", ProofFrogDelimiterHighlighter.KEY),
-        new AttributesDescriptor("General//Structure", ProofFrogStructureHighlighter.KEY),
-        new AttributesDescriptor("General//Operators", ProofFrogOperatorHighlighter.KEY),
-        new AttributesDescriptor("General//Keywords", ProofFrogKeywordHighlighter.KEY),
-        new AttributesDescriptor("General//Data types", ProofFrogDatatypeHighlighter.KEY),
-        new AttributesDescriptor("General//Labels", ProofFrogLabelHighlighter.KEY),
-        new AttributesDescriptor("General//Method calls", ProofFrogSemanticHighlighter.METHOD_CALL),
-        new AttributesDescriptor("Various//Class keywords", ProofFrogVariousHighlighter.CLASS_KEYWORDS),
-        new AttributesDescriptor("Various//Properties", ProofFrogVariousHighlighter.PROPERTY),
-        new AttributesDescriptor("Various//Named blocks", ProofFrogVariousHighlighter.NAMED_BLOCK),
-        new AttributesDescriptor("Various//Bad characters", ProofFrogValueHighlighter.BAD_CHARACTER),
-        new AttributesDescriptor("Literals//Booleans", ProofFrogValueHighlighter.BOOLEAN),
-        new AttributesDescriptor("Literals//Numbers", ProofFrogValueHighlighter.NUMBER),
-        new AttributesDescriptor("Literals//Strings", ProofFrogValueHighlighter.STRING),
-        new AttributesDescriptor("Literals//Comments", ProofFrogValueHighlighter.COMMENT),
-        new AttributesDescriptor("Identifiers//Class names", ProofFrogSemanticHighlighter.CLASS_NAME),
-        new AttributesDescriptor("Identifiers//Local variables", ProofFrogSemanticHighlighter.LOCAL_VARIABLE),
-        new AttributesDescriptor("Identifiers//Method parameters", ProofFrogSemanticHighlighter.PARAMETER),
+        // Keywords and Identifiers
+        new AttributesDescriptor("Keywords//General", ProofFrogKeywordHighlighter.KEY),
+        new AttributesDescriptor("Keywords//Class", ProofFrogVariousHighlighter.CLASS_KEYWORDS),
+        new AttributesDescriptor("Identifiers//Class", ProofFrogSemanticHighlighter.CLASS_NAME),
+        new AttributesDescriptor("Identifiers//Method", ProofFrogSemanticHighlighter.METHOD_CALL),
+        new AttributesDescriptor("Identifiers//Parameter", ProofFrogSemanticHighlighter.PARAMETER),
+        new AttributesDescriptor("Identifiers//Local variable", ProofFrogSemanticHighlighter.LOCAL_VARIABLE),
+
+        // Literals and Values
+        new AttributesDescriptor("Literals//File import path", ProofFrogValueHighlighter.STRING),
+        new AttributesDescriptor("Literals//Number", ProofFrogValueHighlighter.NUMBER),
+        new AttributesDescriptor("Literals//Boolean", ProofFrogValueHighlighter.BOOLEAN),
+
+        // Operators and Delimiters
+        new AttributesDescriptor("Operators//Operator", ProofFrogOperatorHighlighter.KEY),
+        new AttributesDescriptor("Operators//Delimiter", ProofFrogDelimiterHighlighter.KEY),
+
+        // Language Elements
+        new AttributesDescriptor("Language//Data types", ProofFrogDatatypeHighlighter.KEY),
+        new AttributesDescriptor("Language//Structure", ProofFrogStructureHighlighter.KEY),
+        new AttributesDescriptor("Language//Property", ProofFrogVariousHighlighter.PROPERTY),
+        new AttributesDescriptor("Language//Label", ProofFrogLabelHighlighter.KEY),
+        new AttributesDescriptor("Language//Named block", ProofFrogVariousHighlighter.NAMED_BLOCK),
+
+        // Documentation
+        new AttributesDescriptor("Documentation//Comments", ProofFrogValueHighlighter.COMMENT),
+
+        // Errors
+        new AttributesDescriptor("Errors//Bad characters", ProofFrogValueHighlighter.BAD_CHARACTER),
     };
 
     @NotNull
