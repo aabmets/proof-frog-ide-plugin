@@ -1,9 +1,9 @@
 package io.github.aabmets.prooffroglang.utils;
 
+import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.executors.DefaultRunExecutor;
-import com.intellij.execution.filters.TextConsoleBuilder;
 import com.intellij.execution.filters.TextConsoleBuilderFactory;
 import com.intellij.execution.process.OSProcessHandler;
 import com.intellij.execution.process.ProcessHandler;
@@ -40,7 +40,7 @@ public class ProofFrogRunner {
             this.errMsg = "ProofFrog plugin directory not found";
             return;
         }
-        Path exePath = pluginDesc.getPluginPath().resolve("proof_frog/proof_frog.exe");
+        Path exePath = pluginDesc.getPluginPath().resolve("proof_frog/proof_frog.exe");  // TODO: multiplatform compatibility
         if (!Files.isExecutable(exePath)) {
             this.errMsg = "ProofFrog runtime missing at:\n" + exePath;
             return;
@@ -48,7 +48,23 @@ public class ProofFrogRunner {
         this.exePath = exePath.toString();
     }
 
-    private void run(VirtualFile targetFile, String command) {
+    public ProcessHandler createProcessHandler(String command, String filePath) throws ExecutionException {
+        if (this.errMsg != null) {
+            throw new ExecutionException(this.errMsg);
+        }
+        GeneralCommandLine cmd = new GeneralCommandLine(this.exePath, command, filePath);
+        cmd.withWorkDirectory(this.project.getBasePath());
+        return new OSProcessHandler(cmd);
+    }
+
+    public ConsoleView createConsoleView(ProcessHandler handler) {
+        ConsoleView console = TextConsoleBuilderFactory
+            .getInstance().createBuilder(this.project).getConsole();
+        console.attachToProcess(handler);
+        return console;
+    }
+
+    private void run(String command, VirtualFile targetFile) {
         if (targetFile == null) {
             this.errMsg = "No file selected";
         }
@@ -58,20 +74,13 @@ public class ProofFrogRunner {
         }
         try {
             String filePath = Path.of(targetFile.getPath()).toString();
-            GeneralCommandLine cmd = new GeneralCommandLine(this.exePath, command, filePath);
-            cmd.withWorkDirectory(this.project.getBasePath());
-
-            ProcessHandler handler = new OSProcessHandler(cmd);
-            TextConsoleBuilder builder = TextConsoleBuilderFactory
-                .getInstance().createBuilder(this.project);
-
-            ConsoleView console = builder.getConsole();
-            console.attachToProcess(handler);
+            ProcessHandler handler = createProcessHandler(command, filePath);
+            ConsoleView console = createConsoleView(handler);
 
             Executor executor = DefaultRunExecutor.getRunExecutorInstance();
             String displayName = "ProofFrog: " + targetFile.getName();
             RunContentDescriptor runDesc = new RunContentDescriptor(
-                    console, handler, console.getComponent(), displayName
+                console, handler, console.getComponent(), displayName
             );
             RunContentManager.getInstance(project).showRunContent(executor, runDesc);
             handler.startNotify();
@@ -82,15 +91,15 @@ public class ProofFrogRunner {
     }
 
     public void parse(VirtualFile targetFile) {
-        this.run(targetFile, "parse");
+        this.run("parse", targetFile);
     }
 
     public void check(VirtualFile targetFile) {
-        this.run(targetFile, "check");
+        this.run("check", targetFile);
     }
 
     public void prove(VirtualFile targetFile) {
-        this.run(targetFile, "prove");
+        this.run("prove", targetFile);
     }
 
 }

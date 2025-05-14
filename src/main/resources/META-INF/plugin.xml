@@ -50,5 +50,7 @@
             id="ProofFrog Notifications"
             displayType="BALLOON"
             isLogByDefault="true"/>
+        <configurationType
+            implementation="io.github.aabmets.prooffroglang.runconfig.ProofFrogRunConfigurationType"/>
     </extensions>
 </idea-plugin>
