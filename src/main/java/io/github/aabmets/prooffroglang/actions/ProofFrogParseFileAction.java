@@ -15,7 +15,7 @@ public class ProofFrogParseFileAction extends AnAction implements DumbAware {
     public static final String ACTION_ID = "ProofFrog.ParseFileAction";
 
     public ProofFrogParseFileAction() {
-        super("Parse with ProofFrog");
+        super("Check Only Syntax");
     }
 
     @Override

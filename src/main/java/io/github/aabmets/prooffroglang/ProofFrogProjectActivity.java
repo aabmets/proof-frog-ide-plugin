@@ -1,17 +1,11 @@
 package io.github.aabmets.prooffroglang;
 
-import com.intellij.openapi.actionSystem.AnAction;
-import io.github.aabmets.prooffroglang.actions.ProofFrogProveFileAction;
-import io.github.aabmets.prooffroglang.actions.ProofFrogParseFileAction;
-import io.github.aabmets.prooffroglang.actions.ProofFrogCheckFileAction;
 import io.github.aabmets.prooffroglang.utils.ProofFrogDownloader;
 import io.github.aabmets.prooffroglang.utils.ProofFrogNotifier;
+import io.github.aabmets.prooffroglang.actions.ProofFrogActionManager;
 
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManagerCore;
-import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.actionSystem.DefaultActionGroup;
-import com.intellij.openapi.actionSystem.IdeActions;
 import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.startup.ProjectActivity;
@@ -25,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class ProofFrogProjectActivity implements ProjectActivity {
+
     @Override
     public @Nullable Object execute(
             @NotNull Project project,
@@ -54,21 +49,7 @@ public class ProofFrogProjectActivity implements ProjectActivity {
                 }
             }
             if (Files.exists(exePath)) {
-                ActionManager am = ActionManager.getInstance();
-                DefaultActionGroup group =
-                    (DefaultActionGroup) am.getAction(IdeActions.GROUP_PROJECT_VIEW_POPUP);
-
-                AnAction action = new ProofFrogProveFileAction();
-                am.registerAction(ProofFrogProveFileAction.ACTION_ID, action);
-                group.add(action);
-
-                action = new ProofFrogParseFileAction();
-                am.registerAction(ProofFrogParseFileAction.ACTION_ID, action);
-                group.add(action);
-
-                action = new ProofFrogCheckFileAction();
-                am.registerAction(ProofFrogCheckFileAction.ACTION_ID, action);
-                group.add(action);
+                ProofFrogActionManager.registerContextMenu();
             }
         }
         return Unit.INSTANCE;

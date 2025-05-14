@@ -15,7 +15,7 @@ public class ProofFrogCheckFileAction extends AnAction implements DumbAware {
     public static final String ACTION_ID = "ProofFrog.CheckFileAction";
 
     public ProofFrogCheckFileAction() {
-        super("Check with ProofFrog");
+        super("Check Syntax and Types");
     }
 
     @Override
