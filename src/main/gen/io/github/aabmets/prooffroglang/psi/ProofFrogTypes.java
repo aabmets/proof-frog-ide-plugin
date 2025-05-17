@@ -13,6 +13,7 @@ public interface ProofFrogTypes {
   IElementType AND_EXPR = new ProofFrogElementType("AND_EXPR");
   IElementType ARG_LIST = new ProofFrogElementType("ARG_LIST");
   IElementType ASSIGN_STMT = new ProofFrogElementType("ASSIGN_STMT");
+  IElementType ASSUME_BLOCK = new ProofFrogElementType("ASSUME_BLOCK");
   IElementType ASSUMPTIONS = new ProofFrogElementType("ASSUMPTIONS");
   IElementType ATOMIC_TYPE = new ProofFrogElementType("ATOMIC_TYPE");
   IElementType BLOCK = new ProofFrogElementType("BLOCK");
@@ -25,6 +26,7 @@ public interface ProofFrogTypes {
   IElementType FIELD = new ProofFrogElementType("FIELD");
   IElementType FILE_PATH = new ProofFrogElementType("FILE_PATH");
   IElementType GAME = new ProofFrogElementType("GAME");
+  IElementType GAMES_BLOCK = new ProofFrogElementType("GAMES_BLOCK");
   IElementType GAME_ADVERSARY = new ProofFrogElementType("GAME_ADVERSARY");
   IElementType GAME_BODY = new ProofFrogElementType("GAME_BODY");
   IElementType GAME_EXPORT = new ProofFrogElementType("GAME_EXPORT");
@@ -40,6 +42,7 @@ public interface ProofFrogTypes {
   IElementType INTEGER_EXPR = new ProofFrogElementType("INTEGER_EXPR");
   IElementType INTEGER_LOOP_STMT = new ProofFrogElementType("INTEGER_LOOP_STMT");
   IElementType LETS = new ProofFrogElementType("LETS");
+  IElementType LETS_BLOCK = new ProofFrogElementType("LETS_BLOCK");
   IElementType LVALUE = new ProofFrogElementType("LVALUE");
   IElementType METHOD = new ProofFrogElementType("METHOD");
   IElementType METHOD_SIGNATURE = new ProofFrogElementType("METHOD_SIGNATURE");
@@ -57,6 +60,7 @@ public interface ProofFrogTypes {
   IElementType PRIMITIVE_PROGRAM = new ProofFrogElementType("PRIMITIVE_PROGRAM");
   IElementType PRIMITIVE_SIGNATURE = new ProofFrogElementType("PRIMITIVE_SIGNATURE");
   IElementType PROOF = new ProofFrogElementType("PROOF");
+  IElementType PROOF_BLOCK = new ProofFrogElementType("PROOF_BLOCK");
   IElementType PROOF_PROGRAM = new ProofFrogElementType("PROOF_PROGRAM");
   IElementType REDUCTION = new ProofFrogElementType("REDUCTION");
   IElementType REDUCTION_SIGNATURE = new ProofFrogElementType("REDUCTION_SIGNATURE");
@@ -71,6 +75,7 @@ public interface ProofFrogTypes {
   IElementType STATEMENT = new ProofFrogElementType("STATEMENT");
   IElementType STEP_ASSUMPTION = new ProofFrogElementType("STEP_ASSUMPTION");
   IElementType THEOREM = new ProofFrogElementType("THEOREM");
+  IElementType THEOREM_BLOCK = new ProofFrogElementType("THEOREM_BLOCK");
   IElementType TYPE = new ProofFrogElementType("TYPE");
   IElementType TYPED_ARRAY = new ProofFrogElementType("TYPED_ARRAY");
   IElementType TYPED_BIT_STRING = new ProofFrogElementType("TYPED_BIT_STRING");
@@ -175,6 +180,9 @@ public interface ProofFrogTypes {
       else if (type == ASSIGN_STMT) {
         return new ProofFrogAssignStmtImpl(node);
       }
+      else if (type == ASSUME_BLOCK) {
+        return new ProofFrogAssumeBlockImpl(node);
+      }
       else if (type == ASSUMPTIONS) {
         return new ProofFrogAssumptionsImpl(node);
       }
@@ -210,6 +218,9 @@ public interface ProofFrogTypes {
       }
       else if (type == GAME) {
         return new ProofFrogGameImpl(node);
+      }
+      else if (type == GAMES_BLOCK) {
+        return new ProofFrogGamesBlockImpl(node);
       }
       else if (type == GAME_ADVERSARY) {
         return new ProofFrogGameAdversaryImpl(node);
@@ -255,6 +266,9 @@ public interface ProofFrogTypes {
       }
       else if (type == LETS) {
         return new ProofFrogLetsImpl(node);
+      }
+      else if (type == LETS_BLOCK) {
+        return new ProofFrogLetsBlockImpl(node);
       }
       else if (type == LVALUE) {
         return new ProofFrogLvalueImpl(node);
@@ -307,6 +321,9 @@ public interface ProofFrogTypes {
       else if (type == PROOF) {
         return new ProofFrogProofImpl(node);
       }
+      else if (type == PROOF_BLOCK) {
+        return new ProofFrogProofBlockImpl(node);
+      }
       else if (type == PROOF_PROGRAM) {
         return new ProofFrogProofProgramImpl(node);
       }
@@ -348,6 +365,9 @@ public interface ProofFrogTypes {
       }
       else if (type == THEOREM) {
         return new ProofFrogTheoremImpl(node);
+      }
+      else if (type == THEOREM_BLOCK) {
+        return new ProofFrogTheoremBlockImpl(node);
       }
       else if (type == TYPE) {
         return new ProofFrogTypeImpl(node);

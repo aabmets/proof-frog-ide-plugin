@@ -29,26 +29,32 @@ public class ProofFrogProofImpl extends ASTWrapperPsiElement implements ProofFro
 
   @Override
   @Nullable
-  public ProofFrogAssumptions getAssumptions() {
-    return findChildByClass(ProofFrogAssumptions.class);
+  public ProofFrogAssumeBlock getAssumeBlock() {
+    return findChildByClass(ProofFrogAssumeBlock.class);
   }
 
   @Override
   @NotNull
-  public ProofFrogGameList getGameList() {
-    return findNotNullChildByClass(ProofFrogGameList.class);
+  public ProofFrogGamesBlock getGamesBlock() {
+    return findNotNullChildByClass(ProofFrogGamesBlock.class);
   }
 
   @Override
   @Nullable
-  public ProofFrogLets getLets() {
-    return findChildByClass(ProofFrogLets.class);
+  public ProofFrogLetsBlock getLetsBlock() {
+    return findChildByClass(ProofFrogLetsBlock.class);
   }
 
   @Override
   @NotNull
-  public ProofFrogTheorem getTheorem() {
-    return findNotNullChildByClass(ProofFrogTheorem.class);
+  public ProofFrogProofBlock getProofBlock() {
+    return findNotNullChildByClass(ProofFrogProofBlock.class);
+  }
+
+  @Override
+  @NotNull
+  public ProofFrogTheoremBlock getTheoremBlock() {
+    return findNotNullChildByClass(ProofFrogTheoremBlock.class);
   }
 
 }

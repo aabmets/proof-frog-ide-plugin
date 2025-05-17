@@ -8,15 +8,18 @@ import com.intellij.psi.PsiElement;
 public interface ProofFrogProof extends PsiElement {
 
   @Nullable
-  ProofFrogAssumptions getAssumptions();
+  ProofFrogAssumeBlock getAssumeBlock();
 
   @NotNull
-  ProofFrogGameList getGameList();
+  ProofFrogGamesBlock getGamesBlock();
 
   @Nullable
-  ProofFrogLets getLets();
+  ProofFrogLetsBlock getLetsBlock();
 
   @NotNull
-  ProofFrogTheorem getTheorem();
+  ProofFrogProofBlock getProofBlock();
+
+  @NotNull
+  ProofFrogTheoremBlock getTheoremBlock();
 
 }

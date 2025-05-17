@@ -27,6 +27,10 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitAssumeBlock(@NotNull ProofFrogAssumeBlock o) {
+    visitPsiElement(o);
+  }
+
   public void visitAssumptions(@NotNull ProofFrogAssumptions o) {
     visitPsiElement(o);
   }
@@ -107,6 +111,10 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitGamesBlock(@NotNull ProofFrogGamesBlock o) {
+    visitPsiElement(o);
+  }
+
   public void visitGenericLoopStmt(@NotNull ProofFrogGenericLoopStmt o) {
     visitPsiElement(o);
   }
@@ -132,6 +140,10 @@ public class ProofFrogVisitor extends PsiElementVisitor {
   }
 
   public void visitLets(@NotNull ProofFrogLets o) {
+    visitPsiElement(o);
+  }
+
+  public void visitLetsBlock(@NotNull ProofFrogLetsBlock o) {
     visitPsiElement(o);
   }
 
@@ -203,6 +215,10 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitProofBlock(@NotNull ProofFrogProofBlock o) {
+    visitPsiElement(o);
+  }
+
   public void visitProofProgram(@NotNull ProofFrogProofProgram o) {
     visitPsiElement(o);
   }
@@ -256,6 +272,10 @@ public class ProofFrogVisitor extends PsiElementVisitor {
   }
 
   public void visitTheorem(@NotNull ProofFrogTheorem o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTheoremBlock(@NotNull ProofFrogTheoremBlock o) {
     visitPsiElement(o);
   }
 

@@ -62,13 +62,12 @@ reductionSignature ::=
     CL_REDUCTION id ST_PAREN_L paramList? ST_PAREN_R
     KW_COMPOSE parameterizedGame KW_AGAINST gameAdversary
     ;
-proof ::=
-    LB_PROOF PN_COLON
-    (LB_LET PN_COLON lets)?
-    (LB_ASSUME PN_COLON assumptions)?
-    LB_THEOREM PN_COLON theorem
-    LB_GAMES PN_COLON gameList
-    ;
+proof ::= proofBlock letsBlock? assumeBlock? theoremBlock gamesBlock;
+proofBlock ::= LB_PROOF PN_COLON;
+letsBlock ::= LB_LET PN_COLON lets;
+assumeBlock ::= LB_ASSUME PN_COLON assumptions;
+theoremBlock ::= LB_THEOREM PN_COLON theorem;
+gamesBlock ::= LB_GAMES PN_COLON gameList;
 lets ::= (field PN_SEMI)*;
 assumptions ::=
     (parameterizedGame PN_SEMI)*
