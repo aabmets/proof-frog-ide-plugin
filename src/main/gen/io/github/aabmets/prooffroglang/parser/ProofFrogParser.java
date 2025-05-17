@@ -950,50 +950,36 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // gameStep PN_SEMI (gameStep PN_SEMI | induction | stepAssumption)*
+  // gameStep (gameStep | induction | stepAssumption)*
   public static boolean gameList(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "gameList")) return false;
     if (!nextTokenIs(b, VL_IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = gameStep(b, l + 1);
-    r = r && consumeToken(b, PN_SEMI);
-    r = r && gameList_2(b, l + 1);
+    r = r && gameList_1(b, l + 1);
     exit_section_(b, m, GAME_LIST, r);
     return r;
   }
 
-  // (gameStep PN_SEMI | induction | stepAssumption)*
-  private static boolean gameList_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "gameList_2")) return false;
+  // (gameStep | induction | stepAssumption)*
+  private static boolean gameList_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "gameList_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!gameList_2_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "gameList_2", c)) break;
+      if (!gameList_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "gameList_1", c)) break;
     }
     return true;
   }
 
-  // gameStep PN_SEMI | induction | stepAssumption
-  private static boolean gameList_2_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "gameList_2_0")) return false;
+  // gameStep | induction | stepAssumption
+  private static boolean gameList_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "gameList_1_0")) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = gameList_2_0_0(b, l + 1);
+    r = gameStep(b, l + 1);
     if (!r) r = induction(b, l + 1);
     if (!r) r = stepAssumption(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // gameStep PN_SEMI
-  private static boolean gameList_2_0_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "gameList_2_0_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = gameStep(b, l + 1);
-    r = r && consumeToken(b, PN_SEMI);
-    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -1113,51 +1099,24 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // concreteGame KW_COMPOSE parameterizedGame KW_AGAINST gameAdversary |  // reductionStep
-  // 	(concreteGame | parameterizedGame) KW_AGAINST gameAdversary
+  // (reductionGameStep | regularGameStep) PN_SEMI
   public static boolean gameStep(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "gameStep")) return false;
     if (!nextTokenIs(b, VL_IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = gameStep_0(b, l + 1);
-    if (!r) r = gameStep_1(b, l + 1);
+    r = r && consumeToken(b, PN_SEMI);
     exit_section_(b, m, GAME_STEP, r);
     return r;
   }
 
-  // concreteGame KW_COMPOSE parameterizedGame KW_AGAINST gameAdversary
+  // reductionGameStep | regularGameStep
   private static boolean gameStep_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "gameStep_0")) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = concreteGame(b, l + 1);
-    r = r && consumeToken(b, KW_COMPOSE);
-    r = r && parameterizedGame(b, l + 1);
-    r = r && consumeToken(b, KW_AGAINST);
-    r = r && gameAdversary(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // (concreteGame | parameterizedGame) KW_AGAINST gameAdversary
-  private static boolean gameStep_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "gameStep_1")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = gameStep_1_0(b, l + 1);
-    r = r && consumeToken(b, KW_AGAINST);
-    r = r && gameAdversary(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // concreteGame | parameterizedGame
-  private static boolean gameStep_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "gameStep_1_0")) return false;
-    boolean r;
-    r = concreteGame(b, l + 1);
-    if (!r) r = parameterizedGame(b, l + 1);
+    r = reductionGameStep(b, l + 1);
+    if (!r) r = regularGameStep(b, l + 1);
     return r;
   }
 
@@ -2051,6 +2010,22 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // concreteGame KW_COMPOSE parameterizedGame KW_AGAINST gameAdversary
+  public static boolean reductionGameStep(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "reductionGameStep")) return false;
+    if (!nextTokenIs(b, VL_IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = concreteGame(b, l + 1);
+    r = r && consumeToken(b, KW_COMPOSE);
+    r = r && parameterizedGame(b, l + 1);
+    r = r && consumeToken(b, KW_AGAINST);
+    r = r && gameAdversary(b, l + 1);
+    exit_section_(b, m, REDUCTION_GAME_STEP, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // CL_REDUCTION id ST_PAREN_L paramList? ST_PAREN_R
   //     KW_COMPOSE parameterizedGame KW_AGAINST gameAdversary
   public static boolean reductionSignature(PsiBuilder b, int l) {
@@ -2075,6 +2050,29 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "reductionSignature_3")) return false;
     paramList(b, l + 1);
     return true;
+  }
+
+  /* ********************************************************** */
+  // (concreteGame | parameterizedGame) KW_AGAINST gameAdversary
+  public static boolean regularGameStep(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "regularGameStep")) return false;
+    if (!nextTokenIs(b, VL_IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = regularGameStep_0(b, l + 1);
+    r = r && consumeToken(b, KW_AGAINST);
+    r = r && gameAdversary(b, l + 1);
+    exit_section_(b, m, REGULAR_GAME_STEP, r);
+    return r;
+  }
+
+  // concreteGame | parameterizedGame
+  private static boolean regularGameStep_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "regularGameStep_0")) return false;
+    boolean r;
+    r = concreteGame(b, l + 1);
+    if (!r) r = parameterizedGame(b, l + 1);
+    return r;
   }
 
   /* ********************************************************** */

@@ -5,12 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface ProofFrogGameStep extends PsiElement {
+public interface ProofFrogRegularGameStep extends PsiElement {
 
   @Nullable
-  ProofFrogReductionGameStep getReductionGameStep();
+  ProofFrogConcreteGame getConcreteGame();
+
+  @NotNull
+  ProofFrogGameAdversary getGameAdversary();
 
   @Nullable
-  ProofFrogRegularGameStep getRegularGameStep();
+  ProofFrogParameterizedGame getParameterizedGame();
 
 }

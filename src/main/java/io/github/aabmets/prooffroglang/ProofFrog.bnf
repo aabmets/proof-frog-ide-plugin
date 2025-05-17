@@ -74,11 +74,10 @@ assumptions ::=
     (KW_CALLS (OP_LEQ | OP_LT) expression PN_SEMI)?
     ;
 theorem ::= parameterizedGame PN_SEMI;
-gameList ::= gameStep PN_SEMI (gameStep PN_SEMI | induction | stepAssumption)*;
-gameStep ::=
-    concreteGame KW_COMPOSE parameterizedGame KW_AGAINST gameAdversary |  // reductionStep
-	(concreteGame | parameterizedGame) KW_AGAINST gameAdversary           // regularStep
-	;
+gameList ::= gameStep (gameStep | induction | stepAssumption)*;
+gameStep ::= (reductionGameStep | regularGameStep) PN_SEMI;
+reductionGameStep ::= concreteGame KW_COMPOSE parameterizedGame KW_AGAINST gameAdversary;
+regularGameStep ::= (concreteGame | parameterizedGame) KW_AGAINST gameAdversary;
 induction ::=
     KW_INDUCTION ST_PAREN_L id KW_FROM integerExpr KW_TO
     integerExpr ST_PAREN_R ST_BRACE_L gameList ST_BRACE_R

@@ -227,7 +227,15 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitReductionGameStep(@NotNull ProofFrogReductionGameStep o) {
+    visitPsiElement(o);
+  }
+
   public void visitReductionSignature(@NotNull ProofFrogReductionSignature o) {
+    visitPsiElement(o);
+  }
+
+  public void visitRegularGameStep(@NotNull ProofFrogRegularGameStep o) {
     visitPsiElement(o);
   }
 

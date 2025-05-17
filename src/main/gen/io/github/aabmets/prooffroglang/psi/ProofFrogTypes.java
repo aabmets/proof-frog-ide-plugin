@@ -63,7 +63,9 @@ public interface ProofFrogTypes {
   IElementType PROOF_BLOCK = new ProofFrogElementType("PROOF_BLOCK");
   IElementType PROOF_PROGRAM = new ProofFrogElementType("PROOF_PROGRAM");
   IElementType REDUCTION = new ProofFrogElementType("REDUCTION");
+  IElementType REDUCTION_GAME_STEP = new ProofFrogElementType("REDUCTION_GAME_STEP");
   IElementType REDUCTION_SIGNATURE = new ProofFrogElementType("REDUCTION_SIGNATURE");
+  IElementType REGULAR_GAME_STEP = new ProofFrogElementType("REGULAR_GAME_STEP");
   IElementType RETURN_STMT = new ProofFrogElementType("RETURN_STMT");
   IElementType SAMPLE_STMT = new ProofFrogElementType("SAMPLE_STMT");
   IElementType SCHEME = new ProofFrogElementType("SCHEME");
@@ -330,8 +332,14 @@ public interface ProofFrogTypes {
       else if (type == REDUCTION) {
         return new ProofFrogReductionImpl(node);
       }
+      else if (type == REDUCTION_GAME_STEP) {
+        return new ProofFrogReductionGameStepImpl(node);
+      }
       else if (type == REDUCTION_SIGNATURE) {
         return new ProofFrogReductionSignatureImpl(node);
+      }
+      else if (type == REGULAR_GAME_STEP) {
+        return new ProofFrogRegularGameStepImpl(node);
       }
       else if (type == RETURN_STMT) {
         return new ProofFrogReturnStmtImpl(node);

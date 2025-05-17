@@ -11,14 +11,14 @@ import static io.github.aabmets.prooffroglang.psi.ProofFrogTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.github.aabmets.prooffroglang.psi.*;
 
-public class ProofFrogGameStepImpl extends ASTWrapperPsiElement implements ProofFrogGameStep {
+public class ProofFrogRegularGameStepImpl extends ASTWrapperPsiElement implements ProofFrogRegularGameStep {
 
-  public ProofFrogGameStepImpl(@NotNull ASTNode node) {
+  public ProofFrogRegularGameStepImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull ProofFrogVisitor visitor) {
-    visitor.visitGameStep(this);
+    visitor.visitRegularGameStep(this);
   }
 
   @Override
@@ -29,14 +29,20 @@ public class ProofFrogGameStepImpl extends ASTWrapperPsiElement implements Proof
 
   @Override
   @Nullable
-  public ProofFrogReductionGameStep getReductionGameStep() {
-    return findChildByClass(ProofFrogReductionGameStep.class);
+  public ProofFrogConcreteGame getConcreteGame() {
+    return findChildByClass(ProofFrogConcreteGame.class);
+  }
+
+  @Override
+  @NotNull
+  public ProofFrogGameAdversary getGameAdversary() {
+    return findNotNullChildByClass(ProofFrogGameAdversary.class);
   }
 
   @Override
   @Nullable
-  public ProofFrogRegularGameStep getRegularGameStep() {
-    return findChildByClass(ProofFrogRegularGameStep.class);
+  public ProofFrogParameterizedGame getParameterizedGame() {
+    return findChildByClass(ProofFrogParameterizedGame.class);
   }
 
 }
