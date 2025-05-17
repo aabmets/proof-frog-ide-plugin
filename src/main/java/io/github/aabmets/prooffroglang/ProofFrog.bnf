@@ -138,7 +138,7 @@ genericLoopStmt ::=
     KW_FOR ST_PAREN_L variable KW_IN expression ST_PAREN_R block
     ;
 
-lvalue ::= (id | parameterizedGame) (PN_PERIOD id | ST_BRACKET_L expression ST_BRACKET_R)*;
+lvalue ::= (parameterizedGame | id) (PN_PERIOD id | ST_BRACKET_L expression ST_BRACKET_R)*;
 
 methodSignature ::= type id ST_PAREN_L paramList? ST_PAREN_R;
 

@@ -1266,7 +1266,7 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (id | parameterizedGame) (PN_PERIOD id | ST_BRACKET_L expression ST_BRACKET_R)*
+  // (parameterizedGame | id) (PN_PERIOD id | ST_BRACKET_L expression ST_BRACKET_R)*
   public static boolean lvalue(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "lvalue")) return false;
     if (!nextTokenIs(b, VL_IDENTIFIER)) return false;
@@ -1278,12 +1278,12 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // id | parameterizedGame
+  // parameterizedGame | id
   private static boolean lvalue_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "lvalue_0")) return false;
     boolean r;
-    r = id(b, l + 1);
-    if (!r) r = parameterizedGame(b, l + 1);
+    r = parameterizedGame(b, l + 1);
+    if (!r) r = id(b, l + 1);
     return r;
   }
 
