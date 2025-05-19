@@ -18,11 +18,11 @@ public interface ProofFrogTypes {
   IElementType ATOMIC_TYPE = new ProofFrogElementType("ATOMIC_TYPE");
   IElementType BLOCK = new ProofFrogElementType("BLOCK");
   IElementType CALL_EXPR = new ProofFrogElementType("CALL_EXPR");
-  IElementType CALL_STMT = new ProofFrogElementType("CALL_STMT");
   IElementType COMPARE_EXPR = new ProofFrogElementType("COMPARE_EXPR");
   IElementType CONCRETE_GAME = new ProofFrogElementType("CONCRETE_GAME");
   IElementType CONDITIONAL_STMT = new ProofFrogElementType("CONDITIONAL_STMT");
   IElementType EXPRESSION = new ProofFrogElementType("EXPRESSION");
+  IElementType EXPRESSION_STMT = new ProofFrogElementType("EXPRESSION_STMT");
   IElementType FIELD = new ProofFrogElementType("FIELD");
   IElementType FILE_PATH = new ProofFrogElementType("FILE_PATH");
   IElementType GAME = new ProofFrogElementType("GAME");
@@ -197,9 +197,6 @@ public interface ProofFrogTypes {
       else if (type == CALL_EXPR) {
         return new ProofFrogCallExprImpl(node);
       }
-      else if (type == CALL_STMT) {
-        return new ProofFrogCallStmtImpl(node);
-      }
       else if (type == COMPARE_EXPR) {
         return new ProofFrogCompareExprImpl(node);
       }
@@ -211,6 +208,9 @@ public interface ProofFrogTypes {
       }
       else if (type == EXPRESSION) {
         return new ProofFrogExpressionImpl(node);
+      }
+      else if (type == EXPRESSION_STMT) {
+        return new ProofFrogExpressionStmtImpl(node);
       }
       else if (type == FIELD) {
         return new ProofFrogFieldImpl(node);

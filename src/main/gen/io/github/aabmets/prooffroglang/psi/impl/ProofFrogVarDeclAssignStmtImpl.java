@@ -29,8 +29,8 @@ public class ProofFrogVarDeclAssignStmtImpl extends ASTWrapperPsiElement impleme
 
   @Override
   @NotNull
-  public ProofFrogExpression getExpression() {
-    return findNotNullChildByClass(ProofFrogExpression.class);
+  public ProofFrogExpressionStmt getExpressionStmt() {
+    return findNotNullChildByClass(ProofFrogExpressionStmt.class);
   }
 
   @Override

@@ -47,10 +47,6 @@ public class ProofFrogVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitCallStmt(@NotNull ProofFrogCallStmt o) {
-    visitPsiElement(o);
-  }
-
   public void visitCompareExpr(@NotNull ProofFrogCompareExpr o) {
     visitPsiElement(o);
   }
@@ -64,6 +60,10 @@ public class ProofFrogVisitor extends PsiElementVisitor {
   }
 
   public void visitExpression(@NotNull ProofFrogExpression o) {
+    visitPsiElement(o);
+  }
+
+  public void visitExpressionStmt(@NotNull ProofFrogExpressionStmt o) {
     visitPsiElement(o);
   }
 

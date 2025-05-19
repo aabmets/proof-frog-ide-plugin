@@ -11,10 +11,10 @@ public interface ProofFrogStatement extends PsiElement {
   ProofFrogAssignStmt getAssignStmt();
 
   @Nullable
-  ProofFrogCallStmt getCallStmt();
+  ProofFrogConditionalStmt getConditionalStmt();
 
   @Nullable
-  ProofFrogConditionalStmt getConditionalStmt();
+  ProofFrogExpressionStmt getExpressionStmt();
 
   @Nullable
   ProofFrogGenericLoopStmt getGenericLoopStmt();

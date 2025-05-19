@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface ProofFrogReturnStmt extends PsiElement {
 
   @NotNull
-  ProofFrogExpression getExpression();
+  ProofFrogExpressionStmt getExpressionStmt();
 
 }

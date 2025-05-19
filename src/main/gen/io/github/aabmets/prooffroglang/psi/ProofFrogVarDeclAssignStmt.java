@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface ProofFrogVarDeclAssignStmt extends PsiElement {
 
   @NotNull
-  ProofFrogExpression getExpression();
+  ProofFrogExpressionStmt getExpressionStmt();
 
   @NotNull
   ProofFrogLvalue getLvalue();

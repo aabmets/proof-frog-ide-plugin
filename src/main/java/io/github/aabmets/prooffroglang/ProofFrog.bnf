@@ -107,24 +107,18 @@ method ::= methodSignature block;
 block ::= ST_BRACE_L statement* ST_BRACE_R;
 
 statement ::=
-      varDeclStmt
+      returnStmt
+    | conditionalStmt
+    | integerLoopStmt
+    | genericLoopStmt
+    | varDeclStmt
     | varDeclAssignStmt
     | varDeclSampleStmt
     | assignStmt
     | sampleStmt
-    | callStmt
-    | returnStmt
-    | conditionalStmt
-    | integerLoopStmt
-    | genericLoopStmt
+    | expressionStmt
     ;
-varDeclStmt ::= variable PN_SEMI;
-varDeclAssignStmt ::= type lvalue OP_ASSIGN expression PN_SEMI;
-varDeclSampleStmt ::= type lvalue OP_SAMPLE expression PN_SEMI;
-assignStmt ::= lvalue OP_ASSIGN expression PN_SEMI;
-sampleStmt ::= lvalue OP_SAMPLE expression PN_SEMI;
-callStmt ::= expression ST_PAREN_L argList? ST_PAREN_R PN_SEMI;
-returnStmt ::= KW_RETURN expression PN_SEMI;
+returnStmt ::= KW_RETURN expressionStmt;
 conditionalStmt ::=
     KW_IF ST_PAREN_L expression ST_PAREN_R block
     (KW_ELSE KW_IF ST_PAREN_L expression ST_PAREN_R block)*
@@ -137,6 +131,14 @@ integerLoopStmt ::=
 genericLoopStmt ::=
     KW_FOR ST_PAREN_L variable KW_IN expression ST_PAREN_R block
     ;
+varDeclStmt ::= variable PN_SEMI;
+varDeclAssignStmt ::= type lvalue OP_ASSIGN expressionStmt;
+varDeclSampleStmt ::= type lvalue OP_SAMPLE expressionStmt;
+assignStmt ::= lvalue OP_ASSIGN expressionStmt;
+sampleStmt ::= lvalue OP_SAMPLE expressionStmt;
+expressionStmt ::= expression PN_SEMI;
+
+//callStmt ::= expression ST_PAREN_L argList? ST_PAREN_R PN_SEMI;
 
 lvalue ::= (parameterizedGame | id) (PN_PERIOD id | ST_BRACKET_L expression ST_BRACKET_R)*;
 

@@ -191,7 +191,7 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // lvalue OP_ASSIGN expression PN_SEMI
+  // lvalue OP_ASSIGN expressionStmt
   public static boolean assignStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "assignStmt")) return false;
     if (!nextTokenIs(b, VL_IDENTIFIER)) return false;
@@ -199,8 +199,7 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = lvalue(b, l + 1);
     r = r && consumeToken(b, OP_ASSIGN);
-    r = r && expression(b, l + 1);
-    r = r && consumeToken(b, PN_SEMI);
+    r = r && expressionStmt(b, l + 1);
     exit_section_(b, m, ASSIGN_STMT, r);
     return r;
   }
@@ -538,27 +537,6 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // expression ST_PAREN_L argList? ST_PAREN_R PN_SEMI
-  public static boolean callStmt(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "callStmt")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, CALL_STMT, "<call stmt>");
-    r = expression(b, l + 1);
-    r = r && consumeToken(b, ST_PAREN_L);
-    r = r && callStmt_2(b, l + 1);
-    r = r && consumeTokens(b, 0, ST_PAREN_R, PN_SEMI);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // argList?
-  private static boolean callStmt_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "callStmt_2")) return false;
-    argList(b, l + 1);
-    return true;
-  }
-
-  /* ********************************************************** */
   // addExpr (
   //     (OP_EQ | OP_NEQ | OP_GT | OP_LT | OP_GEQ | OP_LEQ | KW_IN | KW_SUBSETS)
   //     addExpr
@@ -692,6 +670,18 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, EXPRESSION, "<expression>");
     r = setMinusExpr(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // expression PN_SEMI
+  public static boolean expressionStmt(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "expressionStmt")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, EXPRESSION_STMT, "<expression stmt>");
+    r = expression(b, l + 1);
+    r = r && consumeToken(b, PN_SEMI);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -2076,21 +2066,20 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // KW_RETURN expression PN_SEMI
+  // KW_RETURN expressionStmt
   public static boolean returnStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "returnStmt")) return false;
     if (!nextTokenIs(b, KW_RETURN)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, KW_RETURN);
-    r = r && expression(b, l + 1);
-    r = r && consumeToken(b, PN_SEMI);
+    r = r && expressionStmt(b, l + 1);
     exit_section_(b, m, RETURN_STMT, r);
     return r;
   }
 
   /* ********************************************************** */
-  // lvalue OP_SAMPLE expression PN_SEMI
+  // lvalue OP_SAMPLE expressionStmt
   public static boolean sampleStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "sampleStmt")) return false;
     if (!nextTokenIs(b, VL_IDENTIFIER)) return false;
@@ -2098,8 +2087,7 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = lvalue(b, l + 1);
     r = r && consumeToken(b, OP_SAMPLE);
-    r = r && expression(b, l + 1);
-    r = r && consumeToken(b, PN_SEMI);
+    r = r && expressionStmt(b, l + 1);
     exit_section_(b, m, SAMPLE_STMT, r);
     return r;
   }
@@ -2312,30 +2300,30 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // varDeclStmt
+  // returnStmt
+  //     | conditionalStmt
+  //     | integerLoopStmt
+  //     | genericLoopStmt
+  //     | varDeclStmt
   //     | varDeclAssignStmt
   //     | varDeclSampleStmt
   //     | assignStmt
   //     | sampleStmt
-  //     | callStmt
-  //     | returnStmt
-  //     | conditionalStmt
-  //     | integerLoopStmt
-  //     | genericLoopStmt
+  //     | expressionStmt
   public static boolean statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "statement")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, STATEMENT, "<statement>");
-    r = varDeclStmt(b, l + 1);
+    r = returnStmt(b, l + 1);
+    if (!r) r = conditionalStmt(b, l + 1);
+    if (!r) r = integerLoopStmt(b, l + 1);
+    if (!r) r = genericLoopStmt(b, l + 1);
+    if (!r) r = varDeclStmt(b, l + 1);
     if (!r) r = varDeclAssignStmt(b, l + 1);
     if (!r) r = varDeclSampleStmt(b, l + 1);
     if (!r) r = assignStmt(b, l + 1);
     if (!r) r = sampleStmt(b, l + 1);
-    if (!r) r = callStmt(b, l + 1);
-    if (!r) r = returnStmt(b, l + 1);
-    if (!r) r = conditionalStmt(b, l + 1);
-    if (!r) r = integerLoopStmt(b, l + 1);
-    if (!r) r = genericLoopStmt(b, l + 1);
+    if (!r) r = expressionStmt(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -2571,7 +2559,7 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // type lvalue OP_ASSIGN expression PN_SEMI
+  // type lvalue OP_ASSIGN expressionStmt
   public static boolean varDeclAssignStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "varDeclAssignStmt")) return false;
     boolean r;
@@ -2579,14 +2567,13 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     r = type(b, l + 1);
     r = r && lvalue(b, l + 1);
     r = r && consumeToken(b, OP_ASSIGN);
-    r = r && expression(b, l + 1);
-    r = r && consumeToken(b, PN_SEMI);
+    r = r && expressionStmt(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   /* ********************************************************** */
-  // type lvalue OP_SAMPLE expression PN_SEMI
+  // type lvalue OP_SAMPLE expressionStmt
   public static boolean varDeclSampleStmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "varDeclSampleStmt")) return false;
     boolean r;
@@ -2594,8 +2581,7 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     r = type(b, l + 1);
     r = r && lvalue(b, l + 1);
     r = r && consumeToken(b, OP_SAMPLE);
-    r = r && expression(b, l + 1);
-    r = r && consumeToken(b, PN_SEMI);
+    r = r && expressionStmt(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }

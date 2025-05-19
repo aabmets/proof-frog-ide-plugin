@@ -5,10 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface ProofFrogCallStmt extends PsiElement {
-
-  @Nullable
-  ProofFrogArgList getArgList();
+public interface ProofFrogExpressionStmt extends PsiElement {
 
   @NotNull
   ProofFrogExpression getExpression();

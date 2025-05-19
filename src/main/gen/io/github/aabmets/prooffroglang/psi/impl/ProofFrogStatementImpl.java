@@ -35,14 +35,14 @@ public class ProofFrogStatementImpl extends ASTWrapperPsiElement implements Proo
 
   @Override
   @Nullable
-  public ProofFrogCallStmt getCallStmt() {
-    return findChildByClass(ProofFrogCallStmt.class);
+  public ProofFrogConditionalStmt getConditionalStmt() {
+    return findChildByClass(ProofFrogConditionalStmt.class);
   }
 
   @Override
   @Nullable
-  public ProofFrogConditionalStmt getConditionalStmt() {
-    return findChildByClass(ProofFrogConditionalStmt.class);
+  public ProofFrogExpressionStmt getExpressionStmt() {
+    return findChildByClass(ProofFrogExpressionStmt.class);
   }
 
   @Override

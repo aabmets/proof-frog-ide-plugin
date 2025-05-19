@@ -11,26 +11,20 @@ import static io.github.aabmets.prooffroglang.psi.ProofFrogTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import io.github.aabmets.prooffroglang.psi.*;
 
-public class ProofFrogCallStmtImpl extends ASTWrapperPsiElement implements ProofFrogCallStmt {
+public class ProofFrogExpressionStmtImpl extends ASTWrapperPsiElement implements ProofFrogExpressionStmt {
 
-  public ProofFrogCallStmtImpl(@NotNull ASTNode node) {
+  public ProofFrogExpressionStmtImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull ProofFrogVisitor visitor) {
-    visitor.visitCallStmt(this);
+    visitor.visitExpressionStmt(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof ProofFrogVisitor) accept((ProofFrogVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public ProofFrogArgList getArgList() {
-    return findChildByClass(ProofFrogArgList.class);
   }
 
   @Override
