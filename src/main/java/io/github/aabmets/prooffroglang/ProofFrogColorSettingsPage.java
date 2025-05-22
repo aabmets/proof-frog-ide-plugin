@@ -77,8 +77,9 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
     public Map<String, TextAttributesKey> getAdditionalHighlightingTagToDescriptorMap() {
         return Map.of(
             "class", ProofFrogSemanticHighlighter.CLASS_NAME,
+            "var", ProofFrogSemanticHighlighter.LOCAL_VARIABLE,
             "param", ProofFrogSemanticHighlighter.PARAMETER,
-            "var", ProofFrogSemanticHighlighter.LOCAL_VARIABLE
+            "call", ProofFrogSemanticHighlighter.METHOD_CALL
         );
     }
 
@@ -86,25 +87,56 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
     @Override
     public String getDemoText() {
         return """
-            // Example ProofFrog code
-            import 'examples/Primitives/SecretSharing.primitive';
+            // Scheme file
+            import 'examples/Primitives/SymEnc.primitive';
+            import 'examples/Primitives/PRF.primitive';
             
-            Scheme <class>OTP</class>(Int length) extends SecretSharing {
-                Set Message = BitString<length>;
-                Set Shares = BitString<length>;
-                Int shareCount = 2;
-                Int threshold = 2;
+            Scheme <class>OFB</class>(Int <param>lambda</param>, Int <param>blocks</param>, PRF <param>F</param>) extends SymEnc {
+                requires F.lambda == lambda && F.input == lambda && F.out == lambda;
             
-                Array<Shares, shareCount> Share(Message <param>m</param>) {
-                    BitString<length> <var>s0</var> <- BitString<l>;
-                    BitString<length> <var>s1</var> = s1 + m;
-                    return [s0, s1];
-                }
+                Set Key = BitString<lambda>;
+                Set Message = Array<BitString<lambda>, blocks>;
+                Set Ciphertext = Array<BitString<lambda>, blocks + 1>;
             
-                Message Reconstruct(Array<Shares, shareCount> <param>s</param>) {
-                    return s[0] + s[1];
+                Ciphertext Enc(Key k, Message m) {
+                    Ciphertext c;
+                    BitString<lambda> r <- BitString<lambda>;
+            
+                    c[0] = r;
+                    for (Int i = 1 to blocks) {
+                        r = F.<call>evaluate</call>(k, r);
+                        c[i] = r + m[i-1];
+                    }
+                    return c;
                 }
             }
+            
+            // Proof file
+            import 'examples/Primitives/SymEnc.primitive';
+            import 'examples/Games/SymEnc/CPA.game';
+            import 'examples/Games/SymEnc/CPA$.game';
+            
+            Reduction <class>R1</class>(SymEnc <param>E</param>) compose CPA$(E) against CPA(E).Adversary {
+                E.Ciphertext Eavesdrop(E.Message <param>mL</param>, E.Message <param>mR</param>) {
+                    return challenger.<call>CTXT</call>(<param>mL</param>);
+                }
+            }
+
+            proof:
+                let:
+                    Set MessageSpace;
+                    Set CiphertextSpace;
+                    Set KeySpace;
+                    SymEnc E = <call>SymEnc</call>(MessageSpace, CiphertextSpace, KeySpace);
+                assume:
+                    CPA$(E);
+                theorem:
+                    CPA(E);
+                games:
+                    CPA(E).Left against CPA(E).Adversary;
+                    CPA$(E).Real compose R1(E) against CPA(E).Adversary;
+                    CPA$(E).Random compose R1(E) against CPA(E).Adversary;
+                    CPA(E).Right against CPA(E).Adversary;
             """;
     }
 
