@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+  <option name="PROOFFROG_KEYWORD">
+    <value>
+      <option name="FOREGROUND" value="C88CDC"/>
+    </value>
+  </option>
+  <option name="PROOFFROG_CLASS_KEYWORDS">
+    <value>
+      <option name="FOREGROUND" value="FF7878"/>
+    </value>
+  </option>
+  <option name="PROOFFROG_CLASS_NAME">
+    <value>
+      <option name="FOREGROUND" value="BCBEC4"/>
+    </value>
+  </option>
+  <option name="PROOFFROG_METHOD_CALL">
+    <value>
+      <option name="FOREGROUND" value="FFC86E"/>
+    </value>
+  </option>
+  <option name="PROOFFROG_PARAMETER">
+    <value>
+      <option name="FOREGROUND" value="61AFE1"/>
+    </value>
+  </option>
+  <option name="PROOFFROG_LOCAL_VARIABLE">
+    <value>
+      <option name="FOREGROUND" value="BCBEC4"/>
+    </value>
+  </option>
+</list>

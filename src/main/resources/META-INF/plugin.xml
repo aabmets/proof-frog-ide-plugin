@@ -52,5 +52,11 @@
             isLogByDefault="true"/>
         <configurationType
             implementation="io.github.aabmets.prooffroglang.runconfig.ProofFrogRunConfigurationType"/>
+        <additionalTextAttributes
+            scheme="Default"
+            file="colorSchemes/ProofFrogDefault.xml"/>
+        <additionalTextAttributes
+            scheme="Darcula"
+            file="colorSchemes/ProofFrogDefault.xml"/>
     </extensions>
 </idea-plugin>
