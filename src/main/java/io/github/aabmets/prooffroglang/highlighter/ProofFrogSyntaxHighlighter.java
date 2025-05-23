@@ -19,7 +19,7 @@ public class ProofFrogSyntaxHighlighter extends SyntaxHighlighterBase {
         new ProofFrogOperatorHighlighter(),
         new ProofFrogStructureHighlighter(),
         new ProofFrogVariousHighlighter(),
-        new ProofFrogValueHighlighter()
+        new ProofFrogLiteralHighlighter()
     );
 
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];

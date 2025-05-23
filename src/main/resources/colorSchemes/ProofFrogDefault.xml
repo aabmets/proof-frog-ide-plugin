@@ -7,7 +7,7 @@
   </option>
   <option name="PROOFFROG_CLASS_KEYWORDS">
     <value>
-      <option name="FOREGROUND" value="FF7878"/>
+      <option name="FOREGROUND" value="FF7D7D"/>
     </value>
   </option>
   <option name="PROOFFROG_CLASS_NAME">
@@ -33,6 +33,66 @@
   <option name="PROOFFROG_LOCAL_VARIABLE">
     <value>
       <option name="FOREGROUND" value="BCBEC4"/>
+    </value>
+  </option>
+  <option name="PROOFFROG_STRING">
+    <value>
+      <option name="FOREGROUND" value="87C15B"/>
+    </value>
+  </option>
+  <option name="PROOFFROG_NUMBER">
+    <value>
+      <option name="FOREGROUND" value="87C15B"/>
+    </value>
+  </option>
+  <option name="PROOFFROG_BOOLEAN">
+    <value>
+      <option name="FOREGROUND" value="C88CDC"/>
+    </value>
+  </option>
+  <option name="PROOFFROG_OPERATOR">
+    <value>
+      <option name="FOREGROUND" value="BCBEC4"/>
+    </value>
+  </option>
+  <option name="PROOFFROG_DELIMITER">
+    <value>
+      <option name="FOREGROUND" value="BCBEC4"/>
+    </value>
+  </option>
+  <option name="PROOFFROG_DATATYPE">
+    <value>
+      <option name="FOREGROUND" value="42A998"/>
+    </value>
+  </option>
+  <option name="PROOFFROG_STRUCTURE">
+    <value>
+      <option name="FOREGROUND" value="BCBEC4"/>
+    </value>
+  </option>
+  <option name="PROOFFROG_PROPERTY">
+    <value>
+      <option name="FOREGROUND" value="FF7D7D"/>
+    </value>
+  </option>
+  <option name="PROOFFROG_LABEL">
+    <value>
+      <option name="FOREGROUND" value="C1804E"/>
+    </value>
+  </option>
+  <option name="PROOFFROG_NAMED_BLOCK">
+    <value>
+      <option name="FOREGROUND" value="C1804E"/>
+    </value>
+  </option>
+  <option name="PROOFFROG_COMMENT">
+    <value>
+      <option name="FOREGROUND" value="7A7E85"/>
+    </value>
+  </option>
+  <option name="PROOFFROG_BAD_CHARACTER">
+    <value>
+      <option name="FOREGROUND" value="F75464"/>
     </value>
   </option>
 </list>

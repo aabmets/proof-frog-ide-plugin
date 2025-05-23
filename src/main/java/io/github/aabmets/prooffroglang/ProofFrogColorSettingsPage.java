@@ -24,9 +24,9 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
         new AttributesDescriptor("Identifiers//Local variable", ProofFrogSemanticHighlighter.LOCAL_VARIABLE),
 
         // Literals and Values
-        new AttributesDescriptor("Literals//File import path", ProofFrogValueHighlighter.STRING),
-        new AttributesDescriptor("Literals//Number", ProofFrogValueHighlighter.NUMBER),
-        new AttributesDescriptor("Literals//Boolean", ProofFrogValueHighlighter.BOOLEAN),
+        new AttributesDescriptor("Literals//File import path", ProofFrogLiteralHighlighter.STRING),
+        new AttributesDescriptor("Literals//Number", ProofFrogLiteralHighlighter.NUMBER),
+        new AttributesDescriptor("Literals//Boolean", ProofFrogLiteralHighlighter.BOOLEAN),
 
         // Operators and Delimiters
         new AttributesDescriptor("Operators//Operator", ProofFrogOperatorHighlighter.KEY),
@@ -40,10 +40,10 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
         new AttributesDescriptor("Language//Named block", ProofFrogVariousHighlighter.NAMED_BLOCK),
 
         // Documentation
-        new AttributesDescriptor("Documentation//Comments", ProofFrogValueHighlighter.COMMENT),
+        new AttributesDescriptor("Documentation//Comments", ProofFrogLiteralHighlighter.COMMENT),
 
         // Errors
-        new AttributesDescriptor("Errors//Bad characters", ProofFrogValueHighlighter.BAD_CHARACTER),
+        new AttributesDescriptor("Errors//Bad characters", ProofFrogLiteralHighlighter.BAD_CHARACTER),
     };
 
     @NotNull

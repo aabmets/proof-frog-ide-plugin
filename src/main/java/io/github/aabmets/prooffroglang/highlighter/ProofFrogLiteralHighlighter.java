@@ -8,7 +8,7 @@ import com.intellij.psi.TokenType;
 import io.github.aabmets.prooffroglang.psi.ProofFrogTypes;
 import org.jetbrains.annotations.Nullable;
 
-public class ProofFrogValueHighlighter implements ProofFrogTokenHighlighter {
+public class ProofFrogLiteralHighlighter implements ProofFrogTokenHighlighter {
 
     public static final TextAttributesKey BOOLEAN =
         TextAttributesKey.createTextAttributesKey(
