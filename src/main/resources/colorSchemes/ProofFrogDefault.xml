@@ -15,6 +15,11 @@
       <option name="FOREGROUND" value="BCBEC4"/>
     </value>
   </option>
+  <option name="PROOFFROG_METHOD_NAME">
+    <value>
+      <option name="FOREGROUND" value="FFC86E"/>
+    </value>
+  </option>
   <option name="PROOFFROG_METHOD_CALL">
     <value>
       <option name="FOREGROUND" value="FFC86E"/>

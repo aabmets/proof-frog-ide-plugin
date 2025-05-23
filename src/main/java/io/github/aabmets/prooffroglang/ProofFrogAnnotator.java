@@ -48,6 +48,12 @@ public class ProofFrogAnnotator implements Annotator {
     }
 
     private boolean annotateMethodSignatures(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
+        if (element.getParent() instanceof ProofFrogMethodSignature && element instanceof ProofFrogId) {
+            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                .textAttributes(ProofFrogSemanticHighlighter.METHOD_NAME)
+                .create();
+            return true;
+        }
         if (PsiTreeUtil.getParentOfType(element, ProofFrogMethodSignature.class, true) != null) {
             if (element.getParent() instanceof ProofFrogVariable && element instanceof ProofFrogId) {
                 holder.newSilentAnnotation(HighlightSeverity.INFORMATION)

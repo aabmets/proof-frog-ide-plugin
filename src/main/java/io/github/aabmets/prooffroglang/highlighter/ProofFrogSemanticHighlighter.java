@@ -29,4 +29,10 @@ public class ProofFrogSemanticHighlighter {
             DefaultLanguageHighlighterColors.FUNCTION_CALL
         );
 
+    public static final TextAttributesKey METHOD_NAME =
+        TextAttributesKey.createTextAttributesKey(
+            "PROOFFROG_METHOD_NAME",
+            DefaultLanguageHighlighterColors.FUNCTION_DECLARATION
+        );
+
 }
