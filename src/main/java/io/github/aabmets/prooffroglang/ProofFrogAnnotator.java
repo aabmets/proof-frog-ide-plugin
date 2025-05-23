@@ -21,6 +21,7 @@ public class ProofFrogAnnotator implements Annotator {
     private final List<BiFunction<PsiElement,AnnotationHolder,Boolean>> annotators =
         List.of(
             this::annotateClassNames,
+            this::annotateClassInstantiations,
             this::annotateMethodSignatures,
             this::annotateMethodCalls,
             this::annotateLocalVariables
@@ -41,6 +42,16 @@ public class ProofFrogAnnotator implements Annotator {
         if (ProofFrogTokenSets.CLASS_KEYWORDS.contains(prevType)) {
             holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
                 .textAttributes(ProofFrogSemanticHighlighter.CLASS_NAME)
+                .create();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean annotateClassInstantiations(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
+        if (element.getParent() instanceof ProofFrogParameterizedGame && element instanceof ProofFrogId) {
+            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                .textAttributes(ProofFrogSemanticHighlighter.CLASS_INSTANTIATION)
                 .create();
             return true;
         }

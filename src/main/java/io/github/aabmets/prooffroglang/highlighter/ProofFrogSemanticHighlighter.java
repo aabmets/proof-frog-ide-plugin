@@ -11,6 +11,12 @@ public class ProofFrogSemanticHighlighter {
             DefaultLanguageHighlighterColors.CLASS_NAME
         );
 
+    public static final TextAttributesKey CLASS_INSTANTIATION =
+        TextAttributesKey.createTextAttributesKey(
+            "PROOFFROG_CLASS_INSTANTIATION",
+            DefaultLanguageHighlighterColors.FUNCTION_CALL
+        );
+
     public static final TextAttributesKey LOCAL_VARIABLE =
         TextAttributesKey.createTextAttributesKey(
             "PROOFFROG_LOCAL_VARIABLE",

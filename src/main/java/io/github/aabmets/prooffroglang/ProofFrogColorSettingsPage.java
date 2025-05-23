@@ -17,7 +17,8 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
         // Keywords and Identifiers
         new AttributesDescriptor("Keywords//General", ProofFrogKeywordHighlighter.KEY),
         new AttributesDescriptor("Keywords//Class", ProofFrogVariousHighlighter.CLASS_KEYWORDS),
-        new AttributesDescriptor("Identifiers//Class", ProofFrogSemanticHighlighter.CLASS_NAME),
+        new AttributesDescriptor("Identifiers//Class name", ProofFrogSemanticHighlighter.CLASS_NAME),
+        new AttributesDescriptor("Identifiers//Class instantiation", ProofFrogSemanticHighlighter.CLASS_INSTANTIATION),
         new AttributesDescriptor("Identifiers//Method name", ProofFrogSemanticHighlighter.METHOD_NAME),
         new AttributesDescriptor("Identifiers//Method call", ProofFrogSemanticHighlighter.METHOD_CALL),
         new AttributesDescriptor("Identifiers//Parameter", ProofFrogSemanticHighlighter.PARAMETER),
