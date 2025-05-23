@@ -29,6 +29,10 @@ public class ProofFrogActionManager {
         am.registerAction(ProofFrogParseFileAction.ACTION_ID, action);
         proofFrogGroup.add(action);
 
+        proofFrogGroup.add(Separator.create());
+        AnAction psiStructureAction = am.getAction("PsiViewerForContext");
+        proofFrogGroup.add(psiStructureAction);
+
         DefaultActionGroup projectPopup =
             (DefaultActionGroup) am.getAction(IdeActions.GROUP_PROJECT_VIEW_POPUP);
         projectPopup.add(proofFrogGroup, new Constraints(
