@@ -8,8 +8,6 @@ public class ProofFrogActionManager {
 
     public static void registerContextMenu() {
         ActionManager am = ActionManager.getInstance();
-        DefaultActionGroup projectPopup =
-            (DefaultActionGroup) am.getAction(IdeActions.GROUP_PROJECT_VIEW_POPUP);
 
         DefaultActionGroup proofFrogGroup =
             new DefaultActionGroup("ProofFrog", true);
@@ -31,12 +29,25 @@ public class ProofFrogActionManager {
         am.registerAction(ProofFrogParseFileAction.ACTION_ID, action);
         proofFrogGroup.add(action);
 
+        DefaultActionGroup projectPopup =
+            (DefaultActionGroup) am.getAction(IdeActions.GROUP_PROJECT_VIEW_POPUP);
         projectPopup.add(proofFrogGroup, new Constraints(
-            Anchor.AFTER,
-            IdeActions.GROUP_CUT_COPY_PASTE
+            Anchor.FIRST,
+            IdeActions.GROUP_PROJECT_VIEW_POPUP
         ));
         projectPopup.add(Separator.create(), new Constraints(
-            Anchor.BEFORE,
+            Anchor.AFTER,
+            PROOFFROG_GROUP_ID
+        ));
+
+        DefaultActionGroup editorPopup =
+            (DefaultActionGroup) am.getAction(IdeActions.GROUP_EDITOR_POPUP);
+        editorPopup.add(proofFrogGroup, new Constraints(
+            Anchor.FIRST,
+            IdeActions.GROUP_EDITOR_POPUP
+        ));
+        editorPopup.add(Separator.create(), new Constraints(
+            Anchor.AFTER,
             PROOFFROG_GROUP_ID
         ));
     }
