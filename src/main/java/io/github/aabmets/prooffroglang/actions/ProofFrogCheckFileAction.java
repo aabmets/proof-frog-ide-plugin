@@ -1,12 +1,14 @@
 package io.github.aabmets.prooffroglang.actions;
 
+import io.github.aabmets.prooffroglang.utils.ProofFrogRunner;
+
+import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.vfs.VirtualFile;
-import io.github.aabmets.prooffroglang.utils.ProofFrogRunner;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -33,6 +35,7 @@ public class ProofFrogCheckFileAction extends AnAction implements DumbAware {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
+        FileDocumentManager.getInstance().saveAllDocuments();
         ProofFrogRunner runner = new ProofFrogRunner(e.getProject());
         runner.check(e.getData(CommonDataKeys.VIRTUAL_FILE));
     }

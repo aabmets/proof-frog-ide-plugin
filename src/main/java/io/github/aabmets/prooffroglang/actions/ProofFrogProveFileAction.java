@@ -2,6 +2,7 @@ package io.github.aabmets.prooffroglang.actions;
 
 import io.github.aabmets.prooffroglang.utils.ProofFrogRunner;
 
+import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -28,6 +29,7 @@ public class ProofFrogProveFileAction extends AnAction implements DumbAware {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
+        FileDocumentManager.getInstance().saveAllDocuments();
         ProofFrogRunner runner = new ProofFrogRunner(e.getProject());
         runner.prove(e.getData(CommonDataKeys.VIRTUAL_FILE));
     }
