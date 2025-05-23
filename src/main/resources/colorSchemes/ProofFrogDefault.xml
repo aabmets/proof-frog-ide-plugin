@@ -77,17 +77,20 @@
   </option>
   <option name="PROOFFROG_PROPERTY">
     <value>
-      <option name="FOREGROUND" value="FF8C8C"/>
+      <option name="FOREGROUND" value="8180FF"/>
+      <option name="FONT_TYPE" value="2" />
     </value>
   </option>
   <option name="PROOFFROG_LABEL">
     <value>
-      <option name="FOREGROUND" value="C1804E"/>
+      <option name="FOREGROUND" value="D0BC3D"/>
+      <option name="FONT_TYPE" value="1" />
     </value>
   </option>
   <option name="PROOFFROG_NAMED_BLOCK">
     <value>
-      <option name="FOREGROUND" value="C1804E"/>
+      <option name="FOREGROUND" value="8180FF"/>
+      <option name="FONT_TYPE" value="2" />
     </value>
   </option>
   <option name="PROOFFROG_COMMENT">
