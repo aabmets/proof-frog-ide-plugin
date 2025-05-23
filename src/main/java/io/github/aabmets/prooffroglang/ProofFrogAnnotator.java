@@ -1,7 +1,7 @@
 package io.github.aabmets.prooffroglang;
 
 import com.intellij.psi.TokenType;
-import io.github.aabmets.prooffroglang.highlighter.ProofFrogSemanticHighlighter;
+import io.github.aabmets.prooffroglang.highlighter.*;
 import io.github.aabmets.prooffroglang.psi.*;
 
 import java.util.ArrayList;
@@ -24,7 +24,8 @@ public class ProofFrogAnnotator implements Annotator {
             this::annotateClassInstantiations,
             this::annotateMethodSignatures,
             this::annotateMethodCalls,
-            this::annotateLocalVariables
+            this::annotateLocalVariables,
+            this::annotateProperties
         );
 
     @Override
@@ -147,6 +148,19 @@ public class ProofFrogAnnotator implements Annotator {
                     return true;
                 }
             }
+        }
+        return false;
+    }
+
+    private boolean annotateProperties(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
+        PsiElement reduction = PsiTreeUtil.getParentOfType(element, ProofFrogReduction.class, true);
+        if (reduction == null) {
+            return false;
+        } else if (element.getText().equals("challenger")) {
+            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                .textAttributes(ProofFrogVariousHighlighter.PROPERTY)
+                .create();
+            return true;
         }
         return false;
     }
