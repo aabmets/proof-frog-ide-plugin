@@ -19,9 +19,10 @@ for the ProofFrog [Domain Specific Language](https://en.wikipedia.org/wiki/Domai
 3) [Color settings menu](#color-settings-menu)
 4) Comment with Line Comment action
 5) Automatic downloading of platform-specific ProofFrog binaries
-6) [Context menus for checking and verifying files with ProofFrog](#context-menus)
-7) [Run configurations](#run-configurations)
-8) [Ctrl+Click of import statement file paths](#import-references)
+6) [Run configurations](#run-configurations)
+7) [Project explorer context menu](#project-explorer-context-menu)
+8) [Editor context menu](#editor-context-menu)
+9) [Ctrl+Click of import statement file paths](#import-references)
 
 [⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
 <br/>
@@ -111,9 +112,13 @@ to implement the plugin behavior:
 [⬆️ Back to current features](#current-features)
 <br/>
 
-### Context menus
+### Project explorer context menu
 <img src="media/explorer_context_menu.png" alt="explorer_context_menu.png" width="80%"/>
 
+[⬆️ Back to current features](#current-features)
+<br/>
+
+### Editor context menu
 <img src="media/editor_context_menu.png" alt="editor_context_menu.png" width="80%"/>
 
 [⬆️ Back to current features](#current-features)
