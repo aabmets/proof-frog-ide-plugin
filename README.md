@@ -7,6 +7,10 @@ All security properties in ProofFrog are written via pairs of indistinguishable 
 This plugin aims to provide syntax highlighting, annotations, code completion, and other features   
 for the ProofFrog [Domain Specific Language](https://en.wikipedia.org/wiki/Domain-specific_language), which is described in detail in the [thesis paper](https://dspacemainprd01.lib.uwaterloo.ca/server/api/core/bitstreams/b0056349-bcb8-4d69-8b45-dd3808e945d0/content).
 
+This plugin is compatible with all JetBrains IDE-s and if you are doing active cryptography R&D,  
+we wholeheartedly recommend you to use their [CLion IDE](https://www.jetbrains.com/clion/), which since `May 7, 2025` has become  
+**Free for Non-Commercial Use**.
+
 <br/>
 <img src="media/proof_file.png" alt="proof_file.png" width="80%"/>
 <br/>
