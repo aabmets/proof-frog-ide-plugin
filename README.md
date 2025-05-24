@@ -99,39 +99,52 @@ to implement the plugin behavior:
 
 [⬆️ Back to current features](#current-features)
 <br/>
+<br/>
+
 
 ### Syntax highlighting
 <img src="media/syntax_highlighting.png" alt="syntax_highlighting.png" width="80%"/>
 
 [⬆️ Back to current features](#current-features)
 <br/>
+<br/>
+
 
 ### Color settings menu
 <img src="media/color_settings_menu.png" alt="color_settings_menu.png" width="80%"/>
 
 [⬆️ Back to current features](#current-features)
 <br/>
+<br/>
+
 
 ### Project explorer context menu
 <img src="media/explorer_context_menu.png" alt="explorer_context_menu.png" width="80%"/>
 
 [⬆️ Back to current features](#current-features)
 <br/>
+<br/>
+
 
 ### Editor context menu
 <img src="media/editor_context_menu.png" alt="editor_context_menu.png" width="80%"/>
 
 [⬆️ Back to current features](#current-features)
 <br/>
+<br/>
+
 
 ### Run configurations
 <img src="media/run_configs.png" alt="run_configs.png" width="80%"/>
 
 [⬆️ Back to current features](#current-features)
 <br/>
+<br/>
+
 
 ### Import references
 <img src="media/import_references.png" alt="import_references.png" width="80%"/>
 
 [⬆️ Back to current features](#current-features)
+<br/>
 <br/>
