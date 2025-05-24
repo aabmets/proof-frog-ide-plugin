@@ -7,13 +7,16 @@ All security properties in ProofFrog are written via pairs of indistinguishable 
 This plugin aims to provide syntax highlighting, annotations, code completion, and other features   
 for the ProofFrog [Domain Specific Language](https://en.wikipedia.org/wiki/Domain-specific_language), which is described in detail in the [thesis paper](https://dspacemainprd01.lib.uwaterloo.ca/server/api/core/bitstreams/b0056349-bcb8-4d69-8b45-dd3808e945d0/content).
 
+<br/>
+<img src="media/proof_file.png" alt="proof_file.png" width="70%"/>
+
 
 ## Current Features
 
 1) Syntax validation
 2) Syntax highlighting
 3) Pretty printed syntax errors
-4) Color settings page
+4) Color settings menu
 5) Comment with Line Comment action
 6) Automatic downloading of platform-specific ProofFrog binaries
 7) Context menu for checking and verifying files with ProofFrog
@@ -66,14 +69,10 @@ git submodule sync
 cd ..
 git submodule update --init --recursive
 ```
+ 
+To modify the syntax rules of this plugin, modify the `ProofFrog.bnf` and `ProofFrog.flex` files in  
+sources root directory at `src/main/java/io/github/aabmets/prooffroglang`.
 
-Let sources root equal `src/main/java/io/github/aabmets/prooffroglang`.  
-To modify the syntax rules of this plugin, modify `ProofFrog.bnf` and `ProofFrog.flex` in sources root.
-
-Then in `ProofFrog.bnf` context menu select `Generate Parser Code`  
-and in `ProofFrog.flex` context menu select `Run JFlex Generator`,  
-then implement the generated changes into these files:
-
-* `<sources root>/ProofFrogSyntaxHighlighter.java`
-* `<sources root>/ProofFrogColorSettingsPage.java`
-* `<sources root>/psi/ProofFrogTokenSets.java`
+Then in `ProofFrog.bnf` context menu select `Generate Parser Code` and in `ProofFrog.flex` context menu  
+select `Run JFlex Generator`, then use the generated PSI elements in any number of ProofFrog source files  
+to implement the plugin behavior:
