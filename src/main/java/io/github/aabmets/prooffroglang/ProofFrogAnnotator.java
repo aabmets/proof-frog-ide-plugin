@@ -22,6 +22,7 @@ public class ProofFrogAnnotator implements Annotator {
         List.of(
             this::annotateClassNames,
             this::annotateClassInstantiations,
+            this::annotateClassFields,
             this::annotateMethodSignatures,
             this::annotateMethodCalls,
             this::annotateLocalVariables,
@@ -60,6 +61,21 @@ public class ProofFrogAnnotator implements Annotator {
         return false;
     }
 
+    private boolean annotateClassFields(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
+        PsiElement parent = element.getParent();
+        PsiElement grandParent = parent.getParent();
+        if (!(parent instanceof ProofFrogField) && !(grandParent instanceof ProofFrogField)) {
+            return false;
+        }
+        if (element instanceof ProofFrogId) {
+            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                .textAttributes(ProofFrogSemanticHighlighter.CLASS_FIELD)
+                .create();
+            return true;
+        }
+        return false;
+    }
+
     private boolean annotateMethodSignatures(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
         if (element.getParent() instanceof ProofFrogMethodSignature && element instanceof ProofFrogId) {
             holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
@@ -70,7 +86,7 @@ public class ProofFrogAnnotator implements Annotator {
         if (PsiTreeUtil.getParentOfType(element, ProofFrogMethodSignature.class, true) != null) {
             if (element.getParent() instanceof ProofFrogVariable && element instanceof ProofFrogId) {
                 holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
-                    .textAttributes(ProofFrogSemanticHighlighter.PARAMETER)
+                    .textAttributes(ProofFrogSemanticHighlighter.CLASS_FIELD)
                     .create();
                 return true;
             }
