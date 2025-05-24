@@ -24,6 +24,9 @@ for the ProofFrog [Domain Specific Language](https://en.wikipedia.org/wiki/Domai
 8) Run configurations
 9) Ctrl+Click of import statement file paths (references)
 
+[⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
+<br/>
+
 
 ## Roadmap
 
@@ -38,6 +41,9 @@ plugin or make a pull request against this repository with your implemented chan
 4) Find usages provider
 5) Folding builder
 
+[⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
+<br/>
+
 
 ## Parser Differences
 
@@ -46,6 +52,10 @@ Namely, this plugin **does not** and **will not** allow the keyword `in` as clas
 errors when opening some ProofFrog example files which contain `Int in = in;` or `requires F.in == F.out;`.  
 This syntax is forbidden because literally all real programming languages forbid the usage of reserved keywords  
 as identifiers, and it does not make sense to deviate from this standard.
+
+[⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
+<br/>
+
 
 ## Development
 
@@ -77,3 +87,6 @@ sources root directory at `src/main/java/io/github/aabmets/prooffroglang`.
 Then in `ProofFrog.bnf` context menu select `Generate Parser Code` and in `ProofFrog.flex` context menu  
 select `Run JFlex Generator`, then use the generated PSI elements in any number of ProofFrog source files  
 to implement the plugin behavior:
+
+[⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
+<br/>
