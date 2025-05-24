@@ -781,9 +781,8 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (field PN_SEMI)* method+ |
-  //     (field PN_SEMI)* method*
-  //     gamePhase+
+  // (field PN_SEMI)* method* gamePhase+ |
+  //     (field PN_SEMI)* method+
   public static boolean gameBody(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "gameBody")) return false;
     boolean r;
@@ -794,13 +793,14 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (field PN_SEMI)* method+
+  // (field PN_SEMI)* method* gamePhase+
   private static boolean gameBody_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "gameBody_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = gameBody_0_0(b, l + 1);
     r = r && gameBody_0_1(b, l + 1);
+    r = r && gameBody_0_2(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -827,30 +827,39 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // method+
+  // method*
   private static boolean gameBody_0_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "gameBody_0_1")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = method(b, l + 1);
-    while (r) {
+    while (true) {
       int c = current_position_(b);
       if (!method(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "gameBody_0_1", c)) break;
+    }
+    return true;
+  }
+
+  // gamePhase+
+  private static boolean gameBody_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "gameBody_0_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = gamePhase(b, l + 1);
+    while (r) {
+      int c = current_position_(b);
+      if (!gamePhase(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "gameBody_0_2", c)) break;
     }
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // (field PN_SEMI)* method*
-  //     gamePhase+
+  // (field PN_SEMI)* method+
   private static boolean gameBody_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "gameBody_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = gameBody_1_0(b, l + 1);
     r = r && gameBody_1_1(b, l + 1);
-    r = r && gameBody_1_2(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -877,27 +886,16 @@ public class ProofFrogParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // method*
+  // method+
   private static boolean gameBody_1_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "gameBody_1_1")) return false;
-    while (true) {
+    boolean r;
+    Marker m = enter_section_(b);
+    r = method(b, l + 1);
+    while (r) {
       int c = current_position_(b);
       if (!method(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "gameBody_1_1", c)) break;
-    }
-    return true;
-  }
-
-  // gamePhase+
-  private static boolean gameBody_1_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "gameBody_1_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = gamePhase(b, l + 1);
-    while (r) {
-      int c = current_position_(b);
-      if (!gamePhase(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "gameBody_1_2", c)) break;
     }
     exit_section_(b, m, null, r);
     return r;

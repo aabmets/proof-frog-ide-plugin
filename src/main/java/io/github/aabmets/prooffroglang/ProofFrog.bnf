@@ -43,9 +43,8 @@ gameProgram ::= moduleImport* game game gameExport;
 game ::= gameSignature ST_BRACE_L gameBody ST_BRACE_R;
 gameSignature ::= CL_GAME id ST_PAREN_L paramList? ST_PAREN_R;
 gameBody ::=
-    (field PN_SEMI)* method+ |
-    (field PN_SEMI)* method*
-    gamePhase+
+    (field PN_SEMI)* method* gamePhase+ |
+    (field PN_SEMI)* method+
     ;
 gamePhase ::=
     NB_PHASE ST_BRACE_L (method)+ KW_ORACLES PN_COLON
