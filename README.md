@@ -24,7 +24,7 @@ for the ProofFrog [Domain Specific Language](https://en.wikipedia.org/wiki/Domai
 8) Run configurations
 9) Ctrl+Click of import statement file paths (references)
 
-<a href="#prooffrog-plugin-for-jetbrains-ide-s"><small>⬆️ Back to top</small></a>
+[⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
 <br/>
 
 
@@ -41,7 +41,7 @@ plugin or make a pull request against this repository with your implemented chan
 4) Find usages provider
 5) Folding builder
 
-<a href="#prooffrog-plugin-for-jetbrains-ide-s"><small>⬆️ Back to top</small></a>
+[⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
 <br/>
 
 
@@ -53,7 +53,7 @@ errors when opening some ProofFrog example files which contain `Int in = in;` or
 This syntax is forbidden because literally all real programming languages forbid the usage of reserved keywords  
 as identifiers, and it does not make sense to deviate from this standard.
 
-<a href="#prooffrog-plugin-for-jetbrains-ide-s"><small>⬆️ Back to top</small></a>
+[⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
 <br/>
 
 
@@ -88,5 +88,5 @@ Then in `ProofFrog.bnf` context menu select `Generate Parser Code` and in `Proof
 select `Run JFlex Generator`, then use the generated PSI elements in any number of ProofFrog source files  
 to implement the plugin behavior:
 
-<a href="#prooffrog-plugin-for-jetbrains-ide-s"><small>⬆️ Back to top</small></a>
+[⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
 <br/>
