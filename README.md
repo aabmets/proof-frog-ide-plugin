@@ -14,15 +14,14 @@ for the ProofFrog [Domain Specific Language](https://en.wikipedia.org/wiki/Domai
 
 ## Current Features
 
-1) Syntax validation
-2) Syntax highlighting
-3) Pretty printed syntax errors
-4) Color settings menu
-5) Comment with Line Comment action
-6) Automatic downloading of platform-specific ProofFrog binaries
-7) Context menu for checking and verifying files with ProofFrog
-8) Run configurations
-9) Ctrl+Click of import statement file paths (references)
+1) [Syntax validation](#syntax-validation)
+2) [Syntax highlighting](#syntax-highlighting)
+3) [Color settings menu](#color-settings-menu)
+4) Comment with Line Comment action
+5) Automatic downloading of platform-specific ProofFrog binaries
+6) [Context menus for checking and verifying files with ProofFrog](#context-menus)
+7) [Run configurations](#run-configurations)
+8) [Ctrl+Click of import statement file paths](#import-references)
 
 [⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
 <br/>
@@ -89,4 +88,45 @@ select `Run JFlex Generator`, then use the generated PSI elements in any number 
 to implement the plugin behavior:
 
 [⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
+<br/>
+
+
+## Gallery
+
+### Syntax validation
+<img src="media/syntax_validation.png" alt="syntax_validation.png" width="80%"/>
+
+[⬆️ Back to current features](#current-features)
+<br/>
+
+### Syntax highlighting
+<img src="media/syntax_highlighting.png" alt="syntax_highlighting.png" width="80%"/>
+
+[⬆️ Back to current features](#current-features)
+<br/>
+
+### Color settings menu
+<img src="media/color_settings_menu.png" alt="color_settings_menu.png" width="80%"/>
+
+[⬆️ Back to current features](#current-features)
+<br/>
+
+### Context menus
+<img src="media/explorer_context_menu.png" alt="explorer_context_menu.png" width="80%"/>
+
+<img src="media/editor_context_menu.png" alt="editor_context_menu.png" width="80%"/>
+
+[⬆️ Back to current features](#current-features)
+<br/>
+
+### Run configurations
+<img src="media/run_configs.png" alt="run_configs.png" width="80%"/>
+
+[⬆️ Back to current features](#current-features)
+<br/>
+
+### Import references
+<img src="media/import_references.png" alt="import_references.png" width="80%"/>
+
+[⬆️ Back to current features](#current-features)
 <br/>
