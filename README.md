@@ -47,6 +47,24 @@ plugin or make a pull request against this repository with your implemented chan
 <br/>
 
 
+## ProofFrog Binaries
+
+**[ProofFrog](https://pypi.org/project/proof_frog/)** (PyPI link) is implemented as a Python library and therefore does not require compilation if you  
+don't mind messing around with Python virtual environments, however, doing so is incompatible with all the  
+conveniences this plugin has to offer.  
+
+This plugin provides context menus in the IDE to quickly run ProofFrog validations against your source code,  
+which requires the download of ProofFrog binaries, which are published to the [releases](https://github.com/aabmets/proof-frog-ide-plugin/releases) page of this repository.  
+
+The plugin downloads the binary compatible with your platform automatically when it's installed for the first time.  
+You will receive a notification in the IDE, and the context menus become enabled when the download was successful.  
+Currently, we support binaries for macOS 14, Debian Linux variants, and Windows x64.
+
+[⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
+<br/>
+<br/>
+
+
 ## Parser Differences
 
 There is a minor difference in how this plugin parses ProofFrog code compared to the ProofFrog library itself.  
