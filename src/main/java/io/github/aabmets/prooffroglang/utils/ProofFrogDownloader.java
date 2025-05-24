@@ -1,5 +1,9 @@
 package io.github.aabmets.prooffroglang.utils;
 
+import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -9,6 +13,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -94,22 +99,31 @@ public class ProofFrogDownloader {
         }
     }
 
-    public static void extractArchive(Path archivePath, Path destDir) throws IOException {
-        Files.createDirectories(destDir);
+    private static void extractArchive(Path archive, Path targetPath) throws IOException {
+        String name = archive.getFileName().toString().toLowerCase(Locale.ROOT);
+        if (name.endsWith(".zip")) {
+            extractZip(archive, targetPath);
+        } else if (name.endsWith(".tar.gz") || name.endsWith(".tgz")) {
+            extractTarGz(archive, targetPath);
+        } else {
+            throw new IllegalArgumentException("Unsupported archive format: " + name);
+        }
+    }
 
-        try (ZipInputStream zis = new ZipInputStream(Files.newInputStream(archivePath))) {
+    private static void extractZip(Path zipPath, Path targetPath) throws IOException {
+        try (ZipInputStream zis = new ZipInputStream(Files.newInputStream(zipPath))) {
             ZipEntry entry;
             while ((entry = zis.getNextEntry()) != null) {
-                Path outPath = destDir.resolve(entry.getName());
+                Path outPath = targetPath.resolve(entry.getName());
                 if (entry.isDirectory()) {
                     Files.createDirectories(outPath);
                 } else {
                     Files.createDirectories(outPath.getParent());
-                    try (OutputStream os = Files.newOutputStream(outPath)) {
+                    try (OutputStream out = Files.newOutputStream(outPath)) {
                         byte[] buffer = new byte[8192];
                         int len;
-                        while ((len = zis.read(buffer)) > 0) {
-                            os.write(buffer, 0, len);
+                        while ((len = zis.read(buffer)) != -1) {
+                            out.write(buffer, 0, len);
                         }
                     }
                 }
@@ -118,19 +132,59 @@ public class ProofFrogDownloader {
         }
     }
 
-    public static void downloadProofFrogBinaries(Path downloadDir) throws IOException {
-        String latestReleaseUrl = "https://github.com/aabmets/proof-frog-ide-plugin/releases/latest";
-        Path zipPath = downloadDir.resolve("proof_frog.zip");
+    private static void extractTarGz(Path tarGzPath, Path targetPath) throws IOException {
+        try (InputStream fis = Files.newInputStream(tarGzPath);
+            GzipCompressorInputStream gis = new GzipCompressorInputStream(fis);
+            TarArchiveInputStream tis = new TarArchiveInputStream(gis)
+        ) {
+            TarArchiveEntry entry;
+            while ((entry = tis.getNextEntry()) != null) {
+                Path outPath = targetPath.resolve(entry.getName());
+                if (entry.isDirectory()) {
+                    Files.createDirectories(outPath);
+                } else {
+                    Files.createDirectories(outPath.getParent());
+                    try (OutputStream out = Files.newOutputStream(outPath)) {
+                        byte[] buffer = new byte[8192];
+                        int len;
+                        while ((len = tis.read(buffer)) != -1) {
+                            out.write(buffer, 0, len);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
+    private static void setExecutablePermission(Path targetPath) throws IOException {
+        String os = System.getProperty("os.name").toLowerCase(Locale.ROOT);
+        if (!os.contains("win")) {
+            Path uvBin = targetPath.resolve("uv");
+            if (Files.exists(uvBin)) {
+                boolean execOk = uvBin.toFile().setExecutable(true, false);
+                if (!execOk) {
+                    throw new IOException("Failed to set executable permission on " + uvBin);
+                }
+            }
+        }
+    }
+
+    public static void downloadPackageManager(Path downloadDir) throws IOException {
+        String latestReleaseUrl = "https://github.com/astral-sh/uv/releases/latest";
         String osName = System.getProperty("os.name").toLowerCase();
+
         String releaseNameConstraint;
+        Path zipPath;
 
         if (osName.contains("win")) {
-            releaseNameConstraint = "win_amd64.zip";
+            releaseNameConstraint = "uv-x86_64-pc-windows-msvc.zip";
+            zipPath = downloadDir.resolve("uv.zip");
         } else if (osName.contains("mac")) {
-            releaseNameConstraint = "macosx_14_0_arm64.zip";
-        } else if (osName.contains("nix") || osName.contains("nux") || osName.contains("aix")) {
-            releaseNameConstraint = "manylinux_2_39_x86_64.zip";
+            releaseNameConstraint = "uv-aarch64-apple-darwin.tar.gz";
+            zipPath = downloadDir.resolve("uv.tar.gz");
+        } else if (osName.contains("linux")) {
+            releaseNameConstraint = "uv-x86_64-unknown-linux-gnu.tar.gz";
+            zipPath = downloadDir.resolve("uv.tar.gz");
         } else {
             throw new UnsupportedOperationException("Unsupported operating system: " + osName);
         }
@@ -138,6 +192,7 @@ public class ProofFrogDownloader {
         String location = locateGithubRelease(latestReleaseUrl, releaseNameConstraint);
         downloadFileToDisk(location, zipPath);
         extractArchive(zipPath, downloadDir);
-        Files.delete(zipPath);
+        setExecutablePermission(zipPath);
+        Files.deleteIfExists(zipPath);
     }
 }

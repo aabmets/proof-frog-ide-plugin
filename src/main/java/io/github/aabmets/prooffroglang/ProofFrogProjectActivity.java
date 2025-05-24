@@ -33,17 +33,15 @@ public class ProofFrogProjectActivity implements ProjectActivity {
 
             if (Files.notExists(exePath)) {
                 try {
-                    ProofFrogDownloader.downloadProofFrogBinaries(pluginDir);
+                    ProofFrogDownloader.downloadPackageManager(pluginDir);
                     notifier.notifyInfo(
-                        "ProofFrog download successful",
-                        "Successfully downloaded ProofFrog binaries from GitHub. " +
-                        "Proof verification run tasks are available in IDE."
+                        "ProofFrog installation successful",
+                        "Proof verification actions and run configurations are now available."
                     );
                 } catch (IOException e) {
                     notifier.notifyError(
-                        "ProofFrog download failed",
-                        "Failed to download ProofFrog binaries from GitHub. " +
-                        "You must manually set up ProofFrog to run proof verifications."
+                        "ProofFrog installation failed",
+                        "You must manually install the ProofFrog library to run proof verifications."
                     );
                 }
             }
