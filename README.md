@@ -8,7 +8,8 @@ This plugin aims to provide syntax highlighting, annotations, code completion, a
 for the ProofFrog [Domain Specific Language](https://en.wikipedia.org/wiki/Domain-specific_language), which is described in detail in the [thesis paper](https://dspacemainprd01.lib.uwaterloo.ca/server/api/core/bitstreams/b0056349-bcb8-4d69-8b45-dd3808e945d0/content).
 
 <br/>
-<img src="media/proof_file.png" alt="proof_file.png" width="70%"/>
+<img src="media/proof_file.png" alt="proof_file.png" width="80%"/>
+<br/>
 
 
 ## Current Features
