@@ -25,7 +25,8 @@ public class ProofFrogAnnotator implements Annotator {
             this::annotateMethodSignatures,
             this::annotateMethodCalls,
             this::annotateLocalVariables,
-            this::annotateProperties
+            this::annotateProperties,
+            this::annotateDatatypes
         );
 
     @Override
@@ -159,6 +160,19 @@ public class ProofFrogAnnotator implements Annotator {
         } else if (element.getText().equals("challenger")) {
             holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
                 .textAttributes(ProofFrogVariousHighlighter.PROPERTY)
+                .create();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean annotateDatatypes(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
+        PsiElement datatype = PsiTreeUtil.getParentOfType(element, ProofFrogType.class, true);
+        if (datatype == null) {
+            return false;
+        } else if (element instanceof ProofFrogId) {
+            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                .textAttributes(ProofFrogDatatypeHighlighter.KEY)
                 .create();
             return true;
         }
