@@ -26,6 +26,7 @@ for the ProofFrog [Domain Specific Language](https://en.wikipedia.org/wiki/Domai
 
 [⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
 <br/>
+<br/>
 
 
 ## Roadmap
@@ -43,6 +44,7 @@ plugin or make a pull request against this repository with your implemented chan
 
 [⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
 <br/>
+<br/>
 
 
 ## Parser Differences
@@ -54,6 +56,7 @@ This syntax is forbidden because literally all real programming languages forbid
 as identifiers, and it does not make sense to deviate from this standard.
 
 [⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
+<br/>
 <br/>
 
 
@@ -89,6 +92,7 @@ select `Run JFlex Generator`, then use the generated PSI elements in any number 
 to implement the plugin behavior:
 
 [⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
+<br/>
 <br/>
 
 
