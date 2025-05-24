@@ -100,6 +100,7 @@ to implement the plugin behavior:
 [⬆️ Back to current features](#current-features)
 <br/>
 <br/>
+<hr/>
 
 
 ### Syntax highlighting
@@ -108,6 +109,7 @@ to implement the plugin behavior:
 [⬆️ Back to current features](#current-features)
 <br/>
 <br/>
+<hr/>
 
 
 ### Color settings menu
@@ -116,6 +118,7 @@ to implement the plugin behavior:
 [⬆️ Back to current features](#current-features)
 <br/>
 <br/>
+<hr/>
 
 
 ### Project explorer context menu
@@ -124,6 +127,7 @@ to implement the plugin behavior:
 [⬆️ Back to current features](#current-features)
 <br/>
 <br/>
+<hr/>
 
 
 ### Editor context menu
@@ -132,6 +136,7 @@ to implement the plugin behavior:
 [⬆️ Back to current features](#current-features)
 <br/>
 <br/>
+<hr/>
 
 
 ### Run configurations
@@ -140,6 +145,7 @@ to implement the plugin behavior:
 [⬆️ Back to current features](#current-features)
 <br/>
 <br/>
+<hr/>
 
 
 ### Import references
