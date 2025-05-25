@@ -66,6 +66,10 @@ library installation when you restart the IDE.
 The manual installation solution is also useful for developing the `proof_frog` library itself in [PyCharm](https://www.jetbrains.com/pycharm/), because  
 you can install the library into the venv in editable mode and then use the plugin actions to test the modified library.
 
+[⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
+<br/>
+<br/>
+
 
 ## Parser Differences
 
