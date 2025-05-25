@@ -22,9 +22,7 @@ public class ProofFrogProjectActivity implements ProjectActivity {
         Path pluginDir = ProofFrogPaths.getPluginDir();
 
         if (pluginDir != null) {
-            boolean pmInstalled = ProofFrogPaths.isPackageManagerInstalled();
-
-            if (!pmInstalled) {
+            if (!ProofFrogPaths.isPackageManagerInstalled()) {
                 ProofFrogNotifier notifier = new ProofFrogNotifier(project);
 
                 try {
@@ -42,7 +40,7 @@ public class ProofFrogProjectActivity implements ProjectActivity {
                     );
                 }
             }
-            if (pmInstalled) {
+            if (ProofFrogPaths.isPackageManagerInstalled()) {
                 ProofFrogActionManager.registerContextMenu();
             }
         }

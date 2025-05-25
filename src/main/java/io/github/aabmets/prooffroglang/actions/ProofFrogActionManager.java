@@ -17,25 +17,39 @@ public class ProofFrogActionManager {
 
         am.registerAction(PROOFFROG_GROUP_ID, proofFrogGroup);
 
+        buildContextMenu(am, proofFrogGroup);
+        attachGroupToProjectViewPopup(am, proofFrogGroup);
+        attachGroupToEditorPopup(am, proofFrogGroup);
+
+    }
+
+    private static void buildContextMenu(ActionManager am, DefaultActionGroup group) {
         AnAction action = new ProofFrogProveFileAction();
         am.registerAction(ProofFrogProveFileAction.ACTION_ID, action);
-        proofFrogGroup.add(action);
+        group.add(action);
 
         action = new ProofFrogCheckFileAction();
         am.registerAction(ProofFrogCheckFileAction.ACTION_ID, action);
-        proofFrogGroup.add(action);
+        group.add(action);
 
         action = new ProofFrogParseFileAction();
         am.registerAction(ProofFrogParseFileAction.ACTION_ID, action);
-        proofFrogGroup.add(action);
+        group.add(action);
 
-        proofFrogGroup.add(Separator.create());
+        group.add(Separator.create());
+
         AnAction psiStructureAction = am.getAction("PsiViewerForContext");
-        proofFrogGroup.add(psiStructureAction);
+        group.add(psiStructureAction);
 
+        action = new ProofFrogOpenPluginDirAction();
+        am.registerAction(ProofFrogOpenPluginDirAction.ACTION_ID, action);
+        group.add(action);
+    }
+
+    private static void attachGroupToProjectViewPopup(ActionManager am, DefaultActionGroup group) {
         DefaultActionGroup projectPopup =
             (DefaultActionGroup) am.getAction(IdeActions.GROUP_PROJECT_VIEW_POPUP);
-        projectPopup.add(proofFrogGroup, new Constraints(
+        projectPopup.add(group, new Constraints(
             Anchor.FIRST,
             IdeActions.GROUP_PROJECT_VIEW_POPUP
         ));
@@ -43,10 +57,12 @@ public class ProofFrogActionManager {
             Anchor.AFTER,
             PROOFFROG_GROUP_ID
         ));
+    }
 
+    private static void attachGroupToEditorPopup(ActionManager am, DefaultActionGroup group) {
         DefaultActionGroup editorPopup =
             (DefaultActionGroup) am.getAction(IdeActions.GROUP_EDITOR_POPUP);
-        editorPopup.add(proofFrogGroup, new Constraints(
+        editorPopup.add(group, new Constraints(
             Anchor.FIRST,
             IdeActions.GROUP_EDITOR_POPUP
         ));
