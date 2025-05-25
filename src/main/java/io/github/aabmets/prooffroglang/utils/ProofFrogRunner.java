@@ -40,36 +40,21 @@ public class ProofFrogRunner {
             this.errMsg = "ProofFrog plugin directory not found";
             return;
         }
-        Path exePath = pluginDesc.getPluginPath().resolve(getPluginExePath());
-        if (!Files.isExecutable(exePath)) {
-            this.errMsg = "ProofFrog runtime missing at:\n" + exePath;
+        Path pyBin = ProofFrogPaths.getVenvPythonBinaryFile(project);
+        if (pyBin == null || !Files.isExecutable(pyBin)) {
+            this.errMsg = "ProofFrog runtime missing at:\n" + pyBin;
             return;
         }
-        this.exePath = exePath.toString();
-    }
-
-    public static String getPluginExePath() {
-        String osName = System.getProperty("os.name").toLowerCase();
-        if (osName.contains("win")) {
-            return "proof_frog/proof_frog.exe";
-        } else if (
-                osName.contains("mac") ||
-                osName.contains("nix") ||
-                osName.contains("nux") ||
-                osName.contains("aix")
-        ) {
-            return "proof_frog/proof_frog";
-        } else {
-            String errMsg = "Unsupported operating system: " + osName;
-            throw new UnsupportedOperationException(errMsg);
-        }
+        this.exePath = pyBin.toString();
     }
 
     public ProcessHandler createProcessHandler(String command, String filePath) throws ExecutionException {
         if (this.errMsg != null) {
             throw new ExecutionException(this.errMsg);
         }
-        GeneralCommandLine cmd = new GeneralCommandLine(this.exePath, command, filePath);
+        GeneralCommandLine cmd = new GeneralCommandLine(
+            this.exePath, "-m", "proof_frog", command, filePath
+        );
         cmd.withWorkDirectory(this.project.getBasePath());
         return new OSProcessHandler(cmd);
     }
