@@ -22,10 +22,10 @@ we wholeheartedly recommend you to use their [CLion IDE](https://www.jetbrains.c
 2) [Syntax highlighting](#syntax-highlighting)
 3) [Color settings menu](#color-settings-menu)
 4) Comment with Line Comment action
-5) Automatic setup of ProofFrog Python library
-6) [Run configurations](#run-configurations)
-7) [Project explorer context menu](#project-explorer-context-menu)
-8) [Editor context menu](#editor-context-menu)
+5) [Automatic setup of ProofFrog Python library](#library-setup)
+6) [Project explorer context menu](#project-explorer-context-menu)
+7) [Editor context menu](#editor-context-menu)
+8) [Run configurations](#run-configurations)
 9) [Ctrl+Click of import statement file paths](#import-references)
 
 [⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
@@ -122,6 +122,15 @@ to implement the plugin behavior:
 
 ### Color settings menu
 <img src="media/color_settings_menu.png" alt="color_settings_menu.png" width="80%"/>
+
+[⬆️ Back to current features](#current-features)
+<br/>
+<br/>
+<hr/>
+
+
+### Library Setup
+<img src="media/library_setup.png" alt="library_setup.png" width="80%"/>
 
 [⬆️ Back to current features](#current-features)
 <br/>
