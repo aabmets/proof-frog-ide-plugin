@@ -84,7 +84,7 @@ as identifiers, and it does not make sense to deviate from this standard.
 <br/>
 
 
-## Development
+## Plugin Development
 
 This plugin must be developed with IntelliJ IDEA IDE (Community or Ultimate).  
 Development of this plugin requires the following plugins from the IDE marketplace:  
