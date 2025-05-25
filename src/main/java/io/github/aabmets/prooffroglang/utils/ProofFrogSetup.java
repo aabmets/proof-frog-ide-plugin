@@ -5,37 +5,42 @@ import java.nio.file.Path;
 
 public class ProofFrogSetup {
     private final Path pluginHome;
-    private final Path uvBinary;
 
     public ProofFrogSetup() {
         this.pluginHome = ProofFrogPaths.getPluginDir();
-        this.uvBinary = ProofFrogPaths.getPackageManagerFile();
     }
 
     public void runSetup() {
         try {
-            runUvCommand("python", "install", "3.13.2");
-            Path venvPath = pluginHome.resolve(".venv");
-            runUvCommand("venv", venvPath.toString());
-            runUvCommand("pip", "install", "proof_frog");
+            if (!ProofFrogPaths.isPackageManagerInstalled()) {
+                ProofFrogDownloader.downloadPackageManager(pluginHome);
+            }
+            Path uvBinPath = ProofFrogPaths.getPackageManagerFile();
+            if (uvBinPath != null) {
+                String uvBin = uvBinPath.toString();
+                Path venvPath = pluginHome.resolve(".venv");
+
+                runCommand(uvBin, "python", "install", "3.13.2");
+                runCommand(uvBin, "venv", venvPath.toString());
+                runCommand(uvBin, "pip", "install", "proof_frog");
+            }
         } catch (IOException | InterruptedException e){
             throw new RuntimeException(e);
         }
     }
 
-    private void runUvCommand(String... args) throws IOException, InterruptedException {
-        String[] cmd = new String[args.length + 1];
-        cmd[0] = uvBinary.toString();
-        System.arraycopy(args, 0, cmd, 1, args.length);
-
-        ProcessBuilder pb = new ProcessBuilder(cmd)
+    private void runCommand(String... args) throws IOException, InterruptedException {
+        ProcessBuilder pb = new ProcessBuilder(args)
             .directory(pluginHome.toFile())
             .inheritIO();
 
         Process proc = pb.start();
         int exit = proc.waitFor();
         if (exit != 0) {
-            throw new IOException("`uv " + String.join(" ", args) + "` failed (exit " + exit + ")");
+            throw new IOException(
+                "`uv " + String.join(" ", args) +
+                "` failed (exit " + exit + ")"
+            );
         }
     }
 
