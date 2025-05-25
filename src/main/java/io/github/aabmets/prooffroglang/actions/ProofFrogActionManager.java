@@ -44,6 +44,10 @@ public class ProofFrogActionManager {
         action = new ProofFrogOpenPluginDirAction();
         am.registerAction(ProofFrogOpenPluginDirAction.ACTION_ID, action);
         group.add(action);
+
+        action = new ProofFrogUpdateLibraryAction();
+        am.registerAction(ProofFrogUpdateLibraryAction.ACTION_ID, action);
+        group.add(action);
     }
 
     private static void attachGroupToProjectViewPopup(ActionManager am, DefaultActionGroup group) {

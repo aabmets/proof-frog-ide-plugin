@@ -22,10 +22,18 @@ public class ProofFrogSetup {
 
                 runCommand(uvBin, "python", "install", "3.13.2");
                 runCommand(uvBin, "venv", venvPath.toString());
-                runCommand(uvBin, "pip", "install", "proof_frog");
+                runCommand(uvBin, "pip", "install", "-U", "proof_frog");
             }
         } catch (IOException | InterruptedException e){
             throw new RuntimeException(e);
+        }
+    }
+
+    public void updateProofFrogLibrary() throws IOException, InterruptedException {
+        Path uvBinPath = ProofFrogPaths.getPackageManagerFile();
+        if (uvBinPath != null) {
+            String uvBin = uvBinPath.toString();
+            runCommand(uvBin, "pip", "install", "-U", "proof_frog");
         }
     }
 
