@@ -27,12 +27,15 @@ public class ProofFrogProjectActivity implements ProjectActivity {
 
                 try {
                     notifier.notifyInfo("Installing ProofFrog library...");
+
                     ProofFrogDownloader.downloadPackageManager(pluginDir);
+                    new ProofFrogSetup().runSetup();
+
                     notifier.notifyInfo(
                         "ProofFrog installation successful",
                         "Context menu actions and run configurations are now available."
                     );
-                } catch (IOException e) {
+                } catch (IOException | RuntimeException e) {
                     notifier.notifyError(
                         "ProofFrog installation failed",
                         "You must manually install the ProofFrog library to" +
