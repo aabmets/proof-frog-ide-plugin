@@ -51,6 +51,22 @@ plugin or make a pull request against this repository with your implemented chan
 <br/>
 
 
+## ProofFrog Library Installation
+
+When you first install the plugin into a JetBrains IDE, it will try to locate a Python virtual environment with  
+the [proof_frog](https://pypi.org/project/proof_frog/) library installed. If it fails to do so, you will be prompted 
+with a confirmation popup asking if  
+you want the plugin to download and install it for you.  
+
+If you choose No, you can still enable the context-menu actions and run configurations of the plugin by manually  
+creating a Python virtual environment named either `venv` or `.venv` at the top level of your project directory and  
+installing `proof_frog` into it. Once you have done that, the plugin will detect and use your manual `proof_frog`  
+library installation when you restart the IDE.  
+
+The manual installation solution is also useful for developing the `proof_frog` library itself in [PyCharm](https://www.jetbrains.com/pycharm/), because  
+you can install the library into the venv in editable mode and then use the plugin actions to test the modified library.
+
+
 ## Parser Differences
 
 There is a minor difference in how this plugin parses ProofFrog code compared to the ProofFrog library itself.  
