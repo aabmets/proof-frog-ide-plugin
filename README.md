@@ -22,7 +22,7 @@ we wholeheartedly recommend you to use their [CLion IDE](https://www.jetbrains.c
 2) [Syntax highlighting](#syntax-highlighting)
 3) [Color settings menu](#color-settings-menu)
 4) Comment with Line Comment action
-5) Automatic downloading of platform-specific ProofFrog binaries
+5) Automatic setup of ProofFrog Python library
 6) [Run configurations](#run-configurations)
 7) [Project explorer context menu](#project-explorer-context-menu)
 8) [Editor context menu](#editor-context-menu)
