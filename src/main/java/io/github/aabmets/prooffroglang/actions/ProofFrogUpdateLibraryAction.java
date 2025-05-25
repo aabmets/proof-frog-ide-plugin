@@ -22,8 +22,12 @@ public class ProofFrogUpdateLibraryAction extends AnAction implements DumbAware 
         ProofFrogNotifier notifier = new ProofFrogNotifier(e.getProject());
         try {
             ProofFrogSetup setup = new ProofFrogSetup();
-            setup.updateProofFrogLibrary();
-            notifier.notifyInfo("ProofFrog library successfully updated");
+            String message = setup.updateProofFrogLibrary();
+            if (message == null) {
+                notifier.notifyError("Failed to update the Proof Frog library.");
+            } else {
+                notifier.notifyInfo(message);
+            }
         } catch (IOException | InterruptedException ex) {
             throw new RuntimeException(ex);
         }
