@@ -30,7 +30,6 @@ public class ProofFrogOpenPluginDirAction extends AnAction implements DumbAware 
         }
         try {
             Desktop.getDesktop().open(pluginDir.toFile());
-            Messages.showInfoMessage("Directory opened.", "Open Plugin Directory");
         } catch (IOException | UnsupportedOperationException ex) {
             Messages.showErrorDialog(
                 "Failed to open the plugin directory:\n" + ex.getMessage(),
