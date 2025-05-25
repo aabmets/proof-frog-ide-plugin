@@ -58,6 +58,10 @@ the [proof_frog](https://pypi.org/project/proof_frog/) library installed. If it 
 with a confirmation popup asking if  
 you want the plugin to download and install it for you.  
 
+If you choose Yes, the plugin first downloads the latest release of [Astral UV](https://github.com/astral-sh/uv) package manager into the plugin   
+directory, then uses it to download a Python version, then uses it to create a private Python virtual environment  
+into the plugin directory and finally installs `proof_frog` from the Python Package Index into the venv.
+
 If you choose No, you can still enable the context-menu actions and run configurations of the plugin by manually  
 creating a Python virtual environment named either `venv` or `.venv` at the top level of your project directory and  
 installing `proof_frog` into it. Once you have done that, the plugin will detect and use your manual `proof_frog`  
