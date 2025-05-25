@@ -32,9 +32,12 @@ public class ProofFrogProjectActivity implements ProjectActivity {
                     """
                             Would you like the plugin to automatically install \
                             the ProofFrog library (requires internet connection)?
+
+                            The ProofFrog library is required to enable context menu
+                            actions and run configurations for ProofFrog files.
                             
-                            The library is required to enable context menu actions
-                            and run configurations for ProofFrog files.
+                            If you choose No, then please read the ProofFrog library
+                            installation instructions on the plugin GitHub page.
                             """,
                     "ProofFrog Library Not Detected",
                     Messages.getQuestionIcon()
