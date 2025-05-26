@@ -10,7 +10,6 @@
 5) [Parser Differences](#parser-differences)
 6) [Plugin Development](#plugin-development)
 7) [Gallery](#gallery)
-
 <br/>
 <br/>
 
