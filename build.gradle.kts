@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "io.github.aabmets"
-version = "1.0-SNAPSHOT"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -44,6 +44,20 @@ tasks {
     }
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
+    }
+
+    signPlugin {
+        certificateChainFile.set(file("$rootDir/.exclude/chain.crt"))
+        privateKeyFile.set(file("$rootDir/.exclude/private.pem"))
+        password.set(providers.environmentVariable("PRIVATE_KEY_PASSWORD"))
+    }
+
+    verifyPluginSignature {
+        certificateChainFile.set(file("$rootDir/.exclude/chain.crt"))
+    }
+
+    publishPlugin {
+        token.set(providers.environmentVariable("PUBLISH_TOKEN"))
     }
 }
 
