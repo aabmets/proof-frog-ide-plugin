@@ -91,13 +91,7 @@ as identifiers, and it does not make sense to deviate from this standard.
 ## Plugin Development
 
 This plugin must be developed with IntelliJ IDEA IDE (Community or Ultimate).  
-Development of this plugin requires the following plugins from the IDE marketplace:  
-
-* `ANTLRv4`
-* `Grammar-Kit` 
-* `Index-Viewer` 
-* `Psi-Viewer`
-* `Plugin DevKit`
+Development of this plugin requires the `Grammar-Kit` and `Plugin DevKit` plugins from the IDE marketplace.
 
 Do once per IDE:  
 In the top navbar, go to `Help -> Edit Custom Properties...` and insert  
@@ -117,7 +111,7 @@ sources root directory at `src/main/java/io/github/aabmets/prooffroglang`.
 
 Then in `ProofFrog.bnf` context menu select `Generate Parser Code` and in `ProofFrog.flex` context menu  
 select `Run JFlex Generator`, then use the generated PSI elements in any number of ProofFrog source files  
-to implement the plugin behavior:
+to implement the plugin behavior.
 
 [⬆️ Back to top](#prooffrog-plugin-for-jetbrains-ide-s)
 <br/>
