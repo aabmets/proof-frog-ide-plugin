@@ -1,5 +1,20 @@
 # ProofFrog Plugin for JetBrains IDE-s
 
+
+## Table of Contents
+
+1) [Description](#description)
+2) [Current Features](#current-features)
+3) [Roadmap](#Roadmap)
+4) [ProofFrog Library Installation](#prooffrog-library-installation)
+5) [Parser Differences](#parser-differences)
+6) [Plugin Development](#plugin-development)
+7) [Gallery](#gallery)
+
+<br/>
+<br/>
+
+
 ## Description
 **[ProofFrog](https://github.com/ProofFrog/ProofFrog)** is a work-in-progress tool for verifying cryptographic game-hopping proofs.  
 All security properties in ProofFrog are written via pairs of indistinguishable games.
