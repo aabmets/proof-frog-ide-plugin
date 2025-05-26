@@ -1,28 +1,33 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
     <id>io.github.aabmets.proof-frog-lang</id>
-
-    <!-- Public plugin name should be written in Title Case.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
     <name>ProofFrog Language</name>
+    <version>1.0.0</version>
 
-    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor url="https://github.com/aabmets">Mattias Aabmets</vendor>
+    <idea-version since-build="251.0"/>
 
-    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <vendor url="https://github.com/aabmets/proof-frog-ide-plugin" email="mattias.aabmets@gmail.com">
+        Mattias Aabmets
+    </vendor>
+
     <description><![CDATA[
-        ProofFrog DSL Plugin for JetBrains IDE-s
+    ProofFrog Language plugin adds comprehensive support for the ProofFrog DSL for writing and verifying cryptographic game-hopping proofs.
+    Features include:
+    <ul>
+      <li>Real-time syntax validation and highlighting</li>
+      <li>Customizable color schemes via a dedicated Color Settings page</li>
+      <li>On-the-fly annotations and line-comment actions</li>
+      <li>Context-menu integration with “Prove”, “Check” and “Parse” commands</li>
+      <li>Pre-configured Run/Debug configurations for proof verification, syntax checking, and parsing</li>
+      <li>Automatic detection and installation of the ProofFrog Python library</li>
+      <li>Ctrl+Click navigation of import references</li>
+    </ul>
+    Compatible with all JetBrains IDEs and ideal for cryptography researchers and developers.
     ]]></description>
 
-    <!-- Product and plugin compatibility requirements.
-         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.lang</depends>
 
-    <!-- Extension points defined by the plugin.
-         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
         <fileType
             name="ProofFrog File"
