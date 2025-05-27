@@ -1,5 +1,6 @@
 # ProofFrog Plugin for JetBrains IDE-s
 
+
 ### _Now also featured on [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/27474-prooffrog-language)!_
 
 ## Table of Contents
