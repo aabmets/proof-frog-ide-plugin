@@ -6,6 +6,8 @@ import com.intellij.openapi.util.IconLoader;
 public class ProofFrogActionManager {
     private static final String PROOFFROG_GROUP_ID = "ProofFrog.ContextMenuGroup";
 
+    private ProofFrogActionManager() {}
+
     public static void registerContextMenu() {
         ActionManager am = ActionManager.getInstance();
 

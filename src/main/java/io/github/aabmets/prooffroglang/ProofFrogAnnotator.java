@@ -83,13 +83,14 @@ public class ProofFrogAnnotator implements Annotator {
                 .create();
             return true;
         }
-        if (PsiTreeUtil.getParentOfType(element, ProofFrogMethodSignature.class, true) != null) {
-            if (element.getParent() instanceof ProofFrogVariable && element instanceof ProofFrogId) {
-                holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
-                    .textAttributes(ProofFrogSemanticHighlighter.CLASS_FIELD)
-                    .create();
-                return true;
-            }
+        if (PsiTreeUtil.getParentOfType(element, ProofFrogMethodSignature.class, true) != null
+                && element.getParent() instanceof ProofFrogVariable
+                && element instanceof ProofFrogId
+        ) {
+            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                .textAttributes(ProofFrogSemanticHighlighter.CLASS_FIELD)
+                .create();
+            return true;
         }
         PsiElement method = PsiTreeUtil.getParentOfType(element, ProofFrogMethod.class, true);
         if (method != null && element instanceof ProofFrogLvalue) {

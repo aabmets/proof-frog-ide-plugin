@@ -8,4 +8,6 @@ public class ProofFrogIcons {
 
     public static final Icon FILE = IconLoader.getIcon("/icons/frog.png", ProofFrogIcons.class);
 
+    private ProofFrogIcons() {}
+
 }
