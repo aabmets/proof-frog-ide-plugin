@@ -15,6 +15,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -25,6 +26,16 @@ public class ProofFrogDownloader {
     private static final HttpClient client = HttpClient.newBuilder()
             .followRedirects(HttpClient.Redirect.NEVER)
             .build();
+
+    @FunctionalInterface
+    private interface EntrySupplier<E> {
+        E getNextEntry() throws IOException;
+    }
+
+    @FunctionalInterface
+    private interface EntryReader {
+        int read(byte[] buffer) throws IOException;
+    }
 
     public static String locateGithubRelease(
             String releasesUrl, String fileName) throws IOException, InterruptedException {
@@ -76,83 +87,73 @@ public class ProofFrogDownloader {
         }
     }
 
-    private static void extractArchive(Path archive, Path targetPath) throws IOException {
-        String name = archive.getFileName().toString().toLowerCase(Locale.ROOT);
-        if (name.endsWith(".zip")) {
-            extractZip(archive, targetPath);
-        } else if (name.endsWith(".tar.gz") || name.endsWith(".tgz")) {
-            extractTarGz(archive, targetPath);
-        } else {
-            throw new IllegalArgumentException("Unsupported archive format: " + name);
+    private static <E> void extractArchive(
+            EntrySupplier<E> entrySupplier,
+            Function<E, String> entryNameFn,
+            Function<E, Boolean> entryIsDirectoryFn,
+            EntryReader entryReader,
+            Path targetPath,
+            Path canonicalBase
+    ) throws IOException {
+        E entry;
+        while ((entry = entrySupplier.getNextEntry()) != null) {
+            String entryName = entryNameFn.apply(entry);
+            Path resolvedPath = targetPath.resolve(entryName);
+            Path canonicalOut = resolvedPath.toAbsolutePath().normalize();
+            if (!canonicalOut.startsWith(canonicalBase)) {
+                throw new IOException("Bad archive entry: " + entryName);
+            }
+            if (entryIsDirectoryFn.apply(entry)) {
+                Files.createDirectories(canonicalOut);
+            } else {
+                Files.createDirectories(canonicalOut.getParent());
+                try (OutputStream out = Files.newOutputStream(canonicalOut)) {
+                    byte[] buffer = new byte[8192];
+                    int len;
+                    while ((len = entryReader.read(buffer)) != -1) {
+                        out.write(buffer, 0, len);
+                    }
+                }
+            }
         }
     }
 
     private static void extractZip(Path zipPath, Path targetPath) throws IOException {
         Path canonicalBase = targetPath.toAbsolutePath().normalize();
         try (ZipInputStream zis = new ZipInputStream(Files.newInputStream(zipPath))) {
-            ZipEntry entry;
-            while ((entry = zis.getNextEntry()) != null) {
-                Path resolvedPath = targetPath.resolve(entry.getName());
-                Path canonicalOut = resolvedPath.toAbsolutePath().normalize();
-                if (!canonicalOut.startsWith(canonicalBase)) {
-                    throw new IOException("Bad zip entry: " + entry.getName());
-                }
-                if (entry.isDirectory()) {
-                    Files.createDirectories(canonicalOut);
-                } else {
-                    Files.createDirectories(canonicalOut.getParent());
-                    try (OutputStream out = Files.newOutputStream(canonicalOut)) {
-                        byte[] buffer = new byte[8192];
-                        int len;
-                        while ((len = zis.read(buffer)) != -1) {
-                            out.write(buffer, 0, len);
-                        }
-                    }
-                }
-                zis.closeEntry();
-            }
+            extractArchive(
+                zis::getNextEntry,
+                ZipEntry::getName,
+                ZipEntry::isDirectory,
+                zis::read,
+                targetPath,
+                canonicalBase
+            );
         }
     }
 
     private static void extractTarGz(Path tarGzPath, Path targetPath) throws IOException {
         Path canonicalBase = targetPath.toAbsolutePath().normalize();
         try (InputStream fis = Files.newInputStream(tarGzPath);
-            GzipCompressorInputStream gis = new GzipCompressorInputStream(fis);
-            TarArchiveInputStream tis = new TarArchiveInputStream(gis)
+             GzipCompressorInputStream gis = new GzipCompressorInputStream(fis);
+             TarArchiveInputStream tis = new TarArchiveInputStream(gis)
         ) {
-            TarArchiveEntry entry;
-            while ((entry = tis.getNextEntry()) != null) {
-                Path resolvedPath = targetPath.resolve(entry.getName());
-                Path canonicalOut = resolvedPath.toAbsolutePath().normalize();
-                if (!canonicalOut.startsWith(canonicalBase)) {
-                    throw new IOException("Bad tar entry: " + entry.getName());
-                }
-                if (entry.isDirectory()) {
-                    Files.createDirectories(canonicalOut);
-                } else {
-                    Files.createDirectories(canonicalOut.getParent());
-                    try (OutputStream out = Files.newOutputStream(canonicalOut)) {
-                        byte[] buffer = new byte[8192];
-                        int len;
-                        while ((len = tis.read(buffer)) != -1) {
-                            out.write(buffer, 0, len);
-                        }
-                    }
-                }
-            }
+            extractArchive(
+                tis::getNextEntry,
+                TarArchiveEntry::getName,
+                TarArchiveEntry::isDirectory,
+                tis::read,
+                targetPath,
+                canonicalBase
+            );
         }
     }
 
     private static void setExecutablePermission(Path targetPath) throws IOException {
         String os = System.getProperty("os.name").toLowerCase(Locale.ROOT);
-        if (!os.contains("win")) {
-            Path uvBin = targetPath.resolve("uv");
-            if (Files.exists(uvBin)) {
-                boolean execOk = uvBin.toFile().setExecutable(true, false);
-                if (!execOk) {
-                    throw new IOException("Failed to set executable permission on " + uvBin);
-                }
-            }
+        Path uvBin = targetPath.resolve("uv");
+        if (!os.contains("win") && Files.exists(uvBin) && !uvBin.toFile().setExecutable(true, false)) {
+            throw new IOException("Failed to set executable permission on " + uvBin);
         }
     }
 
@@ -178,7 +179,14 @@ public class ProofFrogDownloader {
 
         String location = locateGithubRelease(latestReleaseUrl, fileName);
         downloadFileToDisk(location, zipPath);
-        extractArchive(zipPath, downloadDir);
+
+        String name = zipPath.toString();
+        if (name.endsWith(".zip")) {
+            extractZip(zipPath, downloadDir);
+        } else if (name.endsWith(".tar.gz") || name.endsWith(".tgz")) {
+            extractTarGz(zipPath, downloadDir);
+        }
+
         setExecutablePermission(zipPath);
         Files.deleteIfExists(zipPath);
     }
