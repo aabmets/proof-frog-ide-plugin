@@ -1,5 +1,13 @@
 # ProofFrog Plugin for JetBrains IDE-s
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=aabmets_proof-frog-ide-plugin&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=aabmets_proof-frog-ide-plugin)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=aabmets_proof-frog-ide-plugin&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=aabmets_proof-frog-ide-plugin)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=aabmets_proof-frog-ide-plugin&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=aabmets_proof-frog-ide-plugin)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=aabmets_proof-frog-ide-plugin&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=aabmets_proof-frog-ide-plugin)<br/>
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=aabmets_proof-frog-ide-plugin&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=aabmets_proof-frog-ide-plugin)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=aabmets_proof-frog-ide-plugin&metric=bugs)](https://sonarcloud.io/summary/new_code?id=aabmets_proof-frog-ide-plugin)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=aabmets_proof-frog-ide-plugin&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=aabmets_proof-frog-ide-plugin)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=aabmets_proof-frog-ide-plugin&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=aabmets_proof-frog-ide-plugin)
 
 ### _Now also featured on [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/27474-prooffrog-language)!_
 
