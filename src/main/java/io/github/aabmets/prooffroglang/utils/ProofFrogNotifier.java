@@ -12,14 +12,14 @@ public class ProofFrogNotifier {
         this.project = project;
     }
 
-    private void _notify(String title, String content, NotificationType type) {
+    private void notify(String title, String content, NotificationType type) {
         NotificationGroupManager.getInstance()
             .getNotificationGroup(NOTIFICATION_GROUP)
             .createNotification(title, content, type)
             .notify(project);
     }
 
-    private void _notify(String title, NotificationType type) {
+    private void notify(String title, NotificationType type) {
         NotificationGroupManager.getInstance()
             .getNotificationGroup(NOTIFICATION_GROUP)
             .createNotification(title, type)
@@ -27,19 +27,19 @@ public class ProofFrogNotifier {
     }
 
     public void notifyInfo(String title) {
-        _notify(title, NotificationType.INFORMATION);
+        notify(title, NotificationType.INFORMATION);
     }
 
     public void notifyInfo(String title, String content) {
-        _notify(title, content, NotificationType.INFORMATION);
+        notify(title, content, NotificationType.INFORMATION);
     }
 
     public void notifyError(String title) {
-        _notify(title, NotificationType.ERROR);
+        notify(title, NotificationType.ERROR);
     }
 
     public void notifyError(String title, String content) {
-        _notify(title, content, NotificationType.ERROR);
+        notify(title, content, NotificationType.ERROR);
     }
 
 }

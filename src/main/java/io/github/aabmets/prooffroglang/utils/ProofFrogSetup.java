@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class ProofFrogSetup {
     private final Path pluginHome;
-    private final String libInstallCmd = "pip install -U proof_frog";
+    private static final String libInstallCmd = "pip install -U proof_frog";
 
     public ProofFrogSetup() {
         this.pluginHome = ProofFrogPaths.getPluginDir();

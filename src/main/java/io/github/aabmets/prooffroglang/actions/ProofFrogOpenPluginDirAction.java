@@ -20,7 +20,7 @@ public class ProofFrogOpenPluginDirAction extends AnAction implements DumbAware 
     }
 
     @Override
-    public void actionPerformed(@NotNull AnActionEvent _event) {
+    public void actionPerformed(@NotNull AnActionEvent event) {
         Path pluginDir = ProofFrogPaths.getPluginDir();
         if (pluginDir == null) {
             String msg = "Cannot locate the Proof Frog plugin directory.";
