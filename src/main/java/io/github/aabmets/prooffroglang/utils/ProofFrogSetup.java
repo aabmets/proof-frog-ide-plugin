@@ -10,6 +10,7 @@ import java.util.Objects;
 
 public class ProofFrogSetup {
     private final Path pluginHome;
+    private final String libInstallCmd = "pip install -U proof_frog";
 
     public ProofFrogSetup() {
         this.pluginHome = ProofFrogPaths.getPluginDir();
@@ -25,9 +26,9 @@ public class ProofFrogSetup {
                 String uvBin = uvBinPath.toString();
                 Path venvPath = pluginHome.resolve(".venv");
 
-                runCommand(uvBin, "python", "install", "3.13.2");
-                runCommand(uvBin, "venv", venvPath.toString());
-                runCommand(uvBin, "pip", "install", "-U", "proof_frog");
+                runCommand(uvBin, "python install 3.13.2");
+                runCommand(uvBin, "venv " + venvPath);
+                runCommand(uvBin, libInstallCmd);
             }
         } catch (IOException | InterruptedException e){
             throw new RuntimeException(e);
@@ -41,7 +42,7 @@ public class ProofFrogSetup {
         if (uvBinPath != null) {
             String uvBin = uvBinPath.toString();
             String oldVersion = getInstalledProofFrogVersion(uvBin);
-            runCommand(uvBin, "pip", "install", "-U", "proof_frog");
+            runCommand(uvBin, libInstallCmd);
             String newVersion = getInstalledProofFrogVersion(uvBin);
 
             if (Objects.equals(oldVersion, newVersion)) {
@@ -73,8 +74,13 @@ public class ProofFrogSetup {
         return null;
     }
 
-    private void runCommand(String... args) throws IOException, InterruptedException {
-        ProcessBuilder pb = new ProcessBuilder(args)
+    private void runCommand(String uvBin, String argsLine) throws IOException, InterruptedException {
+        String[] args = argsLine.trim().isEmpty() ? new String[0] : argsLine.trim().split("\\s+");
+        String[] command = new String[args.length + 1];
+        command[0] = uvBin;
+        System.arraycopy(args, 0, command, 1, args.length);
+
+        ProcessBuilder pb = new ProcessBuilder(command)
             .directory(pluginHome.toFile())
             .inheritIO();
 
@@ -82,7 +88,7 @@ public class ProofFrogSetup {
         int exit = proc.waitFor();
         if (exit != 0) {
             throw new IOException(
-                "`uv " + String.join(" ", args) +
+                "`uv " + String.join(" ", command) +
                 "` failed (exit " + exit + ")"
             );
         }
