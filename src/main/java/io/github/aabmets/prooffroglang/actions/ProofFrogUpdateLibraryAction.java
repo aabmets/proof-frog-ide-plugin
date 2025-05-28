@@ -24,12 +24,15 @@ public class ProofFrogUpdateLibraryAction extends AnAction implements DumbAware 
             ProofFrogSetup setup = new ProofFrogSetup();
             String message = setup.updateProofFrogLibrary();
             if (message == null) {
-                notifier.notifyError("Failed to update the Proof Frog library.");
+                notifier.notifyError("Cannot update ProofFrog library, unable to find UV package manager.");
             } else {
                 notifier.notifyInfo(message);
             }
-        } catch (IOException | InterruptedException ex) {
-            throw new RuntimeException(ex);
+        } catch (IOException ex) {
+            notifier.notifyError("An error occurred while updating ProofFrog library: " + ex.getMessage());
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+            notifier.notifyError("The update operation was interrupted.");
         }
     }
 
