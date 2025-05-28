@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
+@SuppressWarnings("java:S6548")
 public class ProofFrogFileType extends LanguageFileType {
 
     public static final ProofFrogFileType INSTANCE = new ProofFrogFileType();
