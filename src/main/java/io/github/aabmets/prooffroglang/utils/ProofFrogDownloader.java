@@ -16,6 +16,7 @@ import java.net.http.HttpResponse;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -90,7 +91,7 @@ public class ProofFrogDownloader {
     private static <E> void extractArchive(
             EntrySupplier<E> entrySupplier,
             Function<E, String> entryNameFn,
-            Function<E, Boolean> entryIsDirectoryFn,
+            Predicate<E> entryIsDirectoryFn,
             EntryReader entryReader,
             Path targetPath,
             Path canonicalBase
@@ -103,7 +104,7 @@ public class ProofFrogDownloader {
             if (!canonicalOut.startsWith(canonicalBase)) {
                 throw new IOException("Bad archive entry: " + entryName);
             }
-            if (entryIsDirectoryFn.apply(entry)) {
+            if (entryIsDirectoryFn.test(entry)) {
                 Files.createDirectories(canonicalOut);
             } else {
                 Files.createDirectories(canonicalOut.getParent());
