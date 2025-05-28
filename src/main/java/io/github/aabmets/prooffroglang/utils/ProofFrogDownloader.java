@@ -15,8 +15,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -25,54 +23,38 @@ public class ProofFrogDownloader {
             .followRedirects(HttpClient.Redirect.NEVER)
             .build();
 
-    public static String locateGithubRelease(String latestUrl, String releaseNameConstraint) {
-        String component = URI.create(latestUrl).getPath().split("/")[1];
-        RuntimeException error = new RuntimeException("Cannot find latest release for " + component + ".");
+    public static String locateGithubRelease(String releasesUrl, String fileName) {
+        String latestUrl = releasesUrl.endsWith("/") ? releasesUrl + "latest" : releasesUrl + "/latest";
         try {
-            // 1) HEAD to get redirect location
-            HttpRequest req1 = HttpRequest.newBuilder()
+            HttpRequest req = HttpRequest.newBuilder()
                     .uri(URI.create(latestUrl))
                     .GET()
                     .build();
-            HttpResponse<Void> res1 = client.send(req1, HttpResponse.BodyHandlers.discarding());
-            Optional<String> loc1 = res1.headers().firstValue("location");
-            if ((res1.statusCode() != 301 && res1.statusCode() != 302) || loc1.isEmpty()) throw error;
+            HttpResponse<Void> res = client.send(req, HttpResponse.BodyHandlers.discarding());
+            Optional<String> loc = res.headers().firstValue("location");
+            if ((res.statusCode() != 301 && res.statusCode() != 302) || loc.isEmpty()) {
+                throw new RuntimeException("Cannot find latest release for " + releasesUrl + ".");
+            }
 
-            // 2) GET expanded assets page
-            String expandedUrl = loc1.get();
-            HttpResponse<String> res2 = client.send(
-                    HttpRequest.newBuilder().uri(URI.create(expandedUrl)).GET().build(),
-                    HttpResponse.BodyHandlers.ofString()
-            );
-            if (res2.statusCode() != 200) throw error;
-            Matcher m1 = Pattern.compile("\"(https://[\\w/.\\-]+/expanded_assets/[\\w/.\\-]+)\"")
-                    .matcher(res2.body());
-            if (!m1.find()) throw error;
+            String redirectUrl = loc.get();
+            String path = URI.create(redirectUrl).getPath();
+            String tag = path.substring(path.lastIndexOf('/') + 1);
 
-            // 3) GET asset listing
-            String assetsUrl = m1.group(1);
-            HttpResponse<String> res3 = client.send(
-                    HttpRequest.newBuilder().uri(URI.create(assetsUrl)).GET().build(),
-                    HttpResponse.BodyHandlers.ofString()
-            );
-            if (res3.statusCode() != 200) throw error;
-            String constraint = Pattern.quote(releaseNameConstraint);
-            Pattern p2 = Pattern.compile("\"([\\w/.\\-]+/download/[\\w/.\\-]+" + constraint + ")\"");
-            Matcher m2 = p2.matcher(res3.body());
-            if (!m2.find()) throw error;
-
-            // 4) HEAD to get final download URL
-            String downloadPath = m2.group(1);
-            HttpResponse<Void> res4 = client.send(
-                    HttpRequest.newBuilder().uri(URI.create("https://github.com" + downloadPath)).GET().build(),
+            String downloadUrl = releasesUrl.endsWith("/")
+                    ? releasesUrl + "download/" + tag + "/" + fileName
+                    : releasesUrl + "/download/" + tag + "/" + fileName;
+            res = client.send(
+                    HttpRequest.newBuilder().uri(URI.create(downloadUrl)).GET().build(),
                     HttpResponse.BodyHandlers.discarding()
             );
-            Optional<String> loc4 = res4.headers().firstValue("location");
-            if ((res4.statusCode() != 301 && res4.statusCode() != 302) || loc4.isEmpty()) throw error;
+            loc = res.headers().firstValue("location");
+            if ((res.statusCode() != 301 && res.statusCode() != 302) || loc.isEmpty()) {
+                throw new RuntimeException("Cannot find latest release for " + releasesUrl + ".");
+            }
 
-            return loc4.get();
+            return loc.get();
         } catch (IOException | InterruptedException e) {
-            throw error;
+            throw new RuntimeException("Error locating release for " + releasesUrl, e);
         }
     }
 
@@ -180,26 +162,26 @@ public class ProofFrogDownloader {
     }
 
     public static void downloadPackageManager(Path downloadDir) throws IOException {
-        String latestReleaseUrl = "https://github.com/astral-sh/uv/releases/latest";
-        String osName = System.getProperty("os.name").toLowerCase();
+        String latestReleaseUrl = "https://github.com/astral-sh/uv/releases";
+        String osName = System.getProperty("os.name").toLowerCase(Locale.ROOT);
 
-        String releaseNameConstraint;
+        String fileName;
         Path zipPath;
 
         if (osName.contains("win")) {
-            releaseNameConstraint = "uv-x86_64-pc-windows-msvc.zip";
+            fileName = "uv-x86_64-pc-windows-msvc.zip";
             zipPath = downloadDir.resolve("uv.zip");
         } else if (osName.contains("mac")) {
-            releaseNameConstraint = "uv-aarch64-apple-darwin.tar.gz";
+            fileName = "uv-aarch64-apple-darwin.tar.gz";
             zipPath = downloadDir.resolve("uv.tar.gz");
         } else if (osName.contains("linux")) {
-            releaseNameConstraint = "uv-x86_64-unknown-linux-gnu.tar.gz";
+            fileName = "uv-x86_64-unknown-linux-gnu.tar.gz";
             zipPath = downloadDir.resolve("uv.tar.gz");
         } else {
             throw new UnsupportedOperationException("Unsupported operating system: " + osName);
         }
 
-        String location = locateGithubRelease(latestReleaseUrl, releaseNameConstraint);
+        String location = locateGithubRelease(latestReleaseUrl, fileName);
         downloadFileToDisk(location, zipPath);
         extractArchive(zipPath, downloadDir);
         setExecutablePermission(zipPath);
