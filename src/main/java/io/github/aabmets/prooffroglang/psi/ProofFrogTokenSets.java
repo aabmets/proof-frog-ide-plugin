@@ -2,16 +2,18 @@ package io.github.aabmets.prooffroglang.psi;
 
 import com.intellij.psi.tree.TokenSet;
 
-public interface ProofFrogTokenSets {
+public final class ProofFrogTokenSets {
 
-    TokenSet DELIMITERS = TokenSet.create(
+    private ProofFrogTokenSets() {}
+
+    public static final TokenSet DELIMITERS = TokenSet.create(
         ProofFrogTypes.PN_SEMI,
         ProofFrogTypes.PN_COLON,
         ProofFrogTypes.PN_COMMA,
         ProofFrogTypes.PN_PERIOD
     );
 
-    TokenSet STRUCTURE = TokenSet.create(
+    public static final TokenSet STRUCTURE = TokenSet.create(
         ProofFrogTypes.ST_BRACE_L,
         ProofFrogTypes.ST_BRACE_R,
         ProofFrogTypes.ST_BRACKET_L,
@@ -20,7 +22,7 @@ public interface ProofFrogTokenSets {
         ProofFrogTypes.ST_PAREN_R
     );
 
-    TokenSet OPERATORS = TokenSet.create(
+    public static final TokenSet OPERATORS = TokenSet.create(
         ProofFrogTypes.OP_SAMPLE,
         ProofFrogTypes.OP_ASSIGN,
         ProofFrogTypes.OP_MULT,
@@ -41,7 +43,7 @@ public interface ProofFrogTokenSets {
         ProofFrogTypes.OP_BSLASH
     );
 
-    TokenSet KEYWORDS = TokenSet.create(
+    public static final TokenSet KEYWORDS = TokenSet.create(
         ProofFrogTypes.KW_IMPORT,
         ProofFrogTypes.KW_EXPORT,
         ProofFrogTypes.KW_RETURN,
@@ -64,7 +66,7 @@ public interface ProofFrogTokenSets {
         ProofFrogTypes.KW_NONE
     );
 
-    TokenSet LABELS = TokenSet.create(
+    public static final TokenSet LABELS = TokenSet.create(
         ProofFrogTypes.LB_PROOF,
         ProofFrogTypes.LB_LET,
         ProofFrogTypes.LB_ASSUME,
@@ -72,22 +74,22 @@ public interface ProofFrogTokenSets {
         ProofFrogTypes.LB_GAMES
     );
 
-    TokenSet CLASS_KEYWORDS = TokenSet.create(
+    public static final TokenSet CLASS_KEYWORDS = TokenSet.create(
         ProofFrogTypes.CL_PRIMITIVE,
         ProofFrogTypes.CL_REDUCTION,
         ProofFrogTypes.CL_SCHEME,
         ProofFrogTypes.CL_GAME
     );
 
-    TokenSet NAMED_BLOCKS = TokenSet.create(
+    public static final TokenSet NAMED_BLOCKS = TokenSet.create(
         ProofFrogTypes.NB_PHASE
     );
 
-    TokenSet PROPERTIES = TokenSet.create(
+    public static final TokenSet PROPERTIES = TokenSet.create(
         ProofFrogTypes.PR_ADVERSARY
     );
 
-    TokenSet DATATYPES = TokenSet.create(
+    public static final TokenSet DATATYPES = TokenSet.create(
         ProofFrogTypes.DT_SET,
         ProofFrogTypes.DT_BOOL,
         ProofFrogTypes.DT_VOID,
@@ -97,11 +99,11 @@ public interface ProofFrogTokenSets {
         ProofFrogTypes.DT_BITSTRING
     );
 
-    TokenSet COMMENTS = TokenSet.create(
+    public static final TokenSet COMMENTS = TokenSet.create(
         ProofFrogTypes.VL_LINE_COMMENT
     );
 
-    TokenSet VARIABLES = TokenSet.create(
+    public static final TokenSet VARIABLES = TokenSet.create(
         ProofFrogTypes.VARIABLE,
         ProofFrogTypes.VAR_DECL_ASSIGN_STMT,
         ProofFrogTypes.VAR_DECL_SAMPLE_STMT,
@@ -110,7 +112,7 @@ public interface ProofFrogTokenSets {
         ProofFrogTypes.SAMPLE_STMT
     );
 
-    TokenSet CLASS_SIGNATURES = TokenSet.create(
+    public static final TokenSet CLASS_SIGNATURES = TokenSet.create(
         ProofFrogTypes.PRIMITIVE_SIGNATURE,
         ProofFrogTypes.REDUCTION_SIGNATURE,
         ProofFrogTypes.SCHEME_SIGNATURE,
