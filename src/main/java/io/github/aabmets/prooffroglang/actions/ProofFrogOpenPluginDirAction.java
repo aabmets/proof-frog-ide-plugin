@@ -13,28 +13,25 @@ import java.nio.file.Path;
 
 public class ProofFrogOpenPluginDirAction extends AnAction implements DumbAware {
     public static final String ACTION_ID = "ProofFrog.OpenPluginDirAction";
+    public static final String actionText = "Open Plugin Directory";
 
     public ProofFrogOpenPluginDirAction() {
-        super("Open Plugin Directory");
+        super(actionText);
     }
 
     @Override
-    public void actionPerformed(@NotNull AnActionEvent e) {
+    public void actionPerformed(@NotNull AnActionEvent _event) {
         Path pluginDir = ProofFrogPaths.getPluginDir();
         if (pluginDir == null) {
-            Messages.showErrorDialog(
-                "Cannot locate the Proof Frog plugin directory.",
-                "Open Plugin Directory"
-            );
+            String msg = "Cannot locate the Proof Frog plugin directory.";
+            Messages.showErrorDialog(msg, actionText);
             return;
         }
         try {
             Desktop.getDesktop().open(pluginDir.toFile());
-        } catch (IOException | UnsupportedOperationException ex) {
-            Messages.showErrorDialog(
-                "Failed to open the plugin directory:\n" + ex.getMessage(),
-                "Open Plugin Directory"
-            );
+        } catch (IOException | UnsupportedOperationException e) {
+            String msg = "Failed to open the plugin directory:\n" + e.getMessage();
+            Messages.showErrorDialog(msg, actionText);
         }
     }
 
