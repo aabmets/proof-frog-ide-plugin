@@ -19,6 +19,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class ProofFrogDownloader {
+
+    private ProofFrogDownloader() {}
+
     private static final HttpClient client = HttpClient.newBuilder()
             .followRedirects(HttpClient.Redirect.NEVER)
             .build();

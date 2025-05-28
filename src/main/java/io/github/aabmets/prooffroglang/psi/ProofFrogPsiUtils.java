@@ -8,6 +8,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class ProofFrogPsiUtils {
 
+    private ProofFrogPsiUtils() {}
+
     @Nullable
     public static IElementType safeGetElementType(@Nullable PsiElement element) {
         ASTNode node = element == null ? null : element.getNode();

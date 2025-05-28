@@ -20,18 +20,22 @@ public class ProofFrogParserUtil extends GeneratedParserUtilBase {
         return FileUtilRt.getExtension(name);
     }
 
+    @SuppressWarnings("java:S1172")
     public static boolean isPrimitiveFile(PsiBuilder builder, int level) {
         return "primitive".equals(getExtension(builder));
     }
 
+    @SuppressWarnings("java:S1172")
     public static boolean isSchemeFile(PsiBuilder builder, int level) {
         return "scheme".equals(getExtension(builder));
     }
 
+    @SuppressWarnings("java:S1172")
     public static boolean isGameFile(PsiBuilder builder, int level) {
         return "game".equals(getExtension(builder));
     }
 
+    @SuppressWarnings("java:S1172")
     public static boolean isProofFile(PsiBuilder builder, int level) {
         return "proof".equals(getExtension(builder));
     }

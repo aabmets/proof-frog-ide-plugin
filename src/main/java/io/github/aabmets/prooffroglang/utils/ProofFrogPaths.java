@@ -14,6 +14,8 @@ import java.nio.file.Paths;
 
 public class ProofFrogPaths {
 
+    private ProofFrogPaths() {}
+
     public static @Nullable Path getProjectDir(@Nullable Project project) {
         if (project == null) return null;
         VirtualFile projectDir = ProjectUtil.guessProjectDir(project);

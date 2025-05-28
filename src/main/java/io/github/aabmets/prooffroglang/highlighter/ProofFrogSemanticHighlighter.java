@@ -5,6 +5,8 @@ import com.intellij.openapi.editor.colors.TextAttributesKey;
 
 public class ProofFrogSemanticHighlighter {
 
+    private ProofFrogSemanticHighlighter() {}
+
     public static final TextAttributesKey CLASS_NAME =
         TextAttributesKey.createTextAttributesKey(
             "PROOFFROG_CLASS_NAME",

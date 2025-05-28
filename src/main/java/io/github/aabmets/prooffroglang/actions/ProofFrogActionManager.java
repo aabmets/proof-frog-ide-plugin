@@ -22,7 +22,6 @@ public class ProofFrogActionManager {
         buildContextMenu(am, proofFrogGroup);
         attachGroupToProjectViewPopup(am, proofFrogGroup);
         attachGroupToEditorPopup(am, proofFrogGroup);
-
     }
 
     private static void buildContextMenu(ActionManager am, DefaultActionGroup group) {
