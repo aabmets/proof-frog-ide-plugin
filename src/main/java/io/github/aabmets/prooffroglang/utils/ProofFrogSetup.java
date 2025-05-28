@@ -9,8 +9,8 @@ import java.nio.file.Path;
 import java.util.Objects;
 
 public class ProofFrogSetup {
+    private static final String LIB_INSTALL_CMD = "pip install -U proof_frog";
     private final Path pluginHome;
-    private static final String libInstallCmd = "pip install -U proof_frog";
 
     public ProofFrogSetup() {
         this.pluginHome = ProofFrogPaths.getPluginDir();
@@ -28,7 +28,7 @@ public class ProofFrogSetup {
 
                 runCommand(uvBin, "python install 3.13.2");
                 runCommand(uvBin, "venv " + venvPath);
-                runCommand(uvBin, libInstallCmd);
+                runCommand(uvBin, LIB_INSTALL_CMD);
             }
         } catch (IOException | InterruptedException e){
             throw new RuntimeException(e);
@@ -42,7 +42,7 @@ public class ProofFrogSetup {
         if (uvBinPath != null) {
             String uvBin = uvBinPath.toString();
             String oldVersion = getInstalledProofFrogVersion(uvBin);
-            runCommand(uvBin, libInstallCmd);
+            runCommand(uvBin, LIB_INSTALL_CMD);
             String newVersion = getInstalledProofFrogVersion(uvBin);
 
             if (Objects.equals(oldVersion, newVersion)) {

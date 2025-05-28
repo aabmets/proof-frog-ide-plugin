@@ -14,6 +14,17 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ProofFrogProjectActivity implements ProjectActivity {
+    private static final String DIALOG_TITLE = "ProofFrog Library Not Detected";
+    private static final String DIALOG_MESSAGE = """
+        Would you like the plugin to automatically install \
+        the ProofFrog library (requires internet connection)?
+        
+        The ProofFrog library is required to enable context menu
+        actions and run configurations for ProofFrog files.
+        
+        If you choose No, then please read the ProofFrog library
+        installation instructions on the plugin GitHub page.
+        """;
 
     @Override
     public @Nullable Object execute(
@@ -29,17 +40,8 @@ public class ProofFrogProjectActivity implements ProjectActivity {
             app.invokeLater(() -> {
                 int result = Messages.showYesNoDialog(
                     project,
-                    """
-                            Would you like the plugin to automatically install \
-                            the ProofFrog library (requires internet connection)?
-
-                            The ProofFrog library is required to enable context menu
-                            actions and run configurations for ProofFrog files.
-                            
-                            If you choose No, then please read the ProofFrog library
-                            installation instructions on the plugin GitHub page.
-                            """,
-                    "ProofFrog Library Not Detected",
+                    DIALOG_MESSAGE,
+                    DIALOG_TITLE,
                     Messages.getQuestionIcon()
                 );
                 if (result == Messages.YES) {
