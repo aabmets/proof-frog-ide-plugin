@@ -48,7 +48,7 @@ public class ProofFrogProjectActivity implements ProjectActivity {
                     app.executeOnPooledThread(() -> {
                         try {
                             notifier.notifyInfo("Installing ProofFrog library...");
-                            new ProofFrogSetup().runSetup();
+                            new ProofFrogSetup().runSetup(notifier);
                             ProofFrogActionManager.registerContextMenu();
                             notifier.notifyInfo(
                                 "ProofFrog installation successful",

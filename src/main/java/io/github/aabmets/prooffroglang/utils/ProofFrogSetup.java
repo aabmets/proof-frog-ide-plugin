@@ -16,7 +16,7 @@ public class ProofFrogSetup {
         this.pluginHome = ProofFrogPaths.getPluginDir();
     }
 
-    public void runSetup() {
+    public void runSetup(ProofFrogNotifier notifier) {
         try {
             if (!ProofFrogPaths.isPackageManagerInstalled()) {
                 ProofFrogDownloader.downloadPackageManager(pluginHome);
@@ -30,8 +30,11 @@ public class ProofFrogSetup {
                 runCommand(uvBin, "venv " + venvPath);
                 runCommand(uvBin, LIB_INSTALL_CMD);
             }
-        } catch (IOException | InterruptedException e){
-            throw new RuntimeException(e);
+        } catch (IOException ex) {
+            notifier.notifyError("An error occurred during ProofFrog library setup: " + ex.getMessage());
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+            notifier.notifyError("The setup operation was interrupted.");
         }
     }
 
