@@ -26,61 +26,53 @@ public class ProofFrogDownloader {
             .followRedirects(HttpClient.Redirect.NEVER)
             .build();
 
-    public static String locateGithubRelease(String releasesUrl, String fileName) {
+    public static String locateGithubRelease(
+            String releasesUrl, String fileName) throws IOException, InterruptedException {
         String latestUrl = releasesUrl.endsWith("/") ? releasesUrl + "latest" : releasesUrl + "/latest";
-        try {
-            HttpRequest req = HttpRequest.newBuilder()
-                    .uri(URI.create(latestUrl))
-                    .GET()
-                    .build();
-            HttpResponse<Void> res = client.send(req, HttpResponse.BodyHandlers.discarding());
-            Optional<String> loc = res.headers().firstValue("location");
-            if ((res.statusCode() != 301 && res.statusCode() != 302) || loc.isEmpty()) {
-                throw new RuntimeException("Cannot find latest release for " + releasesUrl + ".");
-            }
-
-            String redirectUrl = loc.get();
-            String path = URI.create(redirectUrl).getPath();
-            String tag = path.substring(path.lastIndexOf('/') + 1);
-
-            String downloadUrl = releasesUrl.endsWith("/")
-                    ? releasesUrl + "download/" + tag + "/" + fileName
-                    : releasesUrl + "/download/" + tag + "/" + fileName;
-            res = client.send(
-                    HttpRequest.newBuilder().uri(URI.create(downloadUrl)).GET().build(),
-                    HttpResponse.BodyHandlers.discarding()
-            );
-            loc = res.headers().firstValue("location");
-            if ((res.statusCode() != 301 && res.statusCode() != 302) || loc.isEmpty()) {
-                throw new RuntimeException("Cannot find latest release for " + releasesUrl + ".");
-            }
-
-            return loc.get();
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException("Error locating release for " + releasesUrl, e);
+        HttpRequest req = HttpRequest.newBuilder()
+                .uri(URI.create(latestUrl))
+                .GET()
+                .build();
+        HttpResponse<Void> res = client.send(req, HttpResponse.BodyHandlers.discarding());
+        Optional<String> loc = res.headers().firstValue("location");
+        if ((res.statusCode() != 301 && res.statusCode() != 302) || loc.isEmpty()) {
+            throw new IOException("Cannot find latest release for " + releasesUrl + ".");
         }
+
+        String redirectUrl = loc.get();
+        String path = URI.create(redirectUrl).getPath();
+        String tag = path.substring(path.lastIndexOf('/') + 1);
+
+        String downloadUrl = releasesUrl.endsWith("/")
+                ? releasesUrl + "download/" + tag + "/" + fileName
+                : releasesUrl + "/download/" + tag + "/" + fileName;
+        res = client.send(
+                HttpRequest.newBuilder().uri(URI.create(downloadUrl)).GET().build(),
+                HttpResponse.BodyHandlers.discarding()
+        );
+        loc = res.headers().firstValue("location");
+        if ((res.statusCode() != 301 && res.statusCode() != 302) || loc.isEmpty()) {
+            throw new IOException("Cannot find latest release for " + releasesUrl + ".");
+        }
+        return loc.get();
     }
 
-    public static void downloadFileToDisk(String url, Path destPath) {
-        try {
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .GET()
-                    .build();
-            HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
-            if (response.statusCode() < 200 || response.statusCode() >= 300) {
-                throw new IOException("Failed to download, HTTP status: " + response.statusCode());
+    public static void downloadFileToDisk(String url, Path destPath) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .GET()
+                .build();
+        HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
+        if (response.statusCode() < 200 || response.statusCode() >= 300) {
+            throw new IOException("Failed to download, HTTP status: " + response.statusCode());
+        }
+        try (InputStream in = response.body();
+             OutputStream out = Files.newOutputStream(destPath)) {
+            byte[] buf = new byte[8192];
+            int n;
+            while ((n = in.read(buf)) > 0) {
+                out.write(buf, 0, n);
             }
-            try (InputStream in = response.body();
-                 OutputStream out = Files.newOutputStream(destPath)) {
-                byte[] buf = new byte[8192];
-                int n;
-                while ((n = in.read(buf)) > 0) {
-                    out.write(buf, 0, n);
-                }
-            }
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException("Error downloading file from " + url, e);
         }
     }
 
@@ -164,7 +156,7 @@ public class ProofFrogDownloader {
         }
     }
 
-    public static void downloadPackageManager(Path downloadDir) throws IOException {
+    public static void downloadPackageManager(Path downloadDir) throws IOException, InterruptedException {
         String latestReleaseUrl = "https://github.com/astral-sh/uv/releases";
         String osName = System.getProperty("os.name").toLowerCase(Locale.ROOT);
 

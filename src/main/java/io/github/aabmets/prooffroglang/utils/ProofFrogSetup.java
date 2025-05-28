@@ -30,7 +30,7 @@ public class ProofFrogSetup {
                 runCommand(uvBin, "venv " + venvPath);
                 runCommand(uvBin, LIB_INSTALL_CMD);
             }
-        } catch (IOException ex) {
+        } catch (IOException | UnsupportedOperationException ex) {
             notifier.notifyError("An error occurred during ProofFrog library setup: " + ex.getMessage());
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
