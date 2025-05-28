@@ -111,15 +111,20 @@ public class ProofFrogDownloader {
     }
 
     private static void extractZip(Path zipPath, Path targetPath) throws IOException {
+        Path canonicalBase = targetPath.toAbsolutePath().normalize();
         try (ZipInputStream zis = new ZipInputStream(Files.newInputStream(zipPath))) {
             ZipEntry entry;
             while ((entry = zis.getNextEntry()) != null) {
-                Path outPath = targetPath.resolve(entry.getName());
+                Path resolvedPath = targetPath.resolve(entry.getName());
+                Path canonicalOut = resolvedPath.toAbsolutePath().normalize();
+                if (!canonicalOut.startsWith(canonicalBase)) {
+                    throw new IOException("Bad zip entry: " + entry.getName());
+                }
                 if (entry.isDirectory()) {
-                    Files.createDirectories(outPath);
+                    Files.createDirectories(canonicalOut);
                 } else {
-                    Files.createDirectories(outPath.getParent());
-                    try (OutputStream out = Files.newOutputStream(outPath)) {
+                    Files.createDirectories(canonicalOut.getParent());
+                    try (OutputStream out = Files.newOutputStream(canonicalOut)) {
                         byte[] buffer = new byte[8192];
                         int len;
                         while ((len = zis.read(buffer)) != -1) {
@@ -133,18 +138,23 @@ public class ProofFrogDownloader {
     }
 
     private static void extractTarGz(Path tarGzPath, Path targetPath) throws IOException {
+        Path canonicalBase = targetPath.toAbsolutePath().normalize();
         try (InputStream fis = Files.newInputStream(tarGzPath);
             GzipCompressorInputStream gis = new GzipCompressorInputStream(fis);
             TarArchiveInputStream tis = new TarArchiveInputStream(gis)
         ) {
             TarArchiveEntry entry;
             while ((entry = tis.getNextEntry()) != null) {
-                Path outPath = targetPath.resolve(entry.getName());
+                Path resolvedPath = targetPath.resolve(entry.getName());
+                Path canonicalOut = resolvedPath.toAbsolutePath().normalize();
+                if (!canonicalOut.startsWith(canonicalBase)) {
+                    throw new IOException("Bad tar entry: " + entry.getName());
+                }
                 if (entry.isDirectory()) {
-                    Files.createDirectories(outPath);
+                    Files.createDirectories(canonicalOut);
                 } else {
-                    Files.createDirectories(outPath.getParent());
-                    try (OutputStream out = Files.newOutputStream(outPath)) {
+                    Files.createDirectories(canonicalOut.getParent());
+                    try (OutputStream out = Files.newOutputStream(canonicalOut)) {
                         byte[] buffer = new byte[8192];
                         int len;
                         while ((len = tis.read(buffer)) != -1) {
