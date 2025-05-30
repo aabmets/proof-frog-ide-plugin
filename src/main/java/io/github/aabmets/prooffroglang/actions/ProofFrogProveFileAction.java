@@ -1,30 +1,21 @@
 package io.github.aabmets.prooffroglang.actions;
 
+import com.intellij.openapi.actionSystem.ActionManager;
 import io.github.aabmets.prooffroglang.utils.ProofFrogRunner;
 
 import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.actionSystem.*;
-import com.intellij.openapi.project.DumbAware;
-import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
 import org.jetbrains.annotations.NotNull;
 
-public class ProofFrogProveFileAction extends AnAction implements DumbAware {
+import java.util.List;
+
+public class ProofFrogProveFileAction extends ProofFrogBaseAction {
     public static final String ACTION_ID = "ProofFrog.ProveFileAction";
+    public static final String ACTION_TEXT = "Verify Security Proof";
 
-    public ProofFrogProveFileAction() {
-        super("Verify Security Proof");
-    }
-
-    @Override
-    public @NotNull ActionUpdateThread getActionUpdateThread() {
-        return ActionUpdateThread.BGT;
-    }
-
-    @Override
-    public void update(@NotNull AnActionEvent e) {
-        VirtualFile file = e.getData(CommonDataKeys.VIRTUAL_FILE);
-        boolean visible = file != null && "proof".equals(file.getExtension());
-        e.getPresentation().setEnabledAndVisible(visible);
+    public ProofFrogProveFileAction(ActionManager am) {
+        super(am, ACTION_ID, ACTION_TEXT);
     }
 
     @Override
@@ -32,6 +23,10 @@ public class ProofFrogProveFileAction extends AnAction implements DumbAware {
         FileDocumentManager.getInstance().saveAllDocuments();
         ProofFrogRunner runner = new ProofFrogRunner(e.getProject());
         runner.prove(e.getData(CommonDataKeys.VIRTUAL_FILE));
+    }
+
+    protected @NotNull List<String> getAllowedExtensions() {
+        return List.of("proof");
     }
 
 }

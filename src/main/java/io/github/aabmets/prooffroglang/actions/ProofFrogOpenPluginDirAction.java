@@ -1,8 +1,7 @@
 package io.github.aabmets.prooffroglang.actions;
 
-import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.ui.Messages;
 import io.github.aabmets.prooffroglang.utils.ProofFrogPaths;
 import org.jetbrains.annotations.NotNull;
@@ -11,12 +10,12 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class ProofFrogOpenPluginDirAction extends AnAction implements DumbAware {
+public class ProofFrogOpenPluginDirAction extends ProofFrogBaseAction {
     public static final String ACTION_ID = "ProofFrog.OpenPluginDirAction";
     public static final String ACTION_TEXT = "Open Plugin Directory";
 
-    public ProofFrogOpenPluginDirAction() {
-        super(ACTION_TEXT);
+    public ProofFrogOpenPluginDirAction(ActionManager am) {
+        super(am, ACTION_ID, ACTION_TEXT);
     }
 
     @Override

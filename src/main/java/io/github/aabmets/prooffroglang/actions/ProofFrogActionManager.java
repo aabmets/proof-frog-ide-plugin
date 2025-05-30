@@ -1,7 +1,6 @@
 package io.github.aabmets.prooffroglang.actions;
 
 import com.intellij.openapi.actionSystem.*;
-import com.intellij.openapi.util.IconLoader;
 
 public class ProofFrogActionManager {
     private static final String PROOFFROG_GROUP_ID = "ProofFrog.ContextMenuGroup";
@@ -12,45 +11,24 @@ public class ProofFrogActionManager {
         ActionManager am = ActionManager.getInstance();
 
         if (am.getAction(PROOFFROG_GROUP_ID) == null) {
-            DefaultActionGroup proofFrogGroup =
-                new DefaultActionGroup("ProofFrog", true);
+            ProofFrogContextualGroup group = new ProofFrogContextualGroup();
+            am.registerAction(PROOFFROG_GROUP_ID, group);
 
-            proofFrogGroup.getTemplatePresentation()
-                .setIcon(IconLoader.getIcon("/icons/frog.png", ProofFrogActionManager.class));
-
-            am.registerAction(PROOFFROG_GROUP_ID, proofFrogGroup);
-
-            buildContextMenu(am, proofFrogGroup);
-            attachGroupToProjectViewPopup(am, proofFrogGroup);
-            attachGroupToEditorPopup(am, proofFrogGroup);
+            buildContextMenu(am, group);
+            attachGroupToProjectViewPopup(am, group);
+            attachGroupToEditorPopup(am, group);
         }
     }
 
     private static void buildContextMenu(ActionManager am, DefaultActionGroup group) {
-        AnAction action = new ProofFrogProveFileAction();
-        am.registerAction(ProofFrogProveFileAction.ACTION_ID, action);
-        group.add(action);
-
-        action = new ProofFrogCheckFileAction();
-        am.registerAction(ProofFrogCheckFileAction.ACTION_ID, action);
-        group.add(action);
-
-        action = new ProofFrogParseFileAction();
-        am.registerAction(ProofFrogParseFileAction.ACTION_ID, action);
-        group.add(action);
-
+        group.add(new ProofFrogProveFileAction(am));
+        group.add(new ProofFrogCheckFileAction(am));
+        group.add(new ProofFrogParseFileAction(am));
         group.add(Separator.create());
-
-        AnAction psiStructureAction = am.getAction("PsiViewerForContext");
-        group.add(psiStructureAction);
-
-        action = new ProofFrogOpenPluginDirAction();
-        am.registerAction(ProofFrogOpenPluginDirAction.ACTION_ID, action);
-        group.add(action);
-
-        action = new ProofFrogUpdateLibraryAction();
-        am.registerAction(ProofFrogUpdateLibraryAction.ACTION_ID, action);
-        group.add(action);
+        group.add(new ProofFrogPsiViewerAction(am));
+        group.add(new ProofFrogOpenPluginDirAction(am));
+        group.add(Separator.create());
+        group.add(new ProofFrogUpdateLibraryAction(am));
     }
 
     private static void attachGroupToProjectViewPopup(ActionManager am, DefaultActionGroup group) {

@@ -1,20 +1,20 @@
 package io.github.aabmets.prooffroglang.actions;
 
+import com.intellij.openapi.actionSystem.ActionManager;
 import io.github.aabmets.prooffroglang.utils.ProofFrogNotifier;
 import io.github.aabmets.prooffroglang.utils.ProofFrogSetup;
 
-import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.project.DumbAware;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
-public class ProofFrogUpdateLibraryAction extends AnAction implements DumbAware {
+public class ProofFrogUpdateLibraryAction extends ProofFrogBaseAction {
     public static final String ACTION_ID = "ProofFrog.UpdateLibraryAction";
+    public static final String ACTION_TEXT = "Update Library";
 
-    public ProofFrogUpdateLibraryAction() {
-        super("Update Library");
+    public ProofFrogUpdateLibraryAction(ActionManager am) {
+        super(am, ACTION_ID, ACTION_TEXT);
     }
 
     @Override

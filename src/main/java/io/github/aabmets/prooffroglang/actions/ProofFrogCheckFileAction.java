@@ -1,36 +1,19 @@
 package io.github.aabmets.prooffroglang.actions;
 
+import com.intellij.openapi.actionSystem.ActionManager;
 import io.github.aabmets.prooffroglang.utils.ProofFrogRunner;
 
 import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.actionSystem.ActionUpdateThread;
-import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.project.DumbAware;
-import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
-public class ProofFrogCheckFileAction extends AnAction implements DumbAware {
+public class ProofFrogCheckFileAction extends ProofFrogBaseAction {
     public static final String ACTION_ID = "ProofFrog.CheckFileAction";
+    public static final String ACTION_TEXT = "Check Syntax and Types";
 
-    public ProofFrogCheckFileAction() {
-        super("Check Syntax and Types");
-    }
-
-    @Override
-    public @NotNull ActionUpdateThread getActionUpdateThread() {
-        return ActionUpdateThread.BGT;
-    }
-
-    @Override
-    public void update(@NotNull AnActionEvent e) {
-        VirtualFile file = e.getData(CommonDataKeys.VIRTUAL_FILE);
-        List<String> extensions = List.of("primitive", "scheme", "game", "proof");
-        boolean visible = file != null && extensions.contains(file.getExtension());
-        e.getPresentation().setEnabledAndVisible(visible);
+    public ProofFrogCheckFileAction(ActionManager am) {
+        super(am, ACTION_ID, ACTION_TEXT);
     }
 
     @Override
