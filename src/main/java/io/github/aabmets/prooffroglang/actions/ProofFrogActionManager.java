@@ -11,17 +11,19 @@ public class ProofFrogActionManager {
     public static void registerContextMenu() {
         ActionManager am = ActionManager.getInstance();
 
-        DefaultActionGroup proofFrogGroup =
-            new DefaultActionGroup("ProofFrog", true);
+        if (am.getAction(PROOFFROG_GROUP_ID) == null) {
+            DefaultActionGroup proofFrogGroup =
+                new DefaultActionGroup("ProofFrog", true);
 
-        proofFrogGroup.getTemplatePresentation()
-            .setIcon(IconLoader.getIcon("/icons/frog.png", ProofFrogActionManager.class));
+            proofFrogGroup.getTemplatePresentation()
+                .setIcon(IconLoader.getIcon("/icons/frog.png", ProofFrogActionManager.class));
 
-        am.registerAction(PROOFFROG_GROUP_ID, proofFrogGroup);
+            am.registerAction(PROOFFROG_GROUP_ID, proofFrogGroup);
 
-        buildContextMenu(am, proofFrogGroup);
-        attachGroupToProjectViewPopup(am, proofFrogGroup);
-        attachGroupToEditorPopup(am, proofFrogGroup);
+            buildContextMenu(am, proofFrogGroup);
+            attachGroupToProjectViewPopup(am, proofFrogGroup);
+            attachGroupToEditorPopup(am, proofFrogGroup);
+        }
     }
 
     private static void buildContextMenu(ActionManager am, DefaultActionGroup group) {
