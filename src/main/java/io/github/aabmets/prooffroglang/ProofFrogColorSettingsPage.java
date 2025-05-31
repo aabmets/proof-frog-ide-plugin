@@ -82,7 +82,9 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
             "class", ProofFrogSemanticHighlighter.CLASS_NAME,
             "var", ProofFrogSemanticHighlighter.LOCAL_VARIABLE,
             "param", ProofFrogSemanticHighlighter.PARAMETER,
-            "call", ProofFrogSemanticHighlighter.METHOD_CALL
+            "call", ProofFrogSemanticHighlighter.METHOD_CALL,
+            "type", ProofFrogDatatypeHighlighter.KEY,
+            "prop", ProofFrogVariousHighlighter.PROPERTY
         );
     }
 
@@ -94,21 +96,21 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
             import 'examples/Primitives/SymEnc.primitive';
             import 'examples/Primitives/PRF.primitive';
             
-            Scheme <class>OFB</class>(Int <param>lambda</param>, Int <param>blocks</param>, PRF <param>F</param>) extends SymEnc {
+            Scheme <class>OFB</class>(Int lambda, Int blocks, PRF F) extends SymEnc {
                 requires F.lambda == lambda && F.input == lambda && F.out == lambda;
             
                 Set Key = BitString<lambda>;
                 Set Message = Array<BitString<lambda>, blocks>;
                 Set Ciphertext = Array<BitString<lambda>, blocks + 1>;
             
-                Ciphertext Enc(Key k, Message m) {
-                    Ciphertext c;
+                <type>Ciphertext</type> <call>Enc</call>(<type>Key</type> <param>k</param>, <type>Message</type> <param>m</param>) {
+                    <type>Ciphertext</type> c;
                     BitString<lambda> r <- BitString<lambda>;
             
                     c[0] = r;
                     for (Int i = 1 to blocks) {
-                        r = F.<call>evaluate</call>(k, r);
-                        c[i] = r + m[i-1];
+                        r = F.<call>evaluate</call>(<param>k</param>, r);
+                        c[i] = r + <param>m</param>[i-1];
                     }
                     return c;
                 }
@@ -119,9 +121,9 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
             import 'examples/Games/SymEnc/CPA.game';
             import 'examples/Games/SymEnc/CPA$.game';
             
-            Reduction <class>R1</class>(SymEnc <param>E</param>) compose CPA$(E) against CPA(E).Adversary {
-                E.Ciphertext Eavesdrop(E.Message <param>mL</param>, E.Message <param>mR</param>) {
-                    return challenger.<call>CTXT</call>(<param>mL</param>);
+            Reduction <class>R1</class>(<type>SymEnc</type> E) compose <call>CPA$</call>(E) against <call>CPA</call>(E).Adversary {
+                <type>E</type>.<type>Ciphertext</type> <call>Eavesdrop</call>(<type>E</type>.<type>Message</type> <param>mL</param>, <type>E</type>.<type>Message</type> <param>mR</param>) {
+                    return <prop>challenger</prop>.<call>CTXT</call>(<param>mL</param>);
                 }
             }
 
@@ -130,16 +132,16 @@ public class ProofFrogColorSettingsPage implements ColorSettingsPage {
                     Set MessageSpace;
                     Set CiphertextSpace;
                     Set KeySpace;
-                    SymEnc E = <call>SymEnc</call>(MessageSpace, CiphertextSpace, KeySpace);
+                    <type>SymEnc</type> E = <call>SymEnc</call>(MessageSpace, CiphertextSpace, KeySpace);
                 assume:
-                    CPA$(E);
+                    <call>CPA$</call>(E);
                 theorem:
-                    CPA(E);
+                    <call>CPA</call>(E);
                 games:
-                    CPA(E).Left against CPA(E).Adversary;
-                    CPA$(E).Real compose R1(E) against CPA(E).Adversary;
-                    CPA$(E).Random compose R1(E) against CPA(E).Adversary;
-                    CPA(E).Right against CPA(E).Adversary;
+                    <call>CPA</call>(E).Left against <call>CPA</call>(E).Adversary;
+                    <call>CPA$</call>(E).Real compose <call>R1</call>(E) against <call>CPA</call>(E).Adversary;
+                    <call>CPA$</call>(E).Random compose <call>R1</call>(E) against <call>CPA</call>(E).Adversary;
+                    <call>CPA</call>(E).Right against <call>CPA</call>(E).Adversary;
             """;
     }
 
