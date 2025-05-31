@@ -88,7 +88,7 @@ public class ProofFrogAnnotator implements Annotator {
                 && element instanceof ProofFrogId
         ) {
             holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
-                .textAttributes(ProofFrogSemanticHighlighter.CLASS_FIELD)
+                .textAttributes(ProofFrogSemanticHighlighter.PARAMETER)
                 .create();
             return true;
         }
