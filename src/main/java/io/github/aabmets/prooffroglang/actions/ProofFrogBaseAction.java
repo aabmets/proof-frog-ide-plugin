@@ -10,11 +10,11 @@ import java.util.List;
 public abstract class ProofFrogBaseAction extends AnAction implements DumbAware {
     protected AnAction delegate = null;
 
-    public ProofFrogBaseAction(String text) {
+    protected ProofFrogBaseAction(String text) {
         super(text);
     }
 
-    public ProofFrogBaseAction(ActionManager am, String actionId, String actionText) {
+    protected ProofFrogBaseAction(ActionManager am, String actionId, String actionText) {
         super(actionText);
         am.registerAction(actionId, this);
     }

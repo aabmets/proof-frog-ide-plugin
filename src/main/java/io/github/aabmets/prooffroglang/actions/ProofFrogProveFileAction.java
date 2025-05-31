@@ -25,6 +25,7 @@ public class ProofFrogProveFileAction extends ProofFrogBaseAction {
         runner.prove(e.getData(CommonDataKeys.VIRTUAL_FILE));
     }
 
+    @Override
     protected @NotNull List<String> getAllowedExtensions() {
         return List.of("proof");
     }
