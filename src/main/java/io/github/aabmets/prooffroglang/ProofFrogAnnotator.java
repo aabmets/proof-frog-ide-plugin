@@ -52,7 +52,7 @@ public class ProofFrogAnnotator implements Annotator {
     }
 
     private boolean annotateClassInstantiations(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        if (element.getParent() instanceof ProofFrogParameterizedGame && element instanceof ProofFrogId) {
+        if (element instanceof ProofFrogId && element.getParent() instanceof ProofFrogParameterizedGame) {
             holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
                 .textAttributes(ProofFrogSemanticHighlighter.CLASS_INSTANTIATION)
                 .create();
@@ -62,12 +62,12 @@ public class ProofFrogAnnotator implements Annotator {
     }
 
     private boolean annotateClassFields(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        PsiElement parent = element.getParent();
-        PsiElement grandParent = parent.getParent();
-        if (!(parent instanceof ProofFrogField) && !(grandParent instanceof ProofFrogField)) {
+        if (!(element instanceof ProofFrogId)) {
             return false;
         }
-        if (element instanceof ProofFrogId) {
+        PsiElement parent = element.getParent();
+        PsiElement grandParent = parent.getParent();
+        if (parent instanceof ProofFrogField || grandParent instanceof ProofFrogField) {
             holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
                 .textAttributes(ProofFrogSemanticHighlighter.CLASS_FIELD)
                 .create();
@@ -77,23 +77,27 @@ public class ProofFrogAnnotator implements Annotator {
     }
 
     private boolean annotateMethodSignatures(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        if (element.getParent() instanceof ProofFrogMethodSignature && element instanceof ProofFrogId) {
+        if (!(element instanceof ProofFrogId)) {
+            return false;
+        }
+        PsiElement parent = element.getParent();
+        if (parent instanceof ProofFrogMethodSignature) {
             holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
                 .textAttributes(ProofFrogSemanticHighlighter.METHOD_NAME)
                 .create();
             return true;
         }
-        if (PsiTreeUtil.getParentOfType(element, ProofFrogMethodSignature.class, true) != null
-                && element.getParent() instanceof ProofFrogVariable
-                && element instanceof ProofFrogId
-        ) {
-            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
-                .textAttributes(ProofFrogSemanticHighlighter.PARAMETER)
-                .create();
-            return true;
+        if (parent instanceof ProofFrogVariable) {
+            PsiElement metSig = PsiTreeUtil.getParentOfType(element, ProofFrogMethodSignature.class, true);
+            if (metSig != null) {
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                    .textAttributes(ProofFrogSemanticHighlighter.PARAMETER)
+                    .create();
+                return true;
+            }
         }
         PsiElement method = PsiTreeUtil.getParentOfType(element, ProofFrogMethod.class, true);
-        if (method != null && element instanceof ProofFrogLvalue) {
+        if (method != null) {
             PsiElement metSig = PsiTreeUtil.getChildOfType(method, ProofFrogMethodSignature.class);
             Collection<ProofFrogVariable> metSigVars = PsiTreeUtil.findChildrenOfType(metSig, ProofFrogVariable.class);
             for (ProofFrogVariable msv : metSigVars) {
@@ -109,9 +113,12 @@ public class ProofFrogAnnotator implements Annotator {
     }
 
     private boolean annotateMethodCalls(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
+        if (!(element instanceof ProofFrogId)) {
+            return false;
+        }
         PsiElement parent = PsiTreeUtil.getParentOfType(element, ProofFrogPrimaryElem.class, true);
         boolean isMethodCall = PsiTreeUtil.getNextSiblingOfType(parent, ProofFrogCallExpr.class) != null;
-        if (isMethodCall && element instanceof ProofFrogId) {
+        if (isMethodCall) {
             IElementType prevType = ProofFrogPsiUtils.safeGetPreviousSiblingType(element);
             if (prevType != null && prevType.equals(ProofFrogTypes.PN_PERIOD)) {
                 holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
