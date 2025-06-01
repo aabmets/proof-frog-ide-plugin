@@ -171,23 +171,26 @@ public class ProofFrogAnnotator implements Annotator {
     }
 
     private boolean annotateProperties(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        PsiElement reduction = PsiTreeUtil.getParentOfType(element, ProofFrogReduction.class, true);
-        if (reduction == null) {
+        if (!(element instanceof ProofFrogId)) {
             return false;
         } else if (element.getText().equals("challenger")) {
-            holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
-                .textAttributes(ProofFrogVariousHighlighter.PROPERTY)
-                .create();
-            return true;
+            PsiElement reduction = PsiTreeUtil.getParentOfType(element, ProofFrogReduction.class, true);
+            if (reduction != null) {
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                    .textAttributes(ProofFrogVariousHighlighter.PROPERTY)
+                    .create();
+                return true;
+            }
         }
         return false;
     }
 
     private boolean annotateDatatypes(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        PsiElement datatype = PsiTreeUtil.getParentOfType(element, ProofFrogType.class, true);
-        if (datatype == null) {
+        if (!(element instanceof ProofFrogId)) {
             return false;
-        } else if (element instanceof ProofFrogId) {
+        }
+        PsiElement grandParent = element.getParent().getParent();
+        if (grandParent instanceof ProofFrogAtomicType) {
             holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
                 .textAttributes(ProofFrogDatatypeHighlighter.KEY)
                 .create();
