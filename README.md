@@ -123,15 +123,6 @@ Do once per IDE:
 In the top navbar, go to `Help -> Edit Custom Properties...` and insert  
 `idea.is.internal=true` into the `idea.properties` file, if it's not there yet.
 
-To pull in ProofFrog examples from the nested submodule, run these commands:
-```shell
-cd proof_frog
-git submodule set-url examples https://github.com/ProofFrog/examples.git
-git submodule sync
-cd ..
-git submodule update --init --recursive
-```
- 
 To modify the syntax rules of this plugin, modify the `ProofFrog.bnf` and `ProofFrog.flex` files in  
 sources root directory at `src/main/java/io/github/aabmets/prooffroglang`.
 
